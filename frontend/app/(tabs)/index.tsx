@@ -8,11 +8,12 @@ import {
   Image,
   RefreshControl,
   ActivityIndicator,
-  Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { useCountry, getCountryFlag } from '../../context/CountryContext';
+import CountryPicker from '../../components/CountryPicker';
 
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
 
@@ -23,6 +24,7 @@ interface Post {
   user_avatar?: string;
   content: string;
   image?: string;
+  country?: string;
   likes: string[];
   comments_count: number;
   created_at: string;
@@ -40,10 +42,15 @@ export default function FeedScreen() {
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const router = useRouter();
+  const { selectedCountry, setSelectedCountry } = useCountry();
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch(`${API_URL}/api/posts`);
+      let url = `${API_URL}/api/posts`;
+      if (selectedCountry && selectedCountry !== 'all') {
+        url += `?country=${selectedCountry}`;
+      }
+      const response = await fetch(url);
       if (response.ok) {
         const data = await response.json();
         setPosts(data);
@@ -58,12 +65,12 @@ export default function FeedScreen() {
 
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [selectedCountry]);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     fetchPosts();
-  }, []);
+  }, [selectedCountry]);
 
   const handleLike = async (postId: string) => {
     try {
@@ -107,7 +114,12 @@ export default function FeedScreen() {
             )}
           </View>
           <View style={styles.postHeaderInfo}>
-            <Text style={styles.username}>{item.username}</Text>
+            <View style={styles.usernameRow}>
+              <Text style={styles.username}>{item.username}</Text>
+              {item.country && (
+                <Text style={styles.countryFlag}>{getCountryFlag(item.country)}</Text>
+              )}
+            </View>
             <Text style={styles.timeAgo}>{formatTimeAgo(item.created_at)}</Text>
           </View>
         </View>
@@ -162,12 +174,19 @@ export default function FeedScreen() {
     <SafeAreaView style={styles.container} edges={['top']}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Moto Community</Text>
-        <TouchableOpacity 
-          style={styles.addButton}
-          onPress={() => router.push('/create-post')}
-        >
-          <Ionicons name="add-circle" size={32} color="#FF6B35" />
-        </TouchableOpacity>
+        <View style={styles.headerActions}>
+          <CountryPicker 
+            selectedCountry={selectedCountry} 
+            onSelect={setSelectedCountry}
+            compact
+          />
+          <TouchableOpacity 
+            style={styles.addButton}
+            onPress={() => router.push('/create-post')}
+          >
+            <Ionicons name="add-circle" size={32} color="#FF6B35" />
+          </TouchableOpacity>
+        </View>
       </View>
 
       {loading ? (
@@ -210,12 +229,17 @@ const styles = StyleSheet.create({
     borderBottomColor: '#222',
   },
   headerTitle: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: 'bold',
     color: '#fff',
   },
+  headerActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   addButton: {
     padding: 4,
+    marginLeft: 8,
   },
   loadingContainer: {
     flex: 1,
@@ -252,10 +276,18 @@ const styles = StyleSheet.create({
   postHeaderInfo: {
     marginLeft: 12,
   },
+  usernameRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   username: {
     color: '#fff',
     fontWeight: '600',
     fontSize: 15,
+  },
+  countryFlag: {
+    marginLeft: 6,
+    fontSize: 14,
   },
   timeAgo: {
     color: '#666',
