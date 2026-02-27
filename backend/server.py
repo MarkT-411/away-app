@@ -396,16 +396,29 @@ async def get_post(post_id: str):
     return Post(**post)
 
 @api_router.post("/posts/{post_id}/like")
-async def toggle_like(post_id: str, user_id: str):
+async def toggle_like(post_id: str, user_id: str, username: str = "Someone"):
     post = await db.posts.find_one({"id": post_id})
     if not post:
         raise HTTPException(status_code=404, detail="Post not found")
     
     likes = post.get("likes", [])
-    if user_id in likes:
+    was_liked = user_id in likes
+    
+    if was_liked:
         likes.remove(user_id)
     else:
         likes.append(user_id)
+        # Send notification to post owner (if not liking own post)
+        if post["user_id"] != user_id:
+            notification = Notification(
+                user_id=post["user_id"],
+                type="like",
+                from_user_id=user_id,
+                from_username=username,
+                reference_id=post_id,
+                message=f"{username} liked your post"
+            )
+            await db.notifications.insert_one(notification.dict())
     
     await db.posts.update_one({"id": post_id}, {"$set": {"likes": likes}})
     return {"likes": likes, "liked": user_id in likes}
