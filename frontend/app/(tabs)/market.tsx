@@ -13,6 +13,8 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { useCountry } from '../../context/CountryContext';
+import CountryPicker from '../../components/CountryPicker';
 
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
 
@@ -46,12 +48,20 @@ export default function MarketScreen() {
   const [refreshing, setRefreshing] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const router = useRouter();
+  const { selectedCountry, setSelectedCountry } = useCountry();
 
-  const fetchItems = async (category?: string) => {
+  const fetchItems = async () => {
     try {
       let url = `${API_URL}/api/market`;
-      if (category && category !== 'all') {
-        url += `?category=${category}`;
+      const params = new URLSearchParams();
+      if (selectedCategory && selectedCategory !== 'all') {
+        params.append('category', selectedCategory);
+      }
+      if (selectedCountry && selectedCountry !== 'all') {
+        params.append('country', selectedCountry);
+      }
+      if (params.toString()) {
+        url += `?${params.toString()}`;
       }
       const response = await fetch(url);
       if (response.ok) {
@@ -67,7 +77,7 @@ export default function MarketScreen() {
   };
 
   useEffect(() => {
-    fetchItems(selectedCategory);
+    fetchItems();
   }, [selectedCategory]);
 
   const onRefresh = useCallback(() => {
