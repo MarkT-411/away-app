@@ -478,13 +478,16 @@ async def create_track(track_input: GpxTrackCreate):
 @api_router.get("/tracks", response_model=List[GpxTrack])
 async def get_tracks(
     difficulty: Optional[str] = None,
-    region: Optional[str] = None
+    region: Optional[str] = None,
+    country: Optional[str] = None
 ):
     query = {}
     if difficulty:
         query["difficulty"] = difficulty
     if region:
         query["region"] = {"$regex": region, "$options": "i"}
+    if country and country != "all":
+        query["country"] = country
     
     tracks = await db.gpx_tracks.find(query).sort("created_at", -1).to_list(100)
     return [GpxTrack(**track) for track in tracks]
