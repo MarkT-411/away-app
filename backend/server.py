@@ -434,10 +434,12 @@ async def create_market_item(item_input: MarketItemCreate):
     return item
 
 @api_router.get("/market", response_model=List[MarketItem])
-async def get_market_items(category: Optional[str] = None):
+async def get_market_items(category: Optional[str] = None, country: Optional[str] = None):
     query = {"is_sold": False}
     if category:
         query["category"] = category
+    if country and country != "all":
+        query["country"] = country
     items = await db.market_items.find(query).sort("created_at", -1).to_list(100)
     return [MarketItem(**item) for item in items]
 
