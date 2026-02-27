@@ -12,6 +12,8 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { useCountry } from '../../context/CountryContext';
+import CountryPicker from '../../components/CountryPicker';
 
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
 
@@ -43,10 +45,15 @@ export default function RidesScreen() {
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const router = useRouter();
+  const { selectedCountry, setSelectedCountry } = useCountry();
 
   const fetchTrips = async () => {
     try {
-      const response = await fetch(`${API_URL}/api/trips`);
+      let url = `${API_URL}/api/trips`;
+      if (selectedCountry && selectedCountry !== 'all') {
+        url += `?country=${selectedCountry}`;
+      }
+      const response = await fetch(url);
       if (response.ok) {
         const data = await response.json();
         setTrips(data);
@@ -61,12 +68,12 @@ export default function RidesScreen() {
 
   useEffect(() => {
     fetchTrips();
-  }, []);
+  }, [selectedCountry]);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     fetchTrips();
-  }, []);
+  }, [selectedCountry]);
 
   const handleJoin = async (tripId: string) => {
     try {
