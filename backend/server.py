@@ -297,9 +297,14 @@ async def create_event(event_input: EventCreate):
 async def get_events(
     month: Optional[int] = None,
     year: Optional[int] = None,
-    location: Optional[str] = None
+    location: Optional[str] = None,
+    country: Optional[str] = None
 ):
     query = {}
+    
+    # Filter by country
+    if country and country != "all":
+        query["country"] = country
     
     # Filter by month and year if provided
     if month and year:
@@ -317,9 +322,11 @@ async def get_events(
     return [Event(**event) for event in events]
 
 @api_router.get("/events/calendar")
-async def get_events_calendar(year: int):
+async def get_events_calendar(year: int, country: Optional[str] = None):
     """Get all events for a year grouped by month for calendar view"""
     query = {"date": {"$regex": f"^{year}"}}
+    if country and country != "all":
+        query["country"] = country
     events = await db.events.find(query).sort("date", 1).to_list(500)
     
     # Group events by month
