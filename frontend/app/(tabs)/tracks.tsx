@@ -248,12 +248,19 @@ export default function TracksScreen() {
     <SafeAreaView style={styles.container} edges={['top']}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>GPX Tracks</Text>
-        <TouchableOpacity 
-          style={styles.addButton}
-          onPress={() => router.push('/create-track')}
-        >
-          <Ionicons name="add-circle" size={32} color="#FF6B35" />
-        </TouchableOpacity>
+        <View style={styles.headerActions}>
+          <CountryPicker 
+            selectedCountry={selectedCountry} 
+            onSelect={setSelectedCountry}
+            compact
+          />
+          <TouchableOpacity 
+            style={styles.addButton}
+            onPress={() => router.push('/create-track')}
+          >
+            <Ionicons name="add-circle" size={32} color="#FF6B35" />
+          </TouchableOpacity>
+        </View>
       </View>
 
       {/* Difficulty Filter */}
