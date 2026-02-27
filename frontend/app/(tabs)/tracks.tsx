@@ -81,12 +81,12 @@ export default function TracksScreen() {
 
   useEffect(() => {
     fetchTracks();
-  }, [selectedDifficulty]);
+  }, [selectedDifficulty, selectedCountry]);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     fetchTracks();
-  }, [selectedDifficulty]);
+  }, [selectedDifficulty, selectedCountry]);
 
   const handleDownload = async (trackId: string, fileName: string) => {
     setDownloading(trackId);
