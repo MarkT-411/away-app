@@ -351,6 +351,112 @@ async def mark_single_notification_read(notification_id: str):
     )
     return {"message": "Notification marked as read"}
 
+# ==================== USER PROFILE ENDPOINTS ====================
+
+@api_router.get("/profile/{user_id}")
+async def get_user_profile(user_id: str):
+    """Get comprehensive user profile with all activity"""
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        user = {
+            "id": user_id,
+            "username": "Unknown",
+            "followers": [],
+            "following": [],
+            "favorite_items": [],
+            "downloaded_tracks": []
+        }
+    
+    # Get user's posts
+    posts = await db.posts.find({"user_id": user_id}).sort("created_at", -1).to_list(50)
+    
+    # Get events user is attending
+    events = await db.events.find({"attendees": user_id}).sort("date", 1).to_list(50)
+    
+    # Get trips user is participating in
+    trips = await db.trips.find({"participants": user_id}).sort("date", 1).to_list(50)
+    
+    # Get market items user is selling
+    selling_items = await db.market_items.find({"seller_id": user_id, "is_sold": False}).to_list(50)
+    
+    # Get favorite market items
+    favorite_ids = user.get("favorite_items", [])
+    favorite_items = []
+    if favorite_ids:
+        favorite_items = await db.market_items.find({"id": {"$in": favorite_ids}}).to_list(50)
+    
+    # Get downloaded tracks
+    downloaded_ids = user.get("downloaded_tracks", [])
+    downloaded_tracks = []
+    if downloaded_ids:
+        downloaded_tracks = await db.gpx_tracks.find({"id": {"$in": downloaded_ids}}).to_list(50)
+    
+    # Get followers and following user details
+    followers_list = []
+    following_list = []
+    
+    if user.get("followers"):
+        followers_data = await db.users.find({"id": {"$in": user["followers"]}}).to_list(100)
+        followers_list = [{"id": f["id"], "username": f.get("username", "Unknown")} for f in followers_data]
+    
+    if user.get("following"):
+        following_data = await db.users.find({"id": {"$in": user["following"]}}).to_list(100)
+        following_list = [{"id": f["id"], "username": f.get("username", "Unknown")} for f in following_data]
+    
+    return {
+        "user": {
+            "id": user.get("id"),
+            "username": user.get("username"),
+            "avatar": user.get("avatar"),
+            "bio": user.get("bio"),
+            "country": user.get("country"),
+            "followers_count": len(user.get("followers", [])),
+            "following_count": len(user.get("following", []))
+        },
+        "posts": [Post(**p).dict() for p in posts],
+        "events": [Event(**e).dict() for e in events],
+        "trips": [Trip(**t).dict() for t in trips],
+        "selling_items": [MarketItem(**i).dict() for i in selling_items],
+        "favorite_items": [MarketItem(**i).dict() for i in favorite_items],
+        "downloaded_tracks": [GpxTrack(**t).dict() for t in downloaded_tracks],
+        "followers": followers_list,
+        "following": following_list
+    }
+
+@api_router.post("/market/{item_id}/favorite")
+async def toggle_favorite_item(item_id: str, user_id: str):
+    """Add or remove item from favorites"""
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        user = {"id": user_id, "favorite_items": []}
+        await db.users.insert_one(user)
+    
+    favorites = user.get("favorite_items", [])
+    is_favorite = item_id in favorites
+    
+    if is_favorite:
+        favorites.remove(item_id)
+    else:
+        favorites.append(item_id)
+    
+    await db.users.update_one({"id": user_id}, {"$set": {"favorite_items": favorites}})
+    return {"is_favorite": not is_favorite}
+
+@api_router.post("/tracks/{track_id}/mark-downloaded")
+async def mark_track_downloaded(track_id: str, user_id: str):
+    """Record that user downloaded a track"""
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        user = {"id": user_id, "downloaded_tracks": []}
+        await db.users.insert_one(user)
+    
+    downloads = user.get("downloaded_tracks", [])
+    if track_id not in downloads:
+        downloads.append(track_id)
+        await db.users.update_one({"id": user_id}, {"$set": {"downloaded_tracks": downloads}})
+    
+    return {"downloaded": True}
+
 # ==================== POST ENDPOINTS ====================
 
 @api_router.post("/posts", response_model=Post)
