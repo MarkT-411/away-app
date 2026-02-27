@@ -160,6 +160,34 @@ class MarketItemCreate(BaseModel):
     contact_info: Optional[str] = None
     location: Optional[str] = None
 
+# GPX Track Model
+class GpxTrack(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    title: str
+    description: str
+    file_name: str
+    file_content: str  # Base64 encoded GPX file
+    distance: Optional[str] = None
+    elevation_gain: Optional[str] = None
+    difficulty: str  # easy, moderate, hard, expert
+    region: Optional[str] = None
+    uploader_id: str
+    uploader_name: str
+    downloads: int = 0
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+
+class GpxTrackCreate(BaseModel):
+    title: str
+    description: str
+    file_name: str
+    file_content: str  # Base64 encoded GPX file
+    distance: Optional[str] = None
+    elevation_gain: Optional[str] = None
+    difficulty: str
+    region: Optional[str] = None
+    uploader_id: str
+    uploader_name: str
+
 # ==================== USER ENDPOINTS ====================
 
 @api_router.post("/users", response_model=User)
