@@ -72,15 +72,15 @@ export default function WelcomeScreen({ onComplete }: WelcomeScreenProps) {
               ]}
               onPress={() => setSelectedCountry(item.code)}
             >
-              {item.code === 'all' ? (
-                <Ionicons name="globe-outline" size={32} color={selectedCountry === item.code ? "#FF6B35" : "#888"} />
-              ) : (
-                <Text style={styles.countryFlag}>{item.flag}</Text>
-              )}
+              <Ionicons 
+                name={item.code === 'all' ? "globe-outline" : "flag-outline"} 
+                size={28} 
+                color={selectedCountry === item.code ? "#FF6B35" : "#888"} 
+              />
               <Text style={[
                 styles.countryName,
                 selectedCountry === item.code && styles.countryNameSelected,
-              ]} numberOfLines={1}>
+              ]} numberOfLines={2}>
                 {item.name}
               </Text>
               {selectedCountry === item.code && (
