@@ -385,8 +385,11 @@ async def create_trip(trip_input: TripCreate):
     return trip
 
 @api_router.get("/trips", response_model=List[Trip])
-async def get_trips():
-    trips = await db.trips.find().sort("date", 1).to_list(100)
+async def get_trips(country: Optional[str] = None):
+    query = {}
+    if country and country != "all":
+        query["country"] = country
+    trips = await db.trips.find(query).sort("date", 1).to_list(100)
     return [Trip(**trip) for trip in trips]
 
 @api_router.get("/trips/{trip_id}", response_model=Trip)
