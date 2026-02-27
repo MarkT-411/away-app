@@ -161,6 +161,9 @@ backend:
       - working: true
         agent: "main"
         comment: "All market endpoints created and tested with curl - working"
+      - working: true
+        agent: "testing"
+        comment: "Comprehensive testing completed: Create Market Item, Get All Items, Category Filtering (parts/accessories/gear/bikes), Get Specific Item, Mark as Sold functionality, Delete Item all working correctly. Sold items properly filtered from listings."
 
 frontend:
   - task: "Tab Navigation (Feed, Events, Rides, Market)"
