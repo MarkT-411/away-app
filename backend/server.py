@@ -279,9 +279,47 @@ async def create_event(event_input: EventCreate):
     return event
 
 @api_router.get("/events", response_model=List[Event])
-async def get_events():
-    events = await db.events.find().sort("date", 1).to_list(100)
+async def get_events(
+    month: Optional[int] = None,
+    year: Optional[int] = None,
+    location: Optional[str] = None
+):
+    query = {}
+    
+    # Filter by month and year if provided
+    if month and year:
+        # Match dates in format YYYY-MM-DD
+        month_str = f"{year}-{month:02d}"
+        query["date"] = {"$regex": f"^{month_str}"}
+    elif year:
+        query["date"] = {"$regex": f"^{year}"}
+    
+    # Filter by location if provided
+    if location:
+        query["location"] = {"$regex": location, "$options": "i"}
+    
+    events = await db.events.find(query).sort("date", 1).to_list(100)
     return [Event(**event) for event in events]
+
+@api_router.get("/events/calendar")
+async def get_events_calendar(year: int):
+    """Get all events for a year grouped by month for calendar view"""
+    query = {"date": {"$regex": f"^{year}"}}
+    events = await db.events.find(query).sort("date", 1).to_list(500)
+    
+    # Group events by month
+    calendar = {i: [] for i in range(1, 13)}
+    for event in events:
+        try:
+            date_parts = event["date"].split("-")
+            if len(date_parts) >= 2:
+                month = int(date_parts[1])
+                if 1 <= month <= 12:
+                    calendar[month].append(Event(**event).dict())
+        except (ValueError, IndexError):
+            pass
+    
+    return {"year": year, "calendar": calendar}
 
 @api_router.get("/events/{event_id}", response_model=Event)
 async def get_event(event_id: str):
