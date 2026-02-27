@@ -11,11 +11,13 @@ import {
   Alert,
   KeyboardAvoidingView,
   Platform,
+  Switch,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import * as ImagePicker from 'expo-image-picker';
+import { useCountry } from '../context/CountryContext';
 
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
 
@@ -28,8 +30,10 @@ const CURRENT_USER = {
 export default function CreatePostScreen() {
   const [content, setContent] = useState('');
   const [image, setImage] = useState<string | null>(null);
+  const [commentsEnabled, setCommentsEnabled] = useState(true);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { selectedCountry } = useCountry();
 
   const pickImage = async () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -69,6 +73,8 @@ export default function CreatePostScreen() {
           user_avatar: CURRENT_USER.avatar,
           content: content.trim(),
           image: image,
+          country: selectedCountry !== 'all' ? selectedCountry : null,
+          comments_enabled: commentsEnabled,
         }),
       });
 
@@ -138,6 +144,29 @@ export default function CreatePostScreen() {
               </TouchableOpacity>
             </View>
           )}
+
+          {/* Comments Toggle */}
+          <View style={styles.settingsSection}>
+            <Text style={styles.settingsTitle}>Post Settings</Text>
+            
+            <View style={styles.settingRow}>
+              <View style={styles.settingInfo}>
+                <Ionicons name="chatbubble-outline" size={22} color="#888" />
+                <View style={styles.settingTextContainer}>
+                  <Text style={styles.settingLabel}>Allow Comments</Text>
+                  <Text style={styles.settingDescription}>
+                    {commentsEnabled ? 'Others can comment on this post' : 'Comments are disabled'}
+                  </Text>
+                </View>
+              </View>
+              <Switch
+                value={commentsEnabled}
+                onValueChange={setCommentsEnabled}
+                trackColor={{ false: '#333', true: '#FF6B35' }}
+                thumbColor={commentsEnabled ? '#fff' : '#888'}
+              />
+            </View>
+          </View>
         </ScrollView>
 
         <View style={styles.toolbar}>
@@ -228,6 +257,46 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 8,
     right: 8,
+  },
+  settingsSection: {
+    marginTop: 24,
+    paddingTop: 16,
+    borderTopWidth: 1,
+    borderTopColor: '#222',
+  },
+  settingsTitle: {
+    color: '#888',
+    fontSize: 12,
+    fontWeight: '600',
+    textTransform: 'uppercase',
+    marginBottom: 12,
+  },
+  settingRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#1A1A1A',
+    borderRadius: 12,
+    padding: 14,
+  },
+  settingInfo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
+  settingTextContainer: {
+    marginLeft: 12,
+    flex: 1,
+  },
+  settingLabel: {
+    color: '#fff',
+    fontSize: 15,
+    fontWeight: '500',
+  },
+  settingDescription: {
+    color: '#888',
+    fontSize: 12,
+    marginTop: 2,
   },
   toolbar: {
     flexDirection: 'row',
