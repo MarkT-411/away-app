@@ -34,6 +34,8 @@ class User(BaseModel):
     avatar: Optional[str] = None  # Base64 image
     bio: Optional[str] = None
     country: Optional[str] = None  # User's country preference
+    followers: List[str] = Field(default_factory=list)  # List of user_ids who follow this user
+    following: List[str] = Field(default_factory=list)  # List of user_ids this user follows
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
 class UserCreate(BaseModel):
@@ -41,6 +43,19 @@ class UserCreate(BaseModel):
     avatar: Optional[str] = None
     bio: Optional[str] = None
     country: Optional[str] = None
+
+# Notification Model
+class Notification(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    user_id: str  # User who receives the notification
+    type: str  # 'new_post', 'new_follower', 'like', etc.
+    from_user_id: str
+    from_username: str
+    from_avatar: Optional[str] = None
+    reference_id: Optional[str] = None  # post_id, event_id, etc.
+    message: str
+    is_read: bool = False
+    created_at: datetime = Field(default_factory=datetime.utcnow)
 
 # Post Model (Social Feed)
 class Post(BaseModel):
