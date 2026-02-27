@@ -235,6 +235,118 @@ async def get_all_users():
     users = await db.users.find().to_list(1000)
     return [User(**user) for user in users]
 
+# ==================== FOLLOW ENDPOINTS ====================
+
+@api_router.post("/users/{user_id}/follow")
+async def toggle_follow(user_id: str, follower_id: str, follower_username: str):
+    """Toggle follow status. follower_id follows/unfollows user_id"""
+    if user_id == follower_id:
+        raise HTTPException(status_code=400, detail="Cannot follow yourself")
+    
+    # Get or create the user being followed
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        # Create a basic user record if it doesn't exist
+        user = {"id": user_id, "username": "Unknown", "followers": [], "following": []}
+        await db.users.insert_one(user)
+    
+    # Get or create the follower user
+    follower = await db.users.find_one({"id": follower_id})
+    if not follower:
+        follower = {"id": follower_id, "username": follower_username, "followers": [], "following": []}
+        await db.users.insert_one(follower)
+    
+    followers = user.get("followers", [])
+    following = follower.get("following", [])
+    
+    is_following = follower_id in followers
+    
+    if is_following:
+        # Unfollow
+        followers.remove(follower_id)
+        if user_id in following:
+            following.remove(user_id)
+    else:
+        # Follow
+        followers.append(follower_id)
+        if user_id not in following:
+            following.append(user_id)
+        
+        # Create notification for the user being followed
+        notification = Notification(
+            user_id=user_id,
+            type="new_follower",
+            from_user_id=follower_id,
+            from_username=follower_username,
+            message=f"{follower_username} started following you"
+        )
+        await db.notifications.insert_one(notification.dict())
+    
+    # Update both users
+    await db.users.update_one({"id": user_id}, {"$set": {"followers": followers}})
+    await db.users.update_one({"id": follower_id}, {"$set": {"following": following}})
+    
+    return {
+        "is_following": not is_following,
+        "followers_count": len(followers)
+    }
+
+@api_router.get("/users/{user_id}/followers")
+async def get_followers(user_id: str):
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        return {"followers": [], "following": [], "followers_count": 0, "following_count": 0}
+    
+    return {
+        "followers": user.get("followers", []),
+        "following": user.get("following", []),
+        "followers_count": len(user.get("followers", [])),
+        "following_count": len(user.get("following", []))
+    }
+
+@api_router.get("/users/{user_id}/is-following/{target_id}")
+async def check_is_following(user_id: str, target_id: str):
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        return {"is_following": False}
+    
+    following = user.get("following", [])
+    return {"is_following": target_id in following}
+
+# ==================== NOTIFICATION ENDPOINTS ====================
+
+@api_router.get("/notifications/{user_id}")
+async def get_notifications(user_id: str, limit: int = 50):
+    notifications = await db.notifications.find(
+        {"user_id": user_id}
+    ).sort("created_at", -1).to_list(limit)
+    
+    return [Notification(**n) for n in notifications]
+
+@api_router.get("/notifications/{user_id}/unread-count")
+async def get_unread_count(user_id: str):
+    count = await db.notifications.count_documents({
+        "user_id": user_id,
+        "is_read": False
+    })
+    return {"unread_count": count}
+
+@api_router.post("/notifications/{user_id}/mark-read")
+async def mark_notifications_read(user_id: str):
+    await db.notifications.update_many(
+        {"user_id": user_id, "is_read": False},
+        {"$set": {"is_read": True}}
+    )
+    return {"message": "Notifications marked as read"}
+
+@api_router.post("/notifications/{notification_id}/read")
+async def mark_single_notification_read(notification_id: str):
+    await db.notifications.update_one(
+        {"id": notification_id},
+        {"$set": {"is_read": True}}
+    )
+    return {"message": "Notification marked as read"}
+
 # ==================== POST ENDPOINTS ====================
 
 @api_router.post("/posts", response_model=Post)
