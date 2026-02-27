@@ -131,6 +131,9 @@ backend:
       - working: true
         agent: "main"
         comment: "All event endpoints created and tested with curl - working"
+      - working: true
+        agent: "testing"
+        comment: "Comprehensive testing completed: Create Event, Get All Events, Get Specific Event, Join/Leave toggle functionality, max_attendees validation all working correctly."
 
   - task: "Trips API (Create, Read, Join)"
     implemented: true
