@@ -334,8 +334,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#fff',
   },
+  headerActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   addButton: {
     padding: 4,
+    marginLeft: 8,
   },
   filterContainer: {
     maxHeight: 56,
