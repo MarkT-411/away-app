@@ -33,12 +33,14 @@ class User(BaseModel):
     username: str
     avatar: Optional[str] = None  # Base64 image
     bio: Optional[str] = None
+    country: Optional[str] = None  # User's country preference
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
 class UserCreate(BaseModel):
     username: str
     avatar: Optional[str] = None
     bio: Optional[str] = None
+    country: Optional[str] = None
 
 # Post Model (Social Feed)
 class Post(BaseModel):
@@ -48,6 +50,7 @@ class Post(BaseModel):
     user_avatar: Optional[str] = None
     content: str
     image: Optional[str] = None  # Base64 image
+    country: Optional[str] = None  # Country where post was made
     likes: List[str] = Field(default_factory=list)  # List of user_ids who liked
     comments_count: int = 0
     created_at: datetime = Field(default_factory=datetime.utcnow)
@@ -58,6 +61,7 @@ class PostCreate(BaseModel):
     user_avatar: Optional[str] = None
     content: str
     image: Optional[str] = None
+    country: Optional[str] = None
 
 # Comment Model
 class Comment(BaseModel):
