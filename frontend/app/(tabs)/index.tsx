@@ -41,6 +41,8 @@ export default function FeedScreen() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [followingUsers, setFollowingUsers] = useState<string[]>([]);
+  const [unreadCount, setUnreadCount] = useState(0);
   const router = useRouter();
   const { selectedCountry, setSelectedCountry } = useCountry();
 
@@ -63,13 +65,41 @@ export default function FeedScreen() {
     }
   };
 
+  const fetchFollowing = async () => {
+    try {
+      const response = await fetch(`${API_URL}/api/users/${CURRENT_USER.id}/followers`);
+      if (response.ok) {
+        const data = await response.json();
+        setFollowingUsers(data.following || []);
+      }
+    } catch (error) {
+      console.error('Error fetching following:', error);
+    }
+  };
+
+  const fetchUnreadCount = async () => {
+    try {
+      const response = await fetch(`${API_URL}/api/notifications/${CURRENT_USER.id}/unread-count`);
+      if (response.ok) {
+        const data = await response.json();
+        setUnreadCount(data.unread_count);
+      }
+    } catch (error) {
+      console.error('Error fetching unread count:', error);
+    }
+  };
+
   useEffect(() => {
     fetchPosts();
+    fetchFollowing();
+    fetchUnreadCount();
   }, [selectedCountry]);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     fetchPosts();
+    fetchFollowing();
+    fetchUnreadCount();
   }, [selectedCountry]);
 
   const handleLike = async (postId: string) => {
@@ -89,6 +119,25 @@ export default function FeedScreen() {
     }
   };
 
+  const handleFollow = async (userId: string, username: string) => {
+    try {
+      const response = await fetch(
+        `${API_URL}/api/users/${userId}/follow?follower_id=${CURRENT_USER.id}&follower_username=${CURRENT_USER.username}`,
+        { method: 'POST' }
+      );
+      if (response.ok) {
+        const result = await response.json();
+        if (result.is_following) {
+          setFollowingUsers([...followingUsers, userId]);
+        } else {
+          setFollowingUsers(followingUsers.filter(id => id !== userId));
+        }
+      }
+    } catch (error) {
+      console.error('Error following user:', error);
+    }
+  };
+
   const formatTimeAgo = (dateString: string) => {
     const date = new Date(dateString);
     const now = new Date();
@@ -102,6 +151,8 @@ export default function FeedScreen() {
 
   const renderPost = ({ item }: { item: Post }) => {
     const isLiked = item.likes.includes(CURRENT_USER.id);
+    const isFollowing = followingUsers.includes(item.user_id);
+    const isOwnPost = item.user_id === CURRENT_USER.id;
     
     return (
       <View style={styles.postCard}>
@@ -122,6 +173,22 @@ export default function FeedScreen() {
             </View>
             <Text style={styles.timeAgo}>{formatTimeAgo(item.created_at)}</Text>
           </View>
+          
+          {!isOwnPost && (
+            <TouchableOpacity
+              style={[styles.followButton, isFollowing && styles.followingButton]}
+              onPress={() => handleFollow(item.user_id, item.username)}
+            >
+              <Ionicons 
+                name={isFollowing ? "checkmark" : "person-add"} 
+                size={16} 
+                color={isFollowing ? "#FF6B35" : "#fff"} 
+              />
+              <Text style={[styles.followButtonText, isFollowing && styles.followingButtonText]}>
+                {isFollowing ? 'Following' : 'Follow'}
+              </Text>
+            </TouchableOpacity>
+          )}
         </View>
         
         <Text style={styles.postContent}>{item.content}</Text>
@@ -181,6 +248,19 @@ export default function FeedScreen() {
             compact
           />
           <TouchableOpacity 
+            style={styles.notificationButton}
+            onPress={() => router.push('/notifications')}
+          >
+            <Ionicons name="notifications-outline" size={26} color="#fff" />
+            {unreadCount > 0 && (
+              <View style={styles.badge}>
+                <Text style={styles.badgeText}>
+                  {unreadCount > 9 ? '9+' : unreadCount}
+                </Text>
+              </View>
+            )}
+          </TouchableOpacity>
+          <TouchableOpacity 
             style={styles.addButton}
             onPress={() => router.push('/create-post')}
           >
@@ -237,9 +317,31 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  notificationButton: {
+    padding: 6,
+    marginLeft: 8,
+    position: 'relative',
+  },
+  badge: {
+    position: 'absolute',
+    top: 2,
+    right: 2,
+    backgroundColor: '#FF6B35',
+    borderRadius: 10,
+    minWidth: 18,
+    height: 18,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 4,
+  },
+  badgeText: {
+    color: '#fff',
+    fontSize: 10,
+    fontWeight: 'bold',
+  },
   addButton: {
     padding: 4,
-    marginLeft: 8,
+    marginLeft: 4,
   },
   loadingContainer: {
     flex: 1,
@@ -275,6 +377,7 @@ const styles = StyleSheet.create({
   },
   postHeaderInfo: {
     marginLeft: 12,
+    flex: 1,
   },
   usernameRow: {
     flexDirection: 'row',
@@ -293,6 +396,28 @@ const styles = StyleSheet.create({
     color: '#666',
     fontSize: 12,
     marginTop: 2,
+  },
+  followButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FF6B35',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 16,
+  },
+  followingButton: {
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: '#FF6B35',
+  },
+  followButtonText: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: '600',
+    marginLeft: 4,
+  },
+  followingButtonText: {
+    color: '#FF6B35',
   },
   postContent: {
     color: '#ddd',
