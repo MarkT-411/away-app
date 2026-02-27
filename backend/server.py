@@ -84,6 +84,7 @@ class Event(BaseModel):
     title: str
     description: str
     location: str
+    country: Optional[str] = None  # Country where event takes place
     date: str
     time: str
     image: Optional[str] = None  # Base64 image
@@ -97,6 +98,7 @@ class EventCreate(BaseModel):
     title: str
     description: str
     location: str
+    country: Optional[str] = None
     date: str
     time: str
     image: Optional[str] = None
@@ -111,6 +113,7 @@ class Trip(BaseModel):
     description: str
     start_location: str
     end_location: str
+    country: Optional[str] = None  # Country where ride takes place
     date: str
     time: str
     distance: Optional[str] = None
@@ -127,6 +130,7 @@ class TripCreate(BaseModel):
     description: str
     start_location: str
     end_location: str
+    country: Optional[str] = None
     date: str
     time: str
     distance: Optional[str] = None
@@ -149,6 +153,7 @@ class MarketItem(BaseModel):
     seller_name: str
     contact_info: Optional[str] = None
     location: Optional[str] = None
+    country: Optional[str] = None  # Country where item is located
     is_sold: bool = False
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
@@ -163,6 +168,7 @@ class MarketItemCreate(BaseModel):
     seller_name: str
     contact_info: Optional[str] = None
     location: Optional[str] = None
+    country: Optional[str] = None
 
 # GPX Track Model
 class GpxTrack(BaseModel):
@@ -175,6 +181,7 @@ class GpxTrack(BaseModel):
     elevation_gain: Optional[str] = None
     difficulty: str  # easy, moderate, hard, expert
     region: Optional[str] = None
+    country: Optional[str] = None  # Country where track is located
     uploader_id: str
     uploader_name: str
     downloads: int = 0
@@ -189,6 +196,7 @@ class GpxTrackCreate(BaseModel):
     elevation_gain: Optional[str] = None
     difficulty: str
     region: Optional[str] = None
+    country: Optional[str] = None
     uploader_id: str
     uploader_name: str
 
