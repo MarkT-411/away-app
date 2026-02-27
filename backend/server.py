@@ -353,6 +353,27 @@ async def mark_single_notification_read(notification_id: str):
 async def create_post(post_input: PostCreate):
     post = Post(**post_input.dict())
     await db.posts.insert_one(post.dict())
+    
+    # Send notifications to followers
+    user = await db.users.find_one({"id": post_input.user_id})
+    if user and user.get("followers"):
+        # Create notification for each follower
+        notifications = []
+        for follower_id in user["followers"]:
+            notification = Notification(
+                user_id=follower_id,
+                type="new_post",
+                from_user_id=post_input.user_id,
+                from_username=post_input.username,
+                from_avatar=post_input.user_avatar,
+                reference_id=post.id,
+                message=f"{post_input.username} shared a new post"
+            )
+            notifications.append(notification.dict())
+        
+        if notifications:
+            await db.notifications.insert_many(notifications)
+    
     return post
 
 @api_router.get("/posts", response_model=List[Post])
