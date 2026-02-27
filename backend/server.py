@@ -36,6 +36,8 @@ class User(BaseModel):
     country: Optional[str] = None  # User's country preference
     followers: List[str] = Field(default_factory=list)  # List of user_ids who follow this user
     following: List[str] = Field(default_factory=list)  # List of user_ids this user follows
+    favorite_items: List[str] = Field(default_factory=list)  # Favorite market items
+    downloaded_tracks: List[str] = Field(default_factory=list)  # Downloaded GPX tracks
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
 class UserCreate(BaseModel):
@@ -48,11 +50,11 @@ class UserCreate(BaseModel):
 class Notification(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     user_id: str  # User who receives the notification
-    type: str  # 'new_post', 'new_follower', 'like', etc.
+    type: str  # 'new_post', 'new_follower', 'like', 'market_update', etc.
     from_user_id: str
     from_username: str
     from_avatar: Optional[str] = None
-    reference_id: Optional[str] = None  # post_id, event_id, etc.
+    reference_id: Optional[str] = None  # post_id, event_id, item_id, etc.
     message: str
     is_read: bool = False
     created_at: datetime = Field(default_factory=datetime.utcnow)
@@ -67,6 +69,7 @@ class Post(BaseModel):
     image: Optional[str] = None  # Base64 image
     country: Optional[str] = None  # Country where post was made
     likes: List[str] = Field(default_factory=list)  # List of user_ids who liked
+    comments_enabled: bool = True  # Whether comments are allowed
     comments_count: int = 0
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
@@ -77,6 +80,7 @@ class PostCreate(BaseModel):
     content: str
     image: Optional[str] = None
     country: Optional[str] = None
+    comments_enabled: bool = True
 
 # Comment Model
 class Comment(BaseModel):
