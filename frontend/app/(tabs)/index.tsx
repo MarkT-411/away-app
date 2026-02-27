@@ -26,11 +26,11 @@ interface Post {
   image?: string;
   country?: string;
   likes: string[];
+  comments_enabled: boolean;
   comments_count: number;
   created_at: string;
 }
 
-// Mock user for demo
 const CURRENT_USER = {
   id: 'user-1',
   username: 'RiderJohn',
@@ -105,7 +105,7 @@ export default function FeedScreen() {
   const handleLike = async (postId: string) => {
     try {
       const response = await fetch(
-        `${API_URL}/api/posts/${postId}/like?user_id=${CURRENT_USER.id}`,
+        `${API_URL}/api/posts/${postId}/like?user_id=${CURRENT_USER.id}&username=${CURRENT_USER.username}`,
         { method: 'POST' }
       );
       if (response.ok) {
@@ -216,10 +216,19 @@ export default function FeedScreen() {
             </Text>
           </TouchableOpacity>
           
-          <TouchableOpacity style={styles.actionButton}>
-            <Ionicons name="chatbubble-outline" size={22} color="#888" />
-            <Text style={styles.actionText}>{item.comments_count}</Text>
-          </TouchableOpacity>
+          {item.comments_enabled !== false && (
+            <TouchableOpacity style={styles.actionButton}>
+              <Ionicons name="chatbubble-outline" size={22} color="#888" />
+              <Text style={styles.actionText}>{item.comments_count}</Text>
+            </TouchableOpacity>
+          )}
+          
+          {item.comments_enabled === false && (
+            <View style={styles.commentsDisabled}>
+              <Ionicons name="chatbubble" size={18} color="#444" />
+              <Text style={styles.commentsDisabledText}>Comments off</Text>
+            </View>
+          )}
           
           <TouchableOpacity style={styles.actionButton}>
             <Ionicons name="share-outline" size={24} color="#888" />
@@ -240,6 +249,11 @@ export default function FeedScreen() {
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <View style={styles.header}>
+        <TouchableOpacity onPress={() => router.push('/profile')}>
+          <View style={styles.profileButton}>
+            <Ionicons name="person-circle" size={32} color="#FF6B35" />
+          </View>
+        </TouchableOpacity>
         <Text style={styles.headerTitle}>Moto Community</Text>
         <View style={styles.headerActions}>
           <CountryPicker 
@@ -303,15 +317,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#222',
   },
+  profileButton: {
+    padding: 2,
+  },
   headerTitle: {
-    fontSize: 22,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#fff',
+    flex: 1,
+    marginLeft: 8,
   },
   headerActions: {
     flexDirection: 'row',
@@ -319,7 +338,7 @@ const styles = StyleSheet.create({
   },
   notificationButton: {
     padding: 6,
-    marginLeft: 8,
+    marginLeft: 4,
     position: 'relative',
   },
   badge: {
@@ -340,7 +359,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   addButton: {
-    padding: 4,
+    padding: 2,
     marginLeft: 4,
   },
   loadingContainer: {
@@ -451,6 +470,17 @@ const styles = StyleSheet.create({
   },
   likedText: {
     color: '#FF6B35',
+  },
+  commentsDisabled: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 24,
+    paddingVertical: 4,
+  },
+  commentsDisabledText: {
+    color: '#444',
+    fontSize: 12,
+    marginLeft: 4,
   },
   emptyContainer: {
     flex: 1,
