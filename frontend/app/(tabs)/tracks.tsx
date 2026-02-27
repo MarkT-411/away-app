@@ -16,6 +16,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
+import { useCountry } from '../../context/CountryContext';
+import CountryPicker from '../../components/CountryPicker';
 
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
 
@@ -49,12 +51,20 @@ export default function TracksScreen() {
   const [selectedDifficulty, setSelectedDifficulty] = useState('all');
   const [downloading, setDownloading] = useState<string | null>(null);
   const router = useRouter();
+  const { selectedCountry, setSelectedCountry } = useCountry();
 
   const fetchTracks = async () => {
     try {
       let url = `${API_URL}/api/tracks`;
+      const params = new URLSearchParams();
       if (selectedDifficulty !== 'all') {
-        url += `?difficulty=${selectedDifficulty}`;
+        params.append('difficulty', selectedDifficulty);
+      }
+      if (selectedCountry && selectedCountry !== 'all') {
+        params.append('country', selectedCountry);
+      }
+      if (params.toString()) {
+        url += `?${params.toString()}`;
       }
       const response = await fetch(url);
       if (response.ok) {
