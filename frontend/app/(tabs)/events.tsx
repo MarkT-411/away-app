@@ -366,6 +366,11 @@ export default function EventsScreen() {
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Events</Text>
         <View style={styles.headerActions}>
+          <CountryPicker 
+            selectedCountry={selectedCountry} 
+            onSelect={setSelectedCountry}
+            compact
+          />
           <TouchableOpacity 
             style={styles.viewToggle}
             onPress={() => setViewMode(viewMode === 'list' ? 'calendar' : 'list')}
