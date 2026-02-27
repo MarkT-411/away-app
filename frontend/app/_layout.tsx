@@ -39,6 +39,7 @@ function AppContent() {
       <Stack.Screen name="event-details" options={{ headerShown: false }} />
       <Stack.Screen name="trip-details" options={{ headerShown: false }} />
       <Stack.Screen name="market-details" options={{ headerShown: false }} />
+      <Stack.Screen name="notifications" options={{ headerShown: false }} />
       <Stack.Screen name="create-post" options={{ headerShown: false, presentation: 'modal' }} />
       <Stack.Screen name="create-event" options={{ headerShown: false, presentation: 'modal' }} />
       <Stack.Screen name="create-trip" options={{ headerShown: false, presentation: 'modal' }} />
