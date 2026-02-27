@@ -146,6 +146,9 @@ backend:
       - working: true
         agent: "main"
         comment: "All trip endpoints created and tested with curl - working"
+      - working: true
+        agent: "testing"
+        comment: "Comprehensive testing completed: Create Trip, Get All Trips, Get Specific Trip, Join/Leave toggle functionality, max_participants validation all working correctly."
 
   - task: "Market API (Create, Read, Filter by Category)"
     implemented: true
