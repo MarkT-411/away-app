@@ -19,7 +19,7 @@ export default function TabLayout() {
         tabBarActiveTintColor: '#FF6B35',
         tabBarInactiveTintColor: '#888',
         tabBarLabelStyle: {
-          fontSize: 11,
+          fontSize: 10,
           fontWeight: '600',
         },
       }}
@@ -48,6 +48,15 @@ export default function TabLayout() {
           title: 'Rides',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="bicycle-outline" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="tracks"
+        options={{
+          title: 'Tracks',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="navigate-outline" size={size} color={color} />
           ),
         }}
       />
