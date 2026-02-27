@@ -78,12 +78,12 @@ export default function MarketScreen() {
 
   useEffect(() => {
     fetchItems();
-  }, [selectedCategory]);
+  }, [selectedCategory, selectedCountry]);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
-    fetchItems(selectedCategory);
-  }, [selectedCategory]);
+    fetchItems();
+  }, [selectedCategory, selectedCountry]);
 
   const formatPrice = (price: number) => {
     return `$${price.toLocaleString()}`;
