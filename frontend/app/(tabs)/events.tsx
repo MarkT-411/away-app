@@ -65,6 +65,7 @@ export default function EventsScreen() {
   const [filterLocation, setFilterLocation] = useState('');
   const [showFilters, setShowFilters] = useState(false);
   const router = useRouter();
+  const { selectedCountry, setSelectedCountry } = useCountry();
 
   const fetchEvents = async () => {
     try {
@@ -77,6 +78,9 @@ export default function EventsScreen() {
       }
       if (filterLocation) {
         params.append('location', filterLocation);
+      }
+      if (selectedCountry && selectedCountry !== 'all') {
+        params.append('country', selectedCountry);
       }
       
       if (params.toString()) {
@@ -98,7 +102,11 @@ export default function EventsScreen() {
 
   const fetchCalendar = async () => {
     try {
-      const response = await fetch(`${API_URL}/api/events/calendar?year=${selectedYear}`);
+      let url = `${API_URL}/api/events/calendar?year=${selectedYear}`;
+      if (selectedCountry && selectedCountry !== 'all') {
+        url += `&country=${selectedCountry}`;
+      }
+      const response = await fetch(url);
       if (response.ok) {
         const data = await response.json();
         setCalendarData(data);
@@ -114,7 +122,7 @@ export default function EventsScreen() {
     } else {
       fetchEvents();
     }
-  }, [viewMode, selectedYear, selectedMonth, filterLocation]);
+  }, [viewMode, selectedYear, selectedMonth, filterLocation, selectedCountry]);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
