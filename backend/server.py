@@ -440,6 +440,59 @@ async def delete_market_item(item_id: str):
         raise HTTPException(status_code=404, detail="Item not found")
     return {"message": "Item deleted"}
 
+# ==================== GPX TRACK ENDPOINTS ====================
+
+@api_router.post("/tracks", response_model=GpxTrack)
+async def create_track(track_input: GpxTrackCreate):
+    track = GpxTrack(**track_input.dict())
+    await db.gpx_tracks.insert_one(track.dict())
+    return track
+
+@api_router.get("/tracks", response_model=List[GpxTrack])
+async def get_tracks(
+    difficulty: Optional[str] = None,
+    region: Optional[str] = None
+):
+    query = {}
+    if difficulty:
+        query["difficulty"] = difficulty
+    if region:
+        query["region"] = {"$regex": region, "$options": "i"}
+    
+    tracks = await db.gpx_tracks.find(query).sort("created_at", -1).to_list(100)
+    return [GpxTrack(**track) for track in tracks]
+
+@api_router.get("/tracks/{track_id}", response_model=GpxTrack)
+async def get_track(track_id: str):
+    track = await db.gpx_tracks.find_one({"id": track_id})
+    if not track:
+        raise HTTPException(status_code=404, detail="Track not found")
+    return GpxTrack(**track)
+
+@api_router.get("/tracks/{track_id}/download")
+async def download_track(track_id: str):
+    track = await db.gpx_tracks.find_one({"id": track_id})
+    if not track:
+        raise HTTPException(status_code=404, detail="Track not found")
+    
+    # Increment download count
+    await db.gpx_tracks.update_one(
+        {"id": track_id},
+        {"$inc": {"downloads": 1}}
+    )
+    
+    return {
+        "file_name": track["file_name"],
+        "file_content": track["file_content"]
+    }
+
+@api_router.delete("/tracks/{track_id}")
+async def delete_track(track_id: str):
+    result = await db.gpx_tracks.delete_one({"id": track_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Track not found")
+    return {"message": "Track deleted"}
+
 # ==================== HEALTH CHECK ====================
 
 @api_router.get("/")
