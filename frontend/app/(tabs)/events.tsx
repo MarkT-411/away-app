@@ -14,6 +14,8 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { useCountry } from '../../context/CountryContext';
+import CountryPicker from '../../components/CountryPicker';
 
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
 
