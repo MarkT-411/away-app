@@ -229,8 +229,11 @@ async def create_post(post_input: PostCreate):
     return post
 
 @api_router.get("/posts", response_model=List[Post])
-async def get_posts():
-    posts = await db.posts.find().sort("created_at", -1).to_list(100)
+async def get_posts(country: Optional[str] = None):
+    query = {}
+    if country and country != "all":
+        query["country"] = country
+    posts = await db.posts.find(query).sort("created_at", -1).to_list(100)
     return [Post(**post) for post in posts]
 
 @api_router.get("/posts/{post_id}", response_model=Post)
