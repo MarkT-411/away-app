@@ -21,6 +21,7 @@ export default function RootLayout() {
         <Stack.Screen name="create-event" options={{ headerShown: false, presentation: 'modal' }} />
         <Stack.Screen name="create-trip" options={{ headerShown: false, presentation: 'modal' }} />
         <Stack.Screen name="create-listing" options={{ headerShown: false, presentation: 'modal' }} />
+        <Stack.Screen name="create-track" options={{ headerShown: false, presentation: 'modal' }} />
       </Stack>
     </>
   );
