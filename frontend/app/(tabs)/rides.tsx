@@ -49,12 +49,21 @@ export default function RidesScreen() {
   const [refreshing, setRefreshing] = useState(false);
   const router = useRouter();
   const { selectedCountry, setSelectedCountry } = useCountry();
+  const { getMotoTypesParam } = useMotoTypes();
 
   const fetchTrips = async () => {
     try {
-      let url = `${API_URL}/api/trips`;
+      const params = new URLSearchParams();
       if (selectedCountry && selectedCountry !== 'all') {
-        url += `?country=${selectedCountry}`;
+        params.append('country', selectedCountry);
+      }
+      const motoTypes = getMotoTypesParam();
+      if (motoTypes !== 'all') {
+        params.append('moto_types', motoTypes);
+      }
+      let url = `${API_URL}/api/trips`;
+      if (params.toString()) {
+        url += `?${params.toString()}`;
       }
       const response = await fetch(url);
       if (response.ok) {
@@ -71,12 +80,12 @@ export default function RidesScreen() {
 
   useEffect(() => {
     fetchTrips();
-  }, [selectedCountry]);
+  }, [selectedCountry, getMotoTypesParam()]);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     fetchTrips();
-  }, [selectedCountry]);
+  }, [selectedCountry, getMotoTypesParam()]);
 
   const handleJoin = async (tripId: string) => {
     try {
