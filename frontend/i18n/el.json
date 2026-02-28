@@ -1,0 +1,117 @@
+{
+  "common": {
+    "loading": "Φόρτωση...",
+    "error": "Σφάλμα",
+    "success": "Επιτυχία",
+    "cancel": "Ακύρωση",
+    "save": "Αποθήκευση",
+    "delete": "Διαγραφή",
+    "edit": "Επεξεργασία",
+    "close": "Κλείσιμο",
+    "done": "Έγινε",
+    "back": "Πίσω",
+    "next": "Επόμενο",
+    "continue": "Συνέχεια",
+    "search": "Αναζήτηση",
+    "filter": "Φίλτρο",
+    "all": "Όλα",
+    "worldwide": "Παγκόσμια",
+    "share": "Κοινοποίηση"
+  },
+  "auth": {
+    "welcome": "Καλωσήρθατε στο Moto Community",
+    "tagline": "Συνδεθείτε με αναβάτες παγκοσμίως",
+    "createAccount": "Δημιουργία Λογαριασμού",
+    "login": "Σύνδεση",
+    "logout": "Αποσύνδεση",
+    "browseAsGuest": "Περιήγηση ως επισκέπτης",
+    "guestNote": "Οι επισκέπτες μπορούν μόνο να βλέπουν περιεχόμενο",
+    "email": "Email",
+    "password": "Κωδικός",
+    "confirmPassword": "Επιβεβαίωση Κωδικού",
+    "username": "Όνομα χρήστη",
+    "welcomeBack": "Καλώς ήρθατε πίσω",
+    "selectCountry": "Επιλέξτε χώρα (προαιρετικό)",
+    "selectMotoTypes": "Τύποι μοτοσικλετών που σας αρέσουν",
+    "selectLanguage": "Επιλέξτε γλώσσα"
+  },
+  "guest": {
+    "accountRequired": "Απαιτείται Λογαριασμός",
+    "createAccountTo": "Δημιουργήστε λογαριασμό για",
+    "joinEvents": "συμμετοχή σε εκδηλώσεις",
+    "joinRides": "συμμετοχή σε ομαδικές βόλτες",
+    "downloadTracks": "λήψη GPX διαδρομών",
+    "saveFavorites": "αποθήκευση στα αγαπημένα"
+  },
+  "tabs": {
+    "feed": "Ροή",
+    "events": "Εκδηλώσεις",
+    "rides": "Βόλτες",
+    "tracks": "Διαδρομές",
+    "market": "Αγορά"
+  },
+  "feed": {
+    "title": "Moto Community",
+    "newPost": "Νέα Δημοσίευση",
+    "post": "Δημοσίευση",
+    "like": "Μου αρέσει",
+    "comment": "Σχόλιο",
+    "follow": "Ακολούθησε",
+    "following": "Ακολουθείτε",
+    "noPosts": "Δεν υπάρχουν δημοσιεύσεις"
+  },
+  "events": {
+    "title": "Εκδηλώσεις",
+    "join": "Συμμετοχή",
+    "joined": "Εγγεγραμμένος",
+    "full": "Πλήρες",
+    "attendees": "συμμετέχοντες",
+    "noEvents": "Δεν βρέθηκαν εκδηλώσεις"
+  },
+  "rides": {
+    "title": "Ομαδικές Βόλτες",
+    "join": "Συμμετοχή",
+    "joined": "Εγγεγραμμένος",
+    "riders": "αναβάτες",
+    "noRides": "Δεν υπάρχουν βόλτες"
+  },
+  "tracks": {
+    "title": "GPX Διαδρομές",
+    "download": "Λήψη",
+    "downloads": "λήψεις",
+    "easy": "Εύκολο",
+    "moderate": "Μέτριο",
+    "hard": "Δύσκολο",
+    "expert": "Ειδικός",
+    "noTracks": "Δεν υπάρχουν διαδρομές"
+  },
+  "market": {
+    "title": "Αγορά",
+    "contactSeller": "Επικοινωνία με Πωλητή",
+    "favorite": "Αγαπημένο",
+    "new": "Καινούριο",
+    "likeNew": "Σαν Καινούριο",
+    "good": "Καλό",
+    "fair": "Μέτριο",
+    "noItems": "Δεν υπάρχουν αντικείμενα"
+  },
+  "profile": {
+    "title": "Προφίλ",
+    "followers": "Ακόλουθοι",
+    "following": "Ακολουθείτε"
+  },
+  "notifications": {
+    "title": "Ειδοποιήσεις",
+    "noNotifications": "Δεν υπάρχουν ειδοποιήσεις"
+  },
+  "motoTypes": {
+    "all": "Όλοι οι Τύποι",
+    "sport": "Αθλητική",
+    "scooter": "Scooter",
+    "adventure": "Adventure",
+    "naked": "Naked",
+    "cruiser": "Cruiser",
+    "enduro": "Enduro",
+    "cafeRacer": "Cafe Racer"
+  }
+}

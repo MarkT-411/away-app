@@ -1,0 +1,117 @@
+{
+  "common": {
+    "loading": "Yükleniyor...",
+    "error": "Hata",
+    "success": "Başarılı",
+    "cancel": "İptal",
+    "save": "Kaydet",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "close": "Kapat",
+    "done": "Tamam",
+    "back": "Geri",
+    "next": "İleri",
+    "continue": "Devam",
+    "search": "Ara",
+    "filter": "Filtrele",
+    "all": "Tümü",
+    "worldwide": "Dünya geneli",
+    "share": "Paylaş"
+  },
+  "auth": {
+    "welcome": "Moto Community'ye Hoş Geldiniz",
+    "tagline": "Dünya genelindeki motorculara bağlanın",
+    "createAccount": "Hesap Oluştur",
+    "login": "Giriş Yap",
+    "logout": "Çıkış Yap",
+    "browseAsGuest": "Misafir olarak göz at",
+    "guestNote": "Misafirler sadece içeriği görüntüleyebilir",
+    "email": "E-posta",
+    "password": "Şifre",
+    "confirmPassword": "Şifreyi Onayla",
+    "username": "Kullanıcı Adı",
+    "welcomeBack": "Tekrar Hoş Geldiniz",
+    "selectCountry": "Ülkenizi seçin (isteğe bağlı)",
+    "selectMotoTypes": "Sevdiğiniz motosiklet türleri",
+    "selectLanguage": "Tercih ettiğiniz dili seçin"
+  },
+  "guest": {
+    "accountRequired": "Hesap Gerekli",
+    "createAccountTo": "Hesap oluşturun",
+    "joinEvents": "etkinliklere katılmak için",
+    "joinRides": "grup sürüşlerine katılmak için",
+    "downloadTracks": "GPX parkurlarını indirmek için",
+    "saveFavorites": "favorilere kaydetmek için"
+  },
+  "tabs": {
+    "feed": "Akış",
+    "events": "Etkinlikler",
+    "rides": "Sürüşler",
+    "tracks": "Parkurlar",
+    "market": "Pazar"
+  },
+  "feed": {
+    "title": "Moto Community",
+    "newPost": "Yeni Gönderi",
+    "post": "Paylaş",
+    "like": "Beğen",
+    "comment": "Yorum",
+    "follow": "Takip Et",
+    "following": "Takip Ediliyor",
+    "noPosts": "Henüz gönderi yok"
+  },
+  "events": {
+    "title": "Etkinlikler",
+    "join": "Katıl",
+    "joined": "Katıldı",
+    "full": "Dolu",
+    "attendees": "katılımcı",
+    "noEvents": "Etkinlik bulunamadı"
+  },
+  "rides": {
+    "title": "Grup Sürüşleri",
+    "join": "Katıl",
+    "joined": "Katıldı",
+    "riders": "sürücü",
+    "noRides": "Planlanan sürüş yok"
+  },
+  "tracks": {
+    "title": "GPX Parkurları",
+    "download": "İndir",
+    "downloads": "indirme",
+    "easy": "Kolay",
+    "moderate": "Orta",
+    "hard": "Zor",
+    "expert": "Uzman",
+    "noTracks": "Parkur bulunamadı"
+  },
+  "market": {
+    "title": "Pazar",
+    "contactSeller": "Satıcıyla İletişim",
+    "favorite": "Favori",
+    "new": "Sıfır",
+    "likeNew": "Sıfır Gibi",
+    "good": "İyi",
+    "fair": "Orta",
+    "noItems": "Satılık ürün yok"
+  },
+  "profile": {
+    "title": "Profil",
+    "followers": "Takipçiler",
+    "following": "Takip Edilenler"
+  },
+  "notifications": {
+    "title": "Bildirimler",
+    "noNotifications": "Bildirim yok"
+  },
+  "motoTypes": {
+    "all": "Tüm Türler",
+    "sport": "Spor",
+    "scooter": "Scooter",
+    "adventure": "Adventure",
+    "naked": "Naked",
+    "cruiser": "Cruiser",
+    "enduro": "Enduro",
+    "cafeRacer": "Cafe Racer"
+  }
+}

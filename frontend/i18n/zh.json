@@ -1,0 +1,117 @@
+{
+  "common": {
+    "loading": "加载中...",
+    "error": "错误",
+    "success": "成功",
+    "cancel": "取消",
+    "save": "保存",
+    "delete": "删除",
+    "edit": "编辑",
+    "close": "关闭",
+    "done": "完成",
+    "back": "返回",
+    "next": "下一步",
+    "continue": "继续",
+    "search": "搜索",
+    "filter": "筛选",
+    "all": "全部",
+    "worldwide": "全球",
+    "share": "分享"
+  },
+  "auth": {
+    "welcome": "欢迎来到摩托社区",
+    "tagline": "与全球骑士连接",
+    "createAccount": "创建账户",
+    "login": "登录",
+    "logout": "退出",
+    "browseAsGuest": "以游客身份浏览",
+    "guestNote": "游客只能查看内容",
+    "email": "邮箱",
+    "password": "密码",
+    "confirmPassword": "确认密码",
+    "username": "用户名",
+    "welcomeBack": "欢迎回来",
+    "selectCountry": "选择您的国家（可选）",
+    "selectMotoTypes": "您喜欢的摩托车类型",
+    "selectLanguage": "选择您的首选语言"
+  },
+  "guest": {
+    "accountRequired": "需要账户",
+    "createAccountTo": "创建账户以",
+    "joinEvents": "参加活动",
+    "joinRides": "参加组队骑行",
+    "downloadTracks": "下载GPX轨迹",
+    "saveFavorites": "保存收藏"
+  },
+  "tabs": {
+    "feed": "动态",
+    "events": "活动",
+    "rides": "骑行",
+    "tracks": "轨迹",
+    "market": "市场"
+  },
+  "feed": {
+    "title": "摩托社区",
+    "newPost": "新帖子",
+    "post": "发布",
+    "like": "喜欢",
+    "comment": "评论",
+    "follow": "关注",
+    "following": "已关注",
+    "noPosts": "暂无帖子"
+  },
+  "events": {
+    "title": "活动",
+    "join": "参加",
+    "joined": "已参加",
+    "full": "已满",
+    "attendees": "参与者",
+    "noEvents": "暂无活动"
+  },
+  "rides": {
+    "title": "组队骑行",
+    "join": "参加",
+    "joined": "已参加",
+    "riders": "骑士",
+    "noRides": "暂无骑行计划"
+  },
+  "tracks": {
+    "title": "GPX轨迹",
+    "download": "下载",
+    "downloads": "下载次数",
+    "easy": "简单",
+    "moderate": "中等",
+    "hard": "困难",
+    "expert": "专家",
+    "noTracks": "暂无轨迹"
+  },
+  "market": {
+    "title": "市场",
+    "contactSeller": "联系卖家",
+    "favorite": "收藏",
+    "new": "全新",
+    "likeNew": "几乎全新",
+    "good": "良好",
+    "fair": "一般",
+    "noItems": "暂无商品"
+  },
+  "profile": {
+    "title": "个人资料",
+    "followers": "粉丝",
+    "following": "关注"
+  },
+  "notifications": {
+    "title": "通知",
+    "noNotifications": "暂无通知"
+  },
+  "motoTypes": {
+    "all": "所有类型",
+    "sport": "运动车",
+    "scooter": "踏板车",
+    "adventure": "探险车",
+    "naked": "裸车",
+    "cruiser": "巡航车",
+    "enduro": "越野车",
+    "cafeRacer": "哖啡赛车"
+  }
+}

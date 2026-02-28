@@ -1,0 +1,117 @@
+{
+  "common": {
+    "loading": "लोड हो रहा है...",
+    "error": "त्रुटि",
+    "success": "सफल",
+    "cancel": "रद्द करें",
+    "save": "सहेजें",
+    "delete": "हटाएं",
+    "edit": "संपादित करें",
+    "close": "बंद करें",
+    "done": "हो गया",
+    "back": "वापस",
+    "next": "अगला",
+    "continue": "जारी रखें",
+    "search": "खोजें",
+    "filter": "फ़िल्टर",
+    "all": "सभी",
+    "worldwide": "विश्वभर",
+    "share": "शेयर करें"
+  },
+  "auth": {
+    "welcome": "मोटो कम्यूनिटी में आपका स्वागत है",
+    "tagline": "दुनिया भर के राइडर्स से जुड़ें",
+    "createAccount": "खाता बनाएं",
+    "login": "लॉगिन",
+    "logout": "लॉग आउट",
+    "browseAsGuest": "अतिथि के रूप में देखें",
+    "guestNote": "अतिथि केवल सामग्री देख सकते हैं",
+    "email": "ईमेल",
+    "password": "पासवर्ड",
+    "confirmPassword": "पासवर्ड की पुष्टि करें",
+    "username": "यूजरनेम",
+    "welcomeBack": "वापसी आपका स्वागत है",
+    "selectCountry": "अपना देश चुनें (वैकल्पिक)",
+    "selectMotoTypes": "आपको पसंद मोटरसाइकिल प्रकार",
+    "selectLanguage": "अपनी पसंदीदा भाषा चुनें"
+  },
+  "guest": {
+    "accountRequired": "खाता आवश्यक है",
+    "createAccountTo": "खाता बनाएं",
+    "joinEvents": "इवेंट्स में शामिल हों",
+    "joinRides": "ग्रुप राइड्स में शामिल हों",
+    "downloadTracks": "GPX ट्रैक डाउनलोड करें",
+    "saveFavorites": "पसंदीदा में सहेजें"
+  },
+  "tabs": {
+    "feed": "फ़ीड",
+    "events": "इवेंट्स",
+    "rides": "राइड्स",
+    "tracks": "ट्रैक्स",
+    "market": "मार्केट"
+  },
+  "feed": {
+    "title": "मोटो कम्यूनिटी",
+    "newPost": "नई पोस्ट",
+    "post": "पोस्ट करें",
+    "like": "पसंद",
+    "comment": "टिप्पणी",
+    "follow": "फॉलो करें",
+    "following": "फॉलो कर रहे हैं",
+    "noPosts": "अभी कोई पोस्ट नहीं"
+  },
+  "events": {
+    "title": "इवेंट्स",
+    "join": "शामिल हों",
+    "joined": "शामिल हो गए",
+    "full": "भरा हुआ",
+    "attendees": "प्रतिभागी",
+    "noEvents": "कोई इवेंट नहीं"
+  },
+  "rides": {
+    "title": "ग्रुप राइड्स",
+    "join": "शामिल हों",
+    "joined": "शामिल हो गए",
+    "riders": "राइडर्स",
+    "noRides": "कोई राइड नहीं"
+  },
+  "tracks": {
+    "title": "GPX ट्रैक्स",
+    "download": "डाउनलोड",
+    "downloads": "डाउनलोड्स",
+    "easy": "आसान",
+    "moderate": "मध्यम",
+    "hard": "कठिन",
+    "expert": "विशेषज्ञ",
+    "noTracks": "कोई ट्रैक नहीं"
+  },
+  "market": {
+    "title": "मार्केट",
+    "contactSeller": "विक्रेता से संपर्क करें",
+    "favorite": "पसंदीदा",
+    "new": "नया",
+    "likeNew": "नए जैसा",
+    "good": "अच्छा",
+    "fair": "ठीक",
+    "noItems": "कोई आइटम नहीं"
+  },
+  "profile": {
+    "title": "प्रोफ़ाइल",
+    "followers": "फॉलोअर्स",
+    "following": "फॉलो कर रहे हैं"
+  },
+  "notifications": {
+    "title": "सूचनाएं",
+    "noNotifications": "कोई सूचना नहीं"
+  },
+  "motoTypes": {
+    "all": "सभी प्रकार",
+    "sport": "स्पोर्ट्स",
+    "scooter": "स्कूटर",
+    "adventure": "एडवेंचर",
+    "naked": "नेकेड",
+    "cruiser": "क्रूजर",
+    "enduro": "एंडुरो",
+    "cafeRacer": "कैफे रेसर"
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "common": {
+    "loading": "読み込み中...",
+    "error": "エラー",
+    "success": "成功",
+    "cancel": "キャンセル",
+    "save": "保存",
+    "delete": "削除",
+    "edit": "編集",
+    "close": "閉じる",
+    "done": "完了",
+    "back": "戻る",
+    "next": "次へ",
+    "continue": "続ける",
+    "search": "検索",
+    "filter": "フィルター",
+    "all": "すべて",
+    "worldwide": "世界",
+    "share": "共有"
+  },
+  "auth": {
+    "welcome": "モトコミュニティへようこそ",
+    "tagline": "世界中のライダーとつながろう",
+    "createAccount": "アカウント作成",
+    "login": "ログイン",
+    "logout": "ログアウト",
+    "browseAsGuest": "ゲストとして閲覧",
+    "guestNote": "ゲストはコンテンツの閲覧のみ可能です",
+    "email": "メール",
+    "password": "パスワード",
+    "confirmPassword": "パスワード確認",
+    "username": "ユーザー名",
+    "welcomeBack": "おかえりなさい",
+    "selectCountry": "国を選択（任意）",
+    "selectMotoTypes": "好きなバイクタイプ",
+    "selectLanguage": "言語を選択"
+  },
+  "guest": {
+    "accountRequired": "アカウントが必要です",
+    "createAccountTo": "アカウントを作成して",
+    "joinEvents": "イベントに参加",
+    "joinRides": "グループライドに参加",
+    "downloadTracks": "GPXトラックをダウンロード",
+    "saveFavorites": "お気に入りに保存"
+  },
+  "tabs": {
+    "feed": "フィード",
+    "events": "イベント",
+    "rides": "ライド",
+    "tracks": "トラック",
+    "market": "マーケット"
+  },
+  "feed": {
+    "title": "モトコミュニティ",
+    "newPost": "新規投稿",
+    "post": "投稿",
+    "like": "いいね",
+    "comment": "コメント",
+    "follow": "フォロー",
+    "following": "フォロー中",
+    "noPosts": "投稿がありません"
+  },
+  "events": {
+    "title": "イベント",
+    "join": "参加",
+    "joined": "参加済み",
+    "full": "満员",
+    "attendees": "参加者",
+    "noEvents": "イベントがありません"
+  },
+  "rides": {
+    "title": "グループライド",
+    "join": "参加",
+    "joined": "参加済み",
+    "riders": "ライダー",
+    "noRides": "ライドがありません"
+  },
+  "tracks": {
+    "title": "GPXトラック",
+    "download": "ダウンロード",
+    "downloads": "ダウンロード数",
+    "easy": "初級",
+    "moderate": "中級",
+    "hard": "上級",
+    "expert": "エキスパート",
+    "noTracks": "トラックがありません"
+  },
+  "market": {
+    "title": "マーケット",
+    "contactSeller": "出品者に連絡",
+    "favorite": "お気に入り",
+    "new": "新品",
+    "likeNew": "新品同様",
+    "good": "良好",
+    "fair": "普通",
+    "noItems": "出品がありません"
+  },
+  "profile": {
+    "title": "プロフィール",
+    "followers": "フォロワー",
+    "following": "フォロー中"
+  },
+  "notifications": {
+    "title": "通知",
+    "noNotifications": "通知がありません"
+  },
+  "motoTypes": {
+    "all": "すべてのタイプ",
+    "sport": "スポーツ",
+    "scooter": "スクーター",
+    "adventure": "アドベンチャー",
+    "naked": "ネイキッド",
+    "cruiser": "クルーザー",
+    "enduro": "エンデューロ",
+    "cafeRacer": "カフェレーサー"
+  }
+}
