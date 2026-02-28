@@ -44,10 +44,12 @@ export default function MarketDetailsScreen() {
   const [item, setItem] = useState<MarketItem | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [isFavorite, setIsFavorite] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     fetchItem();
+    checkFavorite();
   }, [id]);
 
   const fetchItem = async () => {
@@ -65,6 +67,34 @@ export default function MarketDetailsScreen() {
       Alert.alert('Error', 'Failed to load item');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const checkFavorite = async () => {
+    try {
+      const response = await fetch(`${API_URL}/api/profile/${CURRENT_USER.id}`);
+      if (response.ok) {
+        const data = await response.json();
+        const favoriteIds = data.favorite_items?.map((i: any) => i.id) || [];
+        setIsFavorite(favoriteIds.includes(id as string));
+      }
+    } catch (error) {
+      console.error('Error checking favorite:', error);
+    }
+  };
+
+  const handleToggleFavorite = async () => {
+    try {
+      const response = await fetch(
+        `${API_URL}/api/market/${id}/favorite?user_id=${CURRENT_USER.id}`,
+        { method: 'POST' }
+      );
+      if (response.ok) {
+        const result = await response.json();
+        setIsFavorite(result.is_favorite);
+      }
+    } catch (error) {
+      console.error('Error toggling favorite:', error);
     }
   };
 
