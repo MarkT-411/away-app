@@ -427,6 +427,10 @@ const styles = StyleSheet.create({
     marginLeft: 6,
     fontSize: 14,
   },
+  motoTypeIcon: {
+    marginLeft: 4,
+    fontSize: 14,
+  },
   timeAgo: {
     color: '#666',
     fontSize: 12,
