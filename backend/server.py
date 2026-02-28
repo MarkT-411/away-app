@@ -850,6 +850,42 @@ async def root():
 async def health_check():
     return {"status": "healthy"}
 
+@api_router.get("/moto-types")
+async def get_moto_types():
+    """Get available motorcycle types"""
+    return {
+        "types": MOTO_TYPES,
+        "labels": {
+            "sport": "Sport / Supersport",
+            "scooter": "Scooter",
+            "adventure": "Adventure / Touring",
+            "naked": "Naked / Streetfighter",
+            "cruiser": "Cruiser / Chopper",
+            "enduro": "Enduro / Off-road",
+            "cafe_racer": "Cafe Racer / Classic"
+        },
+        "icons": {
+            "sport": "🏍️",
+            "scooter": "🛵",
+            "adventure": "🏜️",
+            "naked": "🔧",
+            "cruiser": "🏁",
+            "enduro": "🌲",
+            "cafe_racer": "🏎️"
+        }
+    }
+
+@api_router.put("/users/{user_id}/moto-types")
+async def update_user_moto_types(user_id: str, moto_types: List[str]):
+    """Update user's preferred motorcycle types"""
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        user = {"id": user_id, "moto_types": moto_types}
+        await db.users.insert_one(user)
+    else:
+        await db.users.update_one({"id": user_id}, {"$set": {"moto_types": moto_types}})
+    return {"moto_types": moto_types}
+
 # Include the router
 app.include_router(api_router)
 
