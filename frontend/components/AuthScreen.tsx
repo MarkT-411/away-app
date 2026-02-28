@@ -804,4 +804,53 @@ const styles = StyleSheet.create({
   prefChipTextSelected: {
     color: '#FF6B35',
   },
+  languageGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    marginTop: 8,
+  },
+  languageCard: {
+    width: '48%',
+    backgroundColor: '#1A1A1A',
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 12,
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: 'transparent',
+    position: 'relative',
+  },
+  languageCardSelected: {
+    borderColor: '#FF6B35',
+    backgroundColor: '#2A2A2A',
+  },
+  languageFlag: {
+    fontSize: 28,
+    marginBottom: 6,
+  },
+  languageName: {
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  languageNameSelected: {
+    color: '#FF6B35',
+  },
+  languageNameEn: {
+    color: '#666',
+    fontSize: 11,
+    marginTop: 2,
+  },
+  languageCheck: {
+    position: 'absolute',
+    top: 6,
+    right: 6,
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    backgroundColor: '#FF6B35',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
