@@ -14,7 +14,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useCountry } from '../../context/CountryContext';
+import { useMotoTypes, getMotoTypeIcon } from '../../context/MotoTypesContext';
 import CountryPicker from '../../components/CountryPicker';
+import MotoTypePicker from '../../components/MotoTypePicker';
 
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
 
@@ -25,6 +27,7 @@ interface MarketItem {
   price: number;
   condition: string;
   category: string;
+  moto_type?: string;
   images: string[];
   seller_id: string;
   seller_name: string;
