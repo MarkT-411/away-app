@@ -18,6 +18,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import * as ImagePicker from 'expo-image-picker';
 import { useCountry } from '../context/CountryContext';
+import { MOTO_TYPES, useMotoTypes } from '../context/MotoTypesContext';
 
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
 
@@ -27,10 +28,14 @@ const CURRENT_USER = {
   avatar: null,
 };
 
+// Exclude "All Types" from selection when creating content
+const SELECTABLE_MOTO_TYPES = MOTO_TYPES.filter(t => t.id !== 'all');
+
 export default function CreatePostScreen() {
   const [content, setContent] = useState('');
   const [image, setImage] = useState<string | null>(null);
   const [commentsEnabled, setCommentsEnabled] = useState(true);
+  const [selectedMotoType, setSelectedMotoType] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { selectedCountry } = useCountry();
@@ -74,6 +79,7 @@ export default function CreatePostScreen() {
           content: content.trim(),
           image: image,
           country: selectedCountry !== 'all' ? selectedCountry : null,
+          moto_type: selectedMotoType,
           comments_enabled: commentsEnabled,
         }),
       });
@@ -144,6 +150,40 @@ export default function CreatePostScreen() {
               </TouchableOpacity>
             </View>
           )}
+
+          {/* Moto Type Selection */}
+          <View style={styles.settingsSection}>
+            <Text style={styles.settingsTitle}>Motorcycle Type</Text>
+            <Text style={styles.settingsSubtitle}>Tag your post with a motorcycle type</Text>
+            
+            <ScrollView 
+              horizontal 
+              showsHorizontalScrollIndicator={false}
+              style={styles.motoTypeScroll}
+              contentContainerStyle={styles.motoTypeContainer}
+            >
+              {SELECTABLE_MOTO_TYPES.map((type) => (
+                <TouchableOpacity
+                  key={type.id}
+                  style={[
+                    styles.motoTypeChip,
+                    selectedMotoType === type.id && styles.motoTypeChipSelected
+                  ]}
+                  onPress={() => setSelectedMotoType(
+                    selectedMotoType === type.id ? null : type.id
+                  )}
+                >
+                  <Text style={styles.motoTypeIcon}>{type.icon}</Text>
+                  <Text style={[
+                    styles.motoTypeLabel,
+                    selectedMotoType === type.id && styles.motoTypeLabelSelected
+                  ]}>
+                    {type.label.split(' ')[0]}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+          </View>
 
           {/* Comments Toggle */}
           <View style={styles.settingsSection}>
@@ -269,7 +309,45 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '600',
     textTransform: 'uppercase',
+    marginBottom: 4,
+  },
+  settingsSubtitle: {
+    color: '#666',
+    fontSize: 12,
     marginBottom: 12,
+  },
+  motoTypeScroll: {
+    marginHorizontal: -16,
+  },
+  motoTypeContainer: {
+    paddingHorizontal: 16,
+  },
+  motoTypeChip: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#1A1A1A',
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 20,
+    marginRight: 8,
+    borderWidth: 2,
+    borderColor: 'transparent',
+  },
+  motoTypeChipSelected: {
+    borderColor: '#FF6B35',
+    backgroundColor: '#2A2A2A',
+  },
+  motoTypeIcon: {
+    fontSize: 16,
+    marginRight: 6,
+  },
+  motoTypeLabel: {
+    color: '#888',
+    fontSize: 13,
+    fontWeight: '500',
+  },
+  motoTypeLabelSelected: {
+    color: '#FF6B35',
   },
   settingRow: {
     flexDirection: 'row',
@@ -278,6 +356,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#1A1A1A',
     borderRadius: 12,
     padding: 14,
+    marginTop: 8,
   },
   settingInfo: {
     flexDirection: 'row',
