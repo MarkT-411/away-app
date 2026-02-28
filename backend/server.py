@@ -150,6 +150,7 @@ class Trip(BaseModel):
     start_location: str
     end_location: str
     country: Optional[str] = None  # Country where ride takes place
+    moto_type: Optional[str] = None  # Type of motorcycle for this ride
     date: str
     time: str
     distance: Optional[str] = None
@@ -167,6 +168,7 @@ class TripCreate(BaseModel):
     start_location: str
     end_location: str
     country: Optional[str] = None
+    moto_type: Optional[str] = None
     date: str
     time: str
     distance: Optional[str] = None
