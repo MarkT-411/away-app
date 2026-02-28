@@ -281,6 +281,12 @@ export default function CreateListingScreen() {
             />
           </View>
 
+          <MotoTypeSelector 
+            selectedType={selectedMotoType}
+            onSelect={setSelectedMotoType}
+            label="Compatible Moto Type"
+          />
+
           <View style={styles.bottomPadding} />
         </ScrollView>
       </KeyboardAvoidingView>
