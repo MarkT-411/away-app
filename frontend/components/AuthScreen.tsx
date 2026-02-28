@@ -495,6 +495,44 @@ export default function AuthScreen({ onComplete, onSkip }: AuthScreenProps) {
               </ScrollView>
 
               <TouchableOpacity
+                style={styles.submitButton}
+                onPress={handleRegister}
+              >
+                <Text style={styles.submitButtonText}>Continue</Text>
+                <Ionicons name="arrow-forward" size={20} color="#fff" />
+              </TouchableOpacity>
+            </View>
+          ) : step === 3 ? (
+            <View style={styles.form}>
+              <Text style={styles.prefLabel}>Select your preferred language</Text>
+              <View style={styles.languageGrid}>
+                {LANGUAGES.map(lang => (
+                  <TouchableOpacity
+                    key={lang.code}
+                    style={[
+                      styles.languageCard,
+                      tempLanguage === lang.code && styles.languageCardSelected
+                    ]}
+                    onPress={() => setTempLanguage(lang.code)}
+                  >
+                    <Text style={styles.languageFlag}>{lang.flag}</Text>
+                    <Text style={[
+                      styles.languageName,
+                      tempLanguage === lang.code && styles.languageNameSelected
+                    ]}>
+                      {lang.nativeName}
+                    </Text>
+                    <Text style={styles.languageNameEn}>{lang.name}</Text>
+                    {tempLanguage === lang.code && (
+                      <View style={styles.languageCheck}>
+                        <Ionicons name="checkmark" size={14} color="#fff" />
+                      </View>
+                    )}
+                  </TouchableOpacity>
+                ))}
+              </View>
+
+              <TouchableOpacity
                 style={[styles.submitButton, loading && styles.submitButtonDisabled]}
                 onPress={handleRegister}
                 disabled={loading}
@@ -509,7 +547,7 @@ export default function AuthScreen({ onComplete, onSkip }: AuthScreenProps) {
                 )}
               </TouchableOpacity>
             </View>
-          )}
+          ) : null}
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
