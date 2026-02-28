@@ -52,6 +52,7 @@ export default function MarketScreen() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const router = useRouter();
   const { selectedCountry, setSelectedCountry } = useCountry();
+  const { getMotoTypesParam } = useMotoTypes();
 
   const fetchItems = async () => {
     try {
@@ -62,6 +63,10 @@ export default function MarketScreen() {
       }
       if (selectedCountry && selectedCountry !== 'all') {
         params.append('country', selectedCountry);
+      }
+      const motoTypes = getMotoTypesParam();
+      if (motoTypes !== 'all') {
+        params.append('moto_types', motoTypes);
       }
       if (params.toString()) {
         url += `?${params.toString()}`;
@@ -81,12 +86,12 @@ export default function MarketScreen() {
 
   useEffect(() => {
     fetchItems();
-  }, [selectedCategory, selectedCountry]);
+  }, [selectedCategory, selectedCountry, getMotoTypesParam()]);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     fetchItems();
-  }, [selectedCategory, selectedCountry]);
+  }, [selectedCategory, selectedCountry, getMotoTypesParam()]);
 
   const formatPrice = (price: number) => {
     return `$${price.toLocaleString()}`;
