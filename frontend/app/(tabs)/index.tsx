@@ -27,6 +27,7 @@ interface Post {
   content: string;
   image?: string;
   country?: string;
+  moto_type?: string;
   likes: string[];
   comments_enabled: boolean;
   comments_count: number;
