@@ -2,8 +2,11 @@ import { Tabs } from 'expo-router';
 import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { Platform, View, StyleSheet } from 'react-native';
+import { useLanguage } from '../../context/LanguageContext';
 
 export default function TabLayout() {
+  const { t } = useLanguage();
+  
   return (
     <Tabs
       screenOptions={{
@@ -27,7 +30,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Feed',
+          title: t('tabs.feed'),
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="newspaper-outline" size={size} color={color} />
           ),
@@ -36,7 +39,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="events"
         options={{
-          title: 'Events',
+          title: t('tabs.events'),
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="calendar-outline" size={size} color={color} />
           ),
@@ -45,7 +48,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="rides"
         options={{
-          title: 'Rides',
+          title: t('tabs.rides'),
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="bicycle-outline" size={size} color={color} />
           ),
@@ -54,7 +57,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="tracks"
         options={{
-          title: 'Tracks',
+          title: t('tabs.tracks'),
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="navigate-outline" size={size} color={color} />
           ),
@@ -63,7 +66,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="market"
         options={{
-          title: 'Market',
+          title: t('tabs.market'),
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="cart-outline" size={size} color={color} />
           ),
