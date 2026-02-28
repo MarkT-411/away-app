@@ -76,6 +76,7 @@ export default function CreateEventScreen() {
           date: date.trim(),
           time: time.trim(),
           image: image,
+          moto_type: selectedMotoType,
           organizer_id: CURRENT_USER.id,
           organizer_name: CURRENT_USER.username,
           max_attendees: maxAttendees ? parseInt(maxAttendees) : null,
