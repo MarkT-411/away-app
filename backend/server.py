@@ -892,6 +892,101 @@ async def root():
 async def health_check():
     return {"status": "healthy"}
 
+# ==================== AUTHENTICATION ENDPOINTS ====================
+
+@api_router.post("/auth/register", response_model=AuthResponse)
+async def register_user(data: UserRegister):
+    """Register a new user with email and password"""
+    # Check if email already exists
+    existing_user = await db.users.find_one({"email": data.email.lower()})
+    if existing_user:
+        return AuthResponse(success=False, message="Email already registered")
+    
+    # Validate password
+    is_valid, error_msg = validate_password(data.password)
+    if not is_valid:
+        return AuthResponse(success=False, message=error_msg)
+    
+    # Check if username is taken
+    existing_username = await db.users.find_one({"username": data.username})
+    if existing_username:
+        return AuthResponse(success=False, message="Username already taken")
+    
+    # Create user
+    user_id = str(uuid.uuid4())
+    user = {
+        "id": user_id,
+        "email": data.email.lower(),
+        "password_hash": hash_password(data.password),
+        "username": data.username,
+        "country": data.country,
+        "moto_types": data.moto_types,
+        "followers": [],
+        "following": [],
+        "favorite_items": [],
+        "downloaded_tracks": [],
+        "biometric_enabled": False,
+        "created_at": datetime.utcnow()
+    }
+    
+    await db.users.insert_one(user)
+    
+    return AuthResponse(
+        success=True,
+        user_id=user_id,
+        username=data.username,
+        email=data.email.lower(),
+        message="Registration successful"
+    )
+
+@api_router.post("/auth/login", response_model=AuthResponse)
+async def login_user(data: UserLogin):
+    """Login with email and password"""
+    user = await db.users.find_one({"email": data.email.lower()})
+    
+    if not user:
+        return AuthResponse(success=False, message="Invalid email or password")
+    
+    if user.get("password_hash") != hash_password(data.password):
+        return AuthResponse(success=False, message="Invalid email or password")
+    
+    return AuthResponse(
+        success=True,
+        user_id=user["id"],
+        username=user["username"],
+        email=user["email"],
+        message="Login successful"
+    )
+
+@api_router.get("/auth/user/{user_id}")
+async def get_auth_user(user_id: str):
+    """Get authenticated user details"""
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    return {
+        "id": user["id"],
+        "email": user.get("email"),
+        "username": user.get("username"),
+        "avatar": user.get("avatar"),
+        "bio": user.get("bio"),
+        "country": user.get("country"),
+        "moto_types": user.get("moto_types", []),
+        "biometric_enabled": user.get("biometric_enabled", False)
+    }
+
+@api_router.post("/auth/enable-biometric/{user_id}")
+async def enable_biometric(user_id: str):
+    """Enable biometric authentication for user"""
+    result = await db.users.update_one(
+        {"id": user_id},
+        {"$set": {"biometric_enabled": True}}
+    )
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="User not found")
+    return {"success": True, "message": "Biometric authentication enabled"}
+
 @api_router.get("/moto-types")
 async def get_moto_types():
     """Get available motorcycle types"""
