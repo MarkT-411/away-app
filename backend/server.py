@@ -596,13 +596,19 @@ async def get_events(
     month: Optional[int] = None,
     year: Optional[int] = None,
     location: Optional[str] = None,
-    country: Optional[str] = None
+    country: Optional[str] = None,
+    moto_types: Optional[str] = None
 ):
     query = {}
     
     # Filter by country
     if country and country != "all":
         query["country"] = country
+    
+    # Filter by moto_types (comma-separated)
+    if moto_types and moto_types != "all":
+        types_list = [t.strip() for t in moto_types.split(",")]
+        query["moto_type"] = {"$in": types_list}
     
     # Filter by month and year if provided
     if month and year:
