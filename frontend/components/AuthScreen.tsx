@@ -232,8 +232,8 @@ export default function AuthScreen({ onComplete, onSkip }: AuthScreenProps) {
             </TouchableOpacity>
 
             <View style={styles.header}>
-              <Text style={styles.title}>Welcome Back</Text>
-              <Text style={styles.subtitle}>Login to your account</Text>
+              <Text style={styles.title}>{t('auth.welcomeBack')}</Text>
+              <Text style={styles.subtitle}>{t('auth.loginToAccount')}</Text>
             </View>
 
             <View style={styles.form}>
@@ -241,7 +241,7 @@ export default function AuthScreen({ onComplete, onSkip }: AuthScreenProps) {
                 <Ionicons name="mail-outline" size={20} color="#888" style={styles.inputIcon} />
                 <TextInput
                   style={styles.input}
-                  placeholder="Email"
+                  placeholder={t('auth.email')}
                   placeholderTextColor="#666"
                   value={email}
                   onChangeText={setEmail}
