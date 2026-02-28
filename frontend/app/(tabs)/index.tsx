@@ -285,8 +285,8 @@ export default function FeedScreen() {
   const renderEmpty = () => (
     <View style={styles.emptyContainer}>
       <Ionicons name="images-outline" size={64} color="#444" />
-      <Text style={styles.emptyTitle}>No posts yet</Text>
-      <Text style={styles.emptySubtitle}>Be the first to share something with the community!</Text>
+      <Text style={styles.emptyTitle}>{t('feed.noPosts')}</Text>
+      <Text style={styles.emptySubtitle}>{t('feed.beFirstToShare')}</Text>
     </View>
   );
 
