@@ -109,6 +109,12 @@ export default function TracksScreen() {
   }, [selectedDifficulty, selectedCountry, getMotoTypesParam()]);
 
   const handleDownload = async (trackId: string, fileName: string) => {
+    // Guests CANNOT download tracks
+    if (isGuest) {
+      setGuestPrompt({ visible: true, action: 'download GPX tracks' });
+      return;
+    }
+    
     setDownloading(trackId);
     try {
       const response = await fetch(`${API_URL}/api/tracks/${trackId}/download`);
