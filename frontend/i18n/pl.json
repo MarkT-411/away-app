@@ -1,0 +1,131 @@
+{
+  "common": {
+    "loading": "Ładowanie...",
+    "error": "Błąd",
+    "success": "Sukces",
+    "cancel": "Anuluj",
+    "save": "Zapisz",
+    "delete": "Usuń",
+    "edit": "Edytuj",
+    "close": "Zamknij",
+    "done": "Gotowe",
+    "back": "Wstecz",
+    "next": "Dalej",
+    "continue": "Kontynuuj",
+    "search": "Szukaj",
+    "filter": "Filtruj",
+    "all": "Wszystko",
+    "worldwide": "Cały świat",
+    "share": "Udostępnij"
+  },
+  "auth": {
+    "welcome": "Witaj w Moto Community",
+    "tagline": "Połącz się z motocyklistami z całego świata",
+    "createAccount": "Utwórz konto",
+    "login": "Zaloguj się",
+    "logout": "Wyloguj się",
+    "browseAsGuest": "Przeglądaj jako gość",
+    "guestNote": "Goście mogą tylko przeglądać",
+    "email": "Email",
+    "password": "Hasło",
+    "confirmPassword": "Potwierdź hasło",
+    "username": "Nazwa użytkownika",
+    "welcomeBack": "Witaj ponownie",
+    "loginToAccount": "Zaloguj się na swoje konto",
+    "enterDetails": "Wprowadź swoje dane",
+    "setPreferences": "Ustaw preferencje",
+    "chooseLanguage": "Wybierz język",
+    "alreadyHaveAccount": "Masz już konto?",
+    "dontHaveAccount": "Nie masz konta?",
+    "signUp": "Zarejestruj się",
+    "selectCountry": "Wybierz kraj (opcjonalnie)",
+    "selectMotoTypes": "Typy motocykli które lubisz",
+    "selectLanguage": "Wybierz preferowany język"
+  },
+  "guest": {
+    "accountRequired": "Wymagane konto",
+    "createAccountTo": "Utwórz konto aby",
+    "joinEvents": "dołączać do wydarzeń",
+    "joinRides": "dołączać do wyjazdów",
+    "downloadTracks": "pobierać trasy GPX",
+    "saveFavorites": "zapisywać ulubione"
+  },
+  "tabs": {
+    "feed": "Aktualności",
+    "events": "Wydarzenia",
+    "rides": "Wyjazdy",
+    "tracks": "Trasy",
+    "market": "Rynek"
+  },
+  "feed": {
+    "title": "Moto Community",
+    "newPost": "Nowy post",
+    "shareYourRide": "Podziel się swoją przejażdżką lub zadaj pytanie...",
+    "motorcycleType": "Typ motocykla",
+    "tagYourPost": "Oznacz post typem motocykla",
+    "postSettings": "Ustawienia postu",
+    "allowComments": "Pozwól na komentarze",
+    "post": "Opublikuj",
+    "like": "Lubię",
+    "comment": "Komentarz",
+    "follow": "Obserwuj",
+    "following": "Obserwujesz",
+    "noPosts": "Brak postów"
+  },
+  "events": {
+    "title": "Wydarzenia",
+    "join": "Dołącz",
+    "joined": "Dołączono",
+    "full": "Pełne",
+    "attendees": "uczestników",
+    "noEvents": "Brak wydarzeń"
+  },
+  "rides": {
+    "title": "Wyjazdy grupowe",
+    "join": "Dołącz",
+    "joined": "Dołączono",
+    "riders": "jeźdźców",
+    "noRides": "Brak zaplanowanych wyjazdów"
+  },
+  "tracks": {
+    "title": "Trasy GPX",
+    "download": "Pobierz",
+    "downloads": "pobrań",
+    "difficulty": "Trudność",
+    "easy": "Łatwa",
+    "moderate": "Średnia",
+    "hard": "Trudna",
+    "expert": "Ekspert",
+    "noTracks": "Brak tras"
+  },
+  "market": {
+    "title": "Rynek",
+    "contactSeller": "Skontaktuj się",
+    "favorite": "Ulubione",
+    "new": "Nowy",
+    "likeNew": "Jak nowy",
+    "good": "Dobry",
+    "fair": "Dostateczny",
+    "noItems": "Brak przedmiotów"
+  },
+  "profile": {
+    "title": "Profil",
+    "followers": "Obserwujący",
+    "following": "Obserwowani",
+    "settings": "Ustawienia"
+  },
+  "notifications": {
+    "title": "Powiadomienia",
+    "noNotifications": "Brak powiadomień"
+  },
+  "motoTypes": {
+    "all": "Wszystkie typy",
+    "sport": "Sport",
+    "scooter": "Skuter",
+    "adventure": "Adventure",
+    "naked": "Naked",
+    "cruiser": "Cruiser",
+    "enduro": "Enduro",
+    "cafeRacer": "Cafe Racer"
+  }
+}

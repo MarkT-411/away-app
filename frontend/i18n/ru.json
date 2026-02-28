@@ -1,0 +1,131 @@
+{
+  "common": {
+    "loading": "Загрузка...",
+    "error": "Ошибка",
+    "success": "Успешно",
+    "cancel": "Отмена",
+    "save": "Сохранить",
+    "delete": "Удалить",
+    "edit": "Редактировать",
+    "close": "Закрыть",
+    "done": "Готово",
+    "back": "Назад",
+    "next": "Далее",
+    "continue": "Продолжить",
+    "search": "Поиск",
+    "filter": "Фильтр",
+    "all": "Все",
+    "worldwide": "Весь мир",
+    "share": "Поделиться"
+  },
+  "auth": {
+    "welcome": "Добро пожаловать в Moto Community",
+    "tagline": "Общайтесь с мотоциклистами со всего мира",
+    "createAccount": "Создать аккаунт",
+    "login": "Войти",
+    "logout": "Выйти",
+    "browseAsGuest": "Войти как гость",
+    "guestNote": "Гости могут только просматривать",
+    "email": "Email",
+    "password": "Пароль",
+    "confirmPassword": "Подтвердите пароль",
+    "username": "Имя пользователя",
+    "welcomeBack": "С возвращением",
+    "loginToAccount": "Войдите в свой аккаунт",
+    "enterDetails": "Введите данные",
+    "setPreferences": "Настройте предпочтения",
+    "chooseLanguage": "Выберите язык",
+    "alreadyHaveAccount": "Уже есть аккаунт?",
+    "dontHaveAccount": "Нет аккаунта?",
+    "signUp": "Регистрация",
+    "selectCountry": "Выберите страну (опционально)",
+    "selectMotoTypes": "Типы мотоциклов которые вам нравятся",
+    "selectLanguage": "Выберите предпочитаемый язык"
+  },
+  "guest": {
+    "accountRequired": "Требуется аккаунт",
+    "createAccountTo": "Создайте аккаунт чтобы",
+    "joinEvents": "присоединяться к событиям",
+    "joinRides": "присоединяться к поездкам",
+    "downloadTracks": "скачивать GPX треки",
+    "saveFavorites": "сохранять в избранное"
+  },
+  "tabs": {
+    "feed": "Лента",
+    "events": "События",
+    "rides": "Поездки",
+    "tracks": "Треки",
+    "market": "Магазин"
+  },
+  "feed": {
+    "title": "Moto Community",
+    "newPost": "Новый пост",
+    "shareYourRide": "Поделитесь поездкой или задайте вопрос...",
+    "motorcycleType": "Тип мотоцикла",
+    "tagYourPost": "Отметьте пост типом мотоцикла",
+    "postSettings": "Настройки поста",
+    "allowComments": "Разрешить комментарии",
+    "post": "Опубликовать",
+    "like": "Нравится",
+    "comment": "Комментарий",
+    "follow": "Подписаться",
+    "following": "Подписан",
+    "noPosts": "Нет постов"
+  },
+  "events": {
+    "title": "События",
+    "join": "Присоединиться",
+    "joined": "Участвую",
+    "full": "Заполнено",
+    "attendees": "участников",
+    "noEvents": "Нет событий"
+  },
+  "rides": {
+    "title": "Групповые поездки",
+    "join": "Присоединиться",
+    "joined": "Участвую",
+    "riders": "мотоциклистов",
+    "noRides": "Нет запланированных поездок"
+  },
+  "tracks": {
+    "title": "GPX Треки",
+    "download": "Скачать",
+    "downloads": "скачиваний",
+    "difficulty": "Сложность",
+    "easy": "Легко",
+    "moderate": "Средне",
+    "hard": "Сложно",
+    "expert": "Эксперт",
+    "noTracks": "Нет треков"
+  },
+  "market": {
+    "title": "Магазин",
+    "contactSeller": "Связаться с продавцом",
+    "favorite": "В избранное",
+    "new": "Новый",
+    "likeNew": "Как новый",
+    "good": "Хороший",
+    "fair": "Удовлетворительный",
+    "noItems": "Нет товаров"
+  },
+  "profile": {
+    "title": "Профиль",
+    "followers": "Подписчики",
+    "following": "Подписки",
+    "settings": "Настройки"
+  },
+  "notifications": {
+    "title": "Уведомления",
+    "noNotifications": "Нет уведомлений"
+  },
+  "motoTypes": {
+    "all": "Все типы",
+    "sport": "Спорт",
+    "scooter": "Скутер",
+    "adventure": "Приключения",
+    "naked": "Нейкед",
+    "cruiser": "Круизер",
+    "enduro": "Эндуро",
+    "cafeRacer": "Кафе Рейсер"
+  }
+}

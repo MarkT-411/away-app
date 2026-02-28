@@ -1,0 +1,131 @@
+{
+  "common": {
+    "loading": "جاري التحميل...",
+    "error": "خطأ",
+    "success": "نجاح",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "close": "إغلاق",
+    "done": "تم",
+    "back": "رجوع",
+    "next": "التالي",
+    "continue": "متابعة",
+    "search": "بحث",
+    "filter": "تصفية",
+    "all": "الكل",
+    "worldwide": "عالمي",
+    "share": "مشاركة"
+  },
+  "auth": {
+    "welcome": "مرحباً بك في مجتمع الموتو",
+    "tagline": "تواصل مع الدراجين حول العالم",
+    "createAccount": "إنشاء حساب",
+    "login": "تسجيل الدخول",
+    "logout": "تسجيل الخروج",
+    "browseAsGuest": "تصفح كضيف",
+    "guestNote": "يمكن للضيوف التصفح فقط",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "username": "اسم المستخدم",
+    "welcomeBack": "مرحباً بعودتك",
+    "loginToAccount": "تسجيل الدخول إلى حسابك",
+    "enterDetails": "أدخل بياناتك",
+    "setPreferences": "حدد تفضيلاتك",
+    "chooseLanguage": "اختر لغتك",
+    "alreadyHaveAccount": "هل لديك حساب؟",
+    "dontHaveAccount": "ليس لديك حساب؟",
+    "signUp": "تسجيل",
+    "selectCountry": "اختر بلدك (اختياري)",
+    "selectMotoTypes": "أنواع الدراجات التي تفضلها",
+    "selectLanguage": "اختر لغتك المفضلة"
+  },
+  "guest": {
+    "accountRequired": "يتطلب حساب",
+    "createAccountTo": "أنشئ حساباً لـ",
+    "joinEvents": "الانضمام للفعاليات",
+    "joinRides": "الانضمام للرحلات",
+    "downloadTracks": "تحميل مسارات GPX",
+    "saveFavorites": "حفظ في المفضلة"
+  },
+  "tabs": {
+    "feed": "الرئيسية",
+    "events": "فعاليات",
+    "rides": "رحلات",
+    "tracks": "مسارات",
+    "market": "سوق"
+  },
+  "feed": {
+    "title": "مجتمع الموتو",
+    "newPost": "منشور جديد",
+    "shareYourRide": "شارك رحلتك أو اسأل سؤالاً...",
+    "motorcycleType": "نوع الدراجة",
+    "tagYourPost": "وسم منشورك بنوع الدراجة",
+    "postSettings": "إعدادات المنشور",
+    "allowComments": "السماح بالتعليقات",
+    "post": "نشر",
+    "like": "إعجاب",
+    "comment": "تعليق",
+    "follow": "متابعة",
+    "following": "متابَع",
+    "noPosts": "لا توجد منشورات"
+  },
+  "events": {
+    "title": "الفعاليات",
+    "join": "انضمام",
+    "joined": "مشترك",
+    "full": "مكتمل",
+    "attendees": "مشارك",
+    "noEvents": "لا توجد فعاليات"
+  },
+  "rides": {
+    "title": "الرحلات الجماعية",
+    "join": "انضمام",
+    "joined": "مشترك",
+    "riders": "دراج",
+    "noRides": "لا توجد رحلات"
+  },
+  "tracks": {
+    "title": "مسارات GPX",
+    "download": "تحميل",
+    "downloads": "تحميل",
+    "difficulty": "الصعوبة",
+    "easy": "سهل",
+    "moderate": "متوسط",
+    "hard": "صعب",
+    "expert": "خبير",
+    "noTracks": "لا توجد مسارات"
+  },
+  "market": {
+    "title": "السوق",
+    "contactSeller": "تواصل مع البائع",
+    "favorite": "مفضل",
+    "new": "جديد",
+    "likeNew": "شبه جديد",
+    "good": "جيد",
+    "fair": "مقبول",
+    "noItems": "لا توجد عناصر"
+  },
+  "profile": {
+    "title": "الملف الشخصي",
+    "followers": "متابعون",
+    "following": "متابَعون",
+    "settings": "الإعدادات"
+  },
+  "notifications": {
+    "title": "الإشعارات",
+    "noNotifications": "لا توجد إشعارات"
+  },
+  "motoTypes": {
+    "all": "كل الأنواع",
+    "sport": "رياضي",
+    "scooter": "سكوتر",
+    "adventure": "مغامرة",
+    "naked": "نيكد",
+    "cruiser": "كروزر",
+    "enduro": "إندورو",
+    "cafeRacer": "كافيه ريسر"
+  }
+}
