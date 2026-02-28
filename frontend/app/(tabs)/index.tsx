@@ -298,7 +298,7 @@ export default function FeedScreen() {
             <Ionicons name="person-circle" size={32} color="#FF6B35" />
           </View>
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Moto Community</Text>
+        <Text style={styles.headerTitle}>{t('feed.title')}</Text>
         <View style={styles.headerActions}>
           <MotoTypePicker compact />
           <CountryPicker 
