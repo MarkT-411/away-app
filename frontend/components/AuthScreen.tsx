@@ -313,7 +313,7 @@ export default function AuthScreen({ onComplete, onSkip }: AuthScreenProps) {
         <ScrollView contentContainerStyle={styles.scrollContent}>
           <TouchableOpacity 
             style={styles.backButton} 
-            onPress={() => step === 1 ? setMode('welcome') : setStep(1)}
+            onPress={() => step === 1 ? setMode('welcome') : setStep(step - 1)}
           >
             <Ionicons name="arrow-back" size={24} color="#fff" />
           </TouchableOpacity>
@@ -321,15 +321,17 @@ export default function AuthScreen({ onComplete, onSkip }: AuthScreenProps) {
           <View style={styles.header}>
             <Text style={styles.title}>Create Account</Text>
             <Text style={styles.subtitle}>
-              {step === 1 ? 'Enter your details' : 'Set your preferences'}
+              {step === 1 ? 'Enter your details' : step === 2 ? 'Set your preferences' : 'Choose your language'}
             </Text>
           </View>
 
-          {/* Progress indicator */}
+          {/* Progress indicator - 3 steps */}
           <View style={styles.progressContainer}>
             <View style={[styles.progressDot, step >= 1 && styles.progressDotActive]} />
             <View style={styles.progressLine} />
             <View style={[styles.progressDot, step >= 2 && styles.progressDotActive]} />
+            <View style={styles.progressLine} />
+            <View style={[styles.progressDot, step >= 3 && styles.progressDotActive]} />
           </View>
 
           {step === 1 ? (
