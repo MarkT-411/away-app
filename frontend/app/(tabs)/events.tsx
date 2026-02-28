@@ -16,8 +16,10 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useCountry } from '../../context/CountryContext';
 import { useMotoTypes, getMotoTypeIcon } from '../../context/MotoTypesContext';
+import { useAuth } from '../../context/AuthContext';
 import CountryPicker from '../../components/CountryPicker';
 import MotoTypePicker from '../../components/MotoTypePicker';
+import GuestPrompt from '../../components/GuestPrompt';
 
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
 
@@ -41,11 +43,6 @@ interface CalendarData {
   year: number;
   calendar: { [key: number]: Event[] };
 }
-
-const CURRENT_USER = {
-  id: 'user-1',
-  username: 'RiderJohn',
-};
 
 const MONTHS = [
   'January', 'February', 'March', 'April', 'May', 'June',
