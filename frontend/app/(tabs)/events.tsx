@@ -156,9 +156,15 @@ export default function EventsScreen() {
   }, [viewMode, selectedYear]);
 
   const handleJoin = async (eventId: string) => {
+    // Guests CANNOT join events
+    if (isGuest) {
+      setGuestPrompt({ visible: true, action: 'join events' });
+      return;
+    }
+    
     try {
       const response = await fetch(
-        `${API_URL}/api/events/${eventId}/join?user_id=${CURRENT_USER.id}`,
+        `${API_URL}/api/events/${eventId}/join?user_id=${currentUser.id}`,
         { method: 'POST' }
       );
       if (response.ok) {
