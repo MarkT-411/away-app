@@ -274,7 +274,7 @@ export default function MarketScreen() {
           />
           <TouchableOpacity 
             style={styles.addButton}
-            onPress={() => router.push('/create-listing')}
+            onPress={() => requireAuth('create a listing', () => router.push('/create-listing'))}
           >
             <Ionicons name="add-circle" size={32} color="#FF6B35" />
           </TouchableOpacity>
