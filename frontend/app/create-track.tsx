@@ -285,6 +285,11 @@ export default function CreateTrackScreen() {
             />
           </View>
 
+          <MotoTypeSelector 
+            selectedType={selectedMotoType}
+            onSelect={setSelectedMotoType}
+          />
+
           <View style={styles.bottomPadding} />
         </ScrollView>
       </KeyboardAvoidingView>
