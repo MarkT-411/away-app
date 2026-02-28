@@ -220,6 +220,7 @@ class GpxTrack(BaseModel):
     distance: Optional[str] = None
     elevation_gain: Optional[str] = None
     difficulty: str  # easy, moderate, hard, expert
+    moto_type: Optional[str] = None  # Type of motorcycle suitable for this track
     region: Optional[str] = None
     country: Optional[str] = None  # Country where track is located
     uploader_id: str
@@ -235,6 +236,7 @@ class GpxTrackCreate(BaseModel):
     distance: Optional[str] = None
     elevation_gain: Optional[str] = None
     difficulty: str
+    moto_type: Optional[str] = None
     region: Optional[str] = None
     country: Optional[str] = None
     uploader_id: str
