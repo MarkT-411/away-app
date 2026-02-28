@@ -502,7 +502,7 @@ export default function AuthScreen({ onComplete, onSkip }: AuthScreenProps) {
                 <Ionicons name="arrow-forward" size={20} color="#fff" />
               </TouchableOpacity>
             </View>
-          ) : step === 3 ? (
+          ) : (
             <View style={styles.form}>
               <Text style={styles.prefLabel}>Select your preferred language</Text>
               <View style={styles.languageGrid}>
@@ -547,7 +547,7 @@ export default function AuthScreen({ onComplete, onSkip }: AuthScreenProps) {
                 )}
               </TouchableOpacity>
             </View>
-          ) : null}
+          )}
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
