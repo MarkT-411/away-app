@@ -105,14 +105,14 @@ export default function FeedScreen() {
     fetchPosts();
     fetchFollowing();
     fetchUnreadCount();
-  }, [selectedCountry]);
+  }, [selectedCountry, getMotoTypesParam()]);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     fetchPosts();
     fetchFollowing();
     fetchUnreadCount();
-  }, [selectedCountry]);
+  }, [selectedCountry, getMotoTypesParam()]);
 
   const handleLike = async (postId: string) => {
     try {
