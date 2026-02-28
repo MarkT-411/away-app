@@ -106,12 +106,12 @@ export default function ProfileScreen() {
   };
 
   const TABS = [
-    { id: 'posts', label: 'Posts', icon: 'newspaper-outline' },
-    { id: 'events', label: 'Events', icon: 'calendar-outline' },
-    { id: 'rides', label: 'Rides', icon: 'bicycle-outline' },
-    { id: 'market', label: 'Market', icon: 'cart-outline' },
-    { id: 'tracks', label: 'Tracks', icon: 'navigate-outline' },
-    { id: 'followers', label: 'Network', icon: 'people-outline' },
+    { id: 'posts', label: t('profile.posts'), icon: 'newspaper-outline' },
+    { id: 'events', label: t('profile.events'), icon: 'calendar-outline' },
+    { id: 'rides', label: t('profile.rides'), icon: 'bicycle-outline' },
+    { id: 'market', label: t('profile.market'), icon: 'cart-outline' },
+    { id: 'tracks', label: t('profile.tracks'), icon: 'navigate-outline' },
+    { id: 'followers', label: t('profile.network'), icon: 'people-outline' },
   ];
 
   const renderPostItem = (item: any) => (
