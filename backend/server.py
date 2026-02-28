@@ -119,6 +119,7 @@ class Event(BaseModel):
     description: str
     location: str
     country: Optional[str] = None  # Country where event takes place
+    moto_type: Optional[str] = None  # Type of motorcycle for this event
     date: str
     time: str
     image: Optional[str] = None  # Base64 image
@@ -133,6 +134,7 @@ class EventCreate(BaseModel):
     description: str
     location: str
     country: Optional[str] = None
+    moto_type: Optional[str] = None
     date: str
     time: str
     image: Optional[str] = None
