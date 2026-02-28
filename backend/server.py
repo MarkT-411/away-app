@@ -791,7 +791,8 @@ async def create_track(track_input: GpxTrackCreate):
 async def get_tracks(
     difficulty: Optional[str] = None,
     region: Optional[str] = None,
-    country: Optional[str] = None
+    country: Optional[str] = None,
+    moto_types: Optional[str] = None
 ):
     query = {}
     if difficulty:
@@ -800,6 +801,10 @@ async def get_tracks(
         query["region"] = {"$regex": region, "$options": "i"}
     if country and country != "all":
         query["country"] = country
+    # Filter by moto_types (comma-separated)
+    if moto_types and moto_types != "all":
+        types_list = [t.strip() for t in moto_types.split(",")]
+        query["moto_type"] = {"$in": types_list}
     
     tracks = await db.gpx_tracks.find(query).sort("created_at", -1).to_list(100)
     return [GpxTrack(**track) for track in tracks]
