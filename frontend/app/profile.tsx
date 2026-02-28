@@ -503,6 +503,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#fff',
   },
+  headerRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  logoutButton: {
+    marginRight: 16,
+  },
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
