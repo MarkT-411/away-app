@@ -436,15 +436,15 @@ export default function ProfileScreen() {
           <View style={styles.statsRow}>
             <View style={styles.statItem}>
               <Text style={styles.statNumber}>{profile?.posts.length || 0}</Text>
-              <Text style={styles.statLabel}>Posts</Text>
+              <Text style={styles.statLabel}>{t('profile.posts')}</Text>
             </View>
             <View style={styles.statItem}>
               <Text style={styles.statNumber}>{profile?.user.followers_count || 0}</Text>
-              <Text style={styles.statLabel}>Followers</Text>
+              <Text style={styles.statLabel}>{t('profile.followers')}</Text>
             </View>
             <View style={styles.statItem}>
               <Text style={styles.statNumber}>{profile?.user.following_count || 0}</Text>
-              <Text style={styles.statLabel}>Following</Text>
+              <Text style={styles.statLabel}>{t('profile.following')}</Text>
             </View>
           </View>
         </View>
