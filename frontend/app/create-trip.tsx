@@ -83,6 +83,7 @@ export default function CreateTripScreen() {
           distance: distance.trim() || null,
           duration: duration.trim() || null,
           image: image,
+          moto_type: selectedMotoType,
           organizer_id: CURRENT_USER.id,
           organizer_name: CURRENT_USER.username,
           max_participants: maxParticipants ? parseInt(maxParticipants) : null,
