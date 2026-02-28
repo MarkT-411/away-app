@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter, HTTPException, UploadFile, File
+from fastapi import FastAPI, APIRouter, HTTPException, UploadFile, File, Query
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -13,6 +13,17 @@ import base64
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
+
+# Motorcycle Types
+MOTO_TYPES = [
+    "sport",
+    "scooter", 
+    "adventure",
+    "naked",
+    "cruiser",
+    "enduro",
+    "cafe_racer"
+]
 
 # MongoDB connection
 mongo_url = os.environ['MONGO_URL']
