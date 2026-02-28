@@ -689,10 +689,14 @@ async def create_trip(trip_input: TripCreate):
     return trip
 
 @api_router.get("/trips", response_model=List[Trip])
-async def get_trips(country: Optional[str] = None):
+async def get_trips(country: Optional[str] = None, moto_types: Optional[str] = None):
     query = {}
     if country and country != "all":
         query["country"] = country
+    # Filter by moto_types (comma-separated)
+    if moto_types and moto_types != "all":
+        types_list = [t.strip() for t in moto_types.split(",")]
+        query["moto_type"] = {"$in": types_list}
     trips = await db.trips.find(query).sort("date", 1).to_list(100)
     return [Trip(**trip) for trip in trips]
 
