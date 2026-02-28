@@ -45,6 +45,7 @@ class User(BaseModel):
     avatar: Optional[str] = None  # Base64 image
     bio: Optional[str] = None
     country: Optional[str] = None  # User's country preference
+    moto_types: List[str] = Field(default_factory=list)  # Preferred motorcycle types
     followers: List[str] = Field(default_factory=list)  # List of user_ids who follow this user
     following: List[str] = Field(default_factory=list)  # List of user_ids this user follows
     favorite_items: List[str] = Field(default_factory=list)  # Favorite market items
@@ -56,6 +57,7 @@ class UserCreate(BaseModel):
     avatar: Optional[str] = None
     bio: Optional[str] = None
     country: Optional[str] = None
+    moto_types: List[str] = Field(default_factory=list)
 
 # Notification Model
 class Notification(BaseModel):
