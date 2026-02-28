@@ -48,12 +48,21 @@ export default function FeedScreen() {
   const [unreadCount, setUnreadCount] = useState(0);
   const router = useRouter();
   const { selectedCountry, setSelectedCountry } = useCountry();
+  const { getMotoTypesParam } = useMotoTypes();
 
   const fetchPosts = async () => {
     try {
-      let url = `${API_URL}/api/posts`;
+      const params = new URLSearchParams();
       if (selectedCountry && selectedCountry !== 'all') {
-        url += `?country=${selectedCountry}`;
+        params.append('country', selectedCountry);
+      }
+      const motoTypes = getMotoTypesParam();
+      if (motoTypes !== 'all') {
+        params.append('moto_types', motoTypes);
+      }
+      let url = `${API_URL}/api/posts`;
+      if (params.toString()) {
+        url += `?${params.toString()}`;
       }
       const response = await fetch(url);
       if (response.ok) {
