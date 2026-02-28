@@ -283,7 +283,7 @@ export default function TracksScreen() {
           />
           <TouchableOpacity 
             style={styles.addButton}
-            onPress={() => router.push('/create-track')}
+            onPress={() => requireAuth('upload a GPX track', () => router.push('/create-track'))}
           >
             <Ionicons name="add-circle" size={32} color="#FF6B35" />
           </TouchableOpacity>
