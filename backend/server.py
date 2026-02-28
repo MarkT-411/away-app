@@ -186,6 +186,7 @@ class MarketItem(BaseModel):
     price: float
     condition: str  # new, like-new, good, fair
     category: str  # parts, accessories, gear, bikes
+    moto_type: Optional[str] = None  # Type of motorcycle this item is for
     images: List[str] = Field(default_factory=list)  # Base64 images
     seller_id: str
     seller_name: str
@@ -201,6 +202,7 @@ class MarketItemCreate(BaseModel):
     price: float
     condition: str
     category: str
+    moto_type: Optional[str] = None
     images: List[str] = Field(default_factory=list)
     seller_id: str
     seller_name: str
