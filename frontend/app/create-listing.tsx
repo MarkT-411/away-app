@@ -99,6 +99,7 @@ export default function CreateListingScreen() {
           price: priceNum,
           condition,
           category,
+          moto_type: selectedMotoType,
           images,
           seller_id: CURRENT_USER.id,
           seller_name: CURRENT_USER.username,
