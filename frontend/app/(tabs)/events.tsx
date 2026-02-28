@@ -70,6 +70,7 @@ export default function EventsScreen() {
   const { selectedCountry, setSelectedCountry } = useCountry();
   const { getMotoTypesParam } = useMotoTypes();
   const { user, isGuest } = useAuth();
+  const { t } = useLanguage();
 
   const currentUser = user ? { id: user.id, username: user.username } : { id: 'guest', username: 'Guest' };
 
