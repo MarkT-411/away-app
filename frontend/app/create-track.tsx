@@ -16,6 +16,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import * as DocumentPicker from 'expo-document-picker';
 import * as FileSystem from 'expo-file-system';
+import MotoTypeSelector from '../components/MotoTypeSelector';
 
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
 
@@ -38,6 +39,7 @@ export default function CreateTrackScreen() {
   const [elevationGain, setElevationGain] = useState('');
   const [difficulty, setDifficulty] = useState('moderate');
   const [region, setRegion] = useState('');
+  const [selectedMotoType, setSelectedMotoType] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<{
     name: string;
     content: string;
