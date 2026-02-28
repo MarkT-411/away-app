@@ -80,6 +80,8 @@ class AuthResponse(BaseModel):
 # User Model
 class User(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    email: Optional[str] = None  # Email for registered users
+    password_hash: Optional[str] = None  # Hashed password
     username: str
     avatar: Optional[str] = None  # Base64 image
     bio: Optional[str] = None
@@ -89,6 +91,7 @@ class User(BaseModel):
     following: List[str] = Field(default_factory=list)  # List of user_ids this user follows
     favorite_items: List[str] = Field(default_factory=list)  # Favorite market items
     downloaded_tracks: List[str] = Field(default_factory=list)  # Downloaded GPX tracks
+    biometric_enabled: bool = False  # Whether biometric auth is enabled
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
 class UserCreate(BaseModel):
