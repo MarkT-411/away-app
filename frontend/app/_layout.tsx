@@ -3,10 +3,14 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import { CountryProvider, useCountry } from '../context/CountryContext';
+import { MotoTypesProvider, useMotoTypes } from '../context/MotoTypesContext';
 import WelcomeScreen from '../components/WelcomeScreen';
 
 function AppContent() {
-  const { isOnboarded, setIsOnboarded, setSelectedCountry, loading } = useCountry();
+  const { isOnboarded, setIsOnboarded, setSelectedCountry, loading: countryLoading } = useCountry();
+  const { setSelectedMotoTypes, loading: motoTypesLoading } = useMotoTypes();
+
+  const loading = countryLoading || motoTypesLoading;
 
   if (loading) {
     return (
@@ -19,8 +23,9 @@ function AppContent() {
   if (!isOnboarded) {
     return (
       <WelcomeScreen
-        onComplete={(country) => {
+        onComplete={(country, motoTypes) => {
           setSelectedCountry(country);
+          setSelectedMotoTypes(motoTypes);
           setIsOnboarded(true);
         }}
       />
@@ -40,6 +45,7 @@ function AppContent() {
       <Stack.Screen name="trip-details" options={{ headerShown: false }} />
       <Stack.Screen name="market-details" options={{ headerShown: false }} />
       <Stack.Screen name="notifications" options={{ headerShown: false }} />
+      <Stack.Screen name="profile" options={{ headerShown: false }} />
       <Stack.Screen name="create-post" options={{ headerShown: false, presentation: 'modal' }} />
       <Stack.Screen name="create-event" options={{ headerShown: false, presentation: 'modal' }} />
       <Stack.Screen name="create-trip" options={{ headerShown: false, presentation: 'modal' }} />
@@ -52,8 +58,10 @@ function AppContent() {
 export default function RootLayout() {
   return (
     <CountryProvider>
-      <StatusBar style="light" />
-      <AppContent />
+      <MotoTypesProvider>
+        <StatusBar style="light" />
+        <AppContent />
+      </MotoTypesProvider>
     </CountryProvider>
   );
 }
