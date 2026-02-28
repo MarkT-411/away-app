@@ -69,6 +69,7 @@ export default function EventsScreen() {
   const [showFilters, setShowFilters] = useState(false);
   const router = useRouter();
   const { selectedCountry, setSelectedCountry } = useCountry();
+  const { getMotoTypesParam } = useMotoTypes();
 
   const fetchEvents = async () => {
     try {
@@ -84,6 +85,10 @@ export default function EventsScreen() {
       }
       if (selectedCountry && selectedCountry !== 'all') {
         params.append('country', selectedCountry);
+      }
+      const motoTypes = getMotoTypesParam();
+      if (motoTypes !== 'all') {
+        params.append('moto_types', motoTypes);
       }
       
       if (params.toString()) {
@@ -109,6 +114,10 @@ export default function EventsScreen() {
       if (selectedCountry && selectedCountry !== 'all') {
         url += `&country=${selectedCountry}`;
       }
+      const motoTypes = getMotoTypesParam();
+      if (motoTypes !== 'all') {
+        url += `&moto_types=${motoTypes}`;
+      }
       const response = await fetch(url);
       if (response.ok) {
         const data = await response.json();
@@ -125,7 +134,7 @@ export default function EventsScreen() {
     } else {
       fetchEvents();
     }
-  }, [viewMode, selectedYear, selectedMonth, filterLocation, selectedCountry]);
+  }, [viewMode, selectedYear, selectedMonth, filterLocation, selectedCountry, getMotoTypesParam()]);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
