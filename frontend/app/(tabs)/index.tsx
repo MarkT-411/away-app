@@ -229,7 +229,7 @@ export default function FeedScreen() {
                 color={isFollowing ? "#FF6B35" : "#fff"} 
               />
               <Text style={[styles.followButtonText, isFollowing && styles.followingButtonText]}>
-                {isFollowing ? 'Following' : 'Follow'}
+                {isFollowing ? t('feed.following') : t('feed.follow')}
               </Text>
             </TouchableOpacity>
           )}
