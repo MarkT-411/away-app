@@ -5,15 +5,17 @@ import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import { CountryProvider, useCountry } from '../context/CountryContext';
 import { MotoTypesProvider, useMotoTypes } from '../context/MotoTypesContext';
 import { AuthProvider, useAuth } from '../context/AuthContext';
+import { LanguageProvider, useLanguage } from '../context/LanguageContext';
 import AuthScreen from '../components/AuthScreen';
 
 function AppContent() {
   const { isOnboarded, setIsOnboarded, setSelectedCountry, loading: countryLoading } = useCountry();
   const { setSelectedMotoTypes, loading: motoTypesLoading } = useMotoTypes();
   const { isAuthenticated, isGuest, isLoading: authLoading, logout } = useAuth();
+  const { loading: languageLoading } = useLanguage();
   const [showAuth, setShowAuth] = useState(false);
 
-  const loading = countryLoading || motoTypesLoading || authLoading;
+  const loading = countryLoading || motoTypesLoading || authLoading || languageLoading;
 
   if (loading) {
     return (
