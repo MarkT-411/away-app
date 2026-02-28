@@ -192,7 +192,7 @@ export default function AuthScreen({ onComplete, onSkip }: AuthScreenProps) {
 
             <TouchableOpacity
               style={styles.guestButton}
-              onPress={onSkip}
+              onPress={handleSkip}
             >
               <Text style={styles.guestButtonText}>Browse as Guest</Text>
               <Ionicons name="arrow-forward" size={18} color="#888" />
