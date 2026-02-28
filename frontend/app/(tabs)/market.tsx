@@ -55,6 +55,7 @@ export default function MarketScreen() {
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [favoriteItems, setFavoriteItems] = useState<string[]>([]);
   const router = useRouter();
   const { selectedCountry, setSelectedCountry } = useCountry();
   const { getMotoTypesParam } = useMotoTypes();
@@ -89,13 +90,47 @@ export default function MarketScreen() {
     }
   };
 
+  const fetchFavorites = async () => {
+    try {
+      const response = await fetch(`${API_URL}/api/profile/${CURRENT_USER.id}`);
+      if (response.ok) {
+        const data = await response.json();
+        setFavoriteItems(data.favorite_items?.map((i: any) => i.id) || []);
+      }
+    } catch (error) {
+      console.error('Error fetching favorites:', error);
+    }
+  };
+
+  const handleToggleFavorite = async (itemId: string, e: any) => {
+    e.stopPropagation();
+    try {
+      const response = await fetch(
+        `${API_URL}/api/market/${itemId}/favorite?user_id=${CURRENT_USER.id}`,
+        { method: 'POST' }
+      );
+      if (response.ok) {
+        const result = await response.json();
+        if (result.is_favorite) {
+          setFavoriteItems([...favoriteItems, itemId]);
+        } else {
+          setFavoriteItems(favoriteItems.filter(id => id !== itemId));
+        }
+      }
+    } catch (error) {
+      console.error('Error toggling favorite:', error);
+    }
+  };
+
   useEffect(() => {
     fetchItems();
+    fetchFavorites();
   }, [selectedCategory, selectedCountry, getMotoTypesParam()]);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     fetchItems();
+    fetchFavorites();
   }, [selectedCategory, selectedCountry, getMotoTypesParam()]);
 
   const formatPrice = (price: number) => {
