@@ -5,11 +5,13 @@ from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
 from pathlib import Path
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, validator
 from typing import List, Optional
 import uuid
 from datetime import datetime
 import base64
+import hashlib
+import re
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -35,6 +37,43 @@ app = FastAPI()
 
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
+
+# ==================== HELPER FUNCTIONS ====================
+
+def hash_password(password: str) -> str:
+    """Hash password using SHA-256"""
+    return hashlib.sha256(password.encode()).hexdigest()
+
+def validate_password(password: str) -> tuple[bool, str]:
+    """Validate password requirements: min 6 chars, 1 number, 1 special char"""
+    if len(password) < 6:
+        return False, "Password must be at least 6 characters"
+    if not re.search(r'\d', password):
+        return False, "Password must contain at least 1 number"
+    if not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
+        return False, "Password must contain at least 1 special character"
+    return True, ""
+
+# ==================== MODELS ====================
+
+# Auth Models
+class UserRegister(BaseModel):
+    email: str
+    password: str
+    username: str
+    country: Optional[str] = None
+    moto_types: List[str] = Field(default_factory=list)
+
+class UserLogin(BaseModel):
+    email: str
+    password: str
+
+class AuthResponse(BaseModel):
+    success: bool
+    user_id: Optional[str] = None
+    username: Optional[str] = None
+    email: Optional[str] = None
+    message: Optional[str] = None
 
 # ==================== MODELS ====================
 
