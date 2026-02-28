@@ -48,9 +48,22 @@ export default function FeedScreen() {
   const [refreshing, setRefreshing] = useState(false);
   const [followingUsers, setFollowingUsers] = useState<string[]>([]);
   const [unreadCount, setUnreadCount] = useState(0);
+  const [guestPrompt, setGuestPrompt] = useState<{ visible: boolean; action: string }>({ visible: false, action: '' });
   const router = useRouter();
   const { selectedCountry, setSelectedCountry } = useCountry();
   const { getMotoTypesParam } = useMotoTypes();
+  const { user, isGuest, isAuthenticated } = useAuth();
+
+  // Use authenticated user or guest placeholder
+  const currentUser = user ? { id: user.id, username: user.username, avatar: user.avatar || null } : { id: 'guest', username: 'Guest', avatar: null };
+
+  const requireAuth = (action: string, callback: () => void) => {
+    if (isGuest) {
+      setGuestPrompt({ visible: true, action });
+    } else {
+      callback();
+    }
+  };
 
   const fetchPosts = async () => {
     try {
