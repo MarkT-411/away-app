@@ -193,6 +193,7 @@ export default function MarketScreen() {
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Marketplace</Text>
         <View style={styles.headerActions}>
+          <MotoTypePicker compact />
           <CountryPicker 
             selectedCountry={selectedCountry} 
             onSelect={setSelectedCountry}
