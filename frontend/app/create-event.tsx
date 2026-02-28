@@ -16,6 +16,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import * as ImagePicker from 'expo-image-picker';
+import MotoTypeSelector from '../components/MotoTypeSelector';
 
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
 
@@ -32,6 +33,7 @@ export default function CreateEventScreen() {
   const [time, setTime] = useState('');
   const [maxAttendees, setMaxAttendees] = useState('');
   const [image, setImage] = useState<string | null>(null);
+  const [selectedMotoType, setSelectedMotoType] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
