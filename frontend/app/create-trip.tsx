@@ -253,6 +253,11 @@ export default function CreateTripScreen() {
               onChangeText={setMaxParticipants}
             />
           </View>
+
+          <MotoTypeSelector 
+            selectedType={selectedMotoType}
+            onSelect={setSelectedMotoType}
+          />
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
