@@ -202,7 +202,7 @@ export default function EventsScreen() {
   };
 
   const renderEvent = ({ item }: { item: Event }) => {
-    const isJoined = item.attendees.includes(CURRENT_USER.id);
+    const isJoined = item.attendees.includes(currentUser.id);
     const isFull = item.max_attendees && item.attendees.length >= item.max_attendees;
     
     return (
