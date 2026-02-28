@@ -510,10 +510,14 @@ async def create_post(post_input: PostCreate):
     return post
 
 @api_router.get("/posts", response_model=List[Post])
-async def get_posts(country: Optional[str] = None):
+async def get_posts(country: Optional[str] = None, moto_types: Optional[str] = None):
     query = {}
     if country and country != "all":
         query["country"] = country
+    # moto_types is a comma-separated list
+    if moto_types and moto_types != "all":
+        types_list = [t.strip() for t in moto_types.split(",")]
+        query["moto_type"] = {"$in": types_list}
     posts = await db.posts.find(query).sort("created_at", -1).to_list(100)
     return [Post(**post) for post in posts]
 
