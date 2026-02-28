@@ -281,7 +281,7 @@ export default function FeedScreen() {
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.push('/profile')}>
+        <TouchableOpacity onPress={() => requireAuth('view your profile', () => router.push('/profile'))}>
           <View style={styles.profileButton}>
             <Ionicons name="person-circle" size={32} color="#FF6B35" />
           </View>
@@ -296,7 +296,7 @@ export default function FeedScreen() {
           />
           <TouchableOpacity 
             style={styles.notificationButton}
-            onPress={() => router.push('/notifications')}
+            onPress={() => requireAuth('view notifications', () => router.push('/notifications'))}
           >
             <Ionicons name="notifications-outline" size={26} color="#fff" />
             {unreadCount > 0 && (
@@ -309,7 +309,7 @@ export default function FeedScreen() {
           </TouchableOpacity>
           <TouchableOpacity 
             style={styles.addButton}
-            onPress={() => router.push('/create-post')}
+            onPress={() => requireAuth('create a post', () => router.push('/create-post'))}
           >
             <Ionicons name="add-circle" size={32} color="#FF6B35" />
           </TouchableOpacity>
@@ -337,6 +337,20 @@ export default function FeedScreen() {
           ListEmptyComponent={renderEmpty}
         />
       )}
+
+      <GuestPrompt
+        visible={guestPrompt.visible}
+        action={guestPrompt.action}
+        onClose={() => setGuestPrompt({ visible: false, action: '' })}
+        onLogin={() => {
+          setGuestPrompt({ visible: false, action: '' });
+          router.push('/auth');
+        }}
+        onRegister={() => {
+          setGuestPrompt({ visible: false, action: '' });
+          router.push('/auth');
+        }}
+      />
     </SafeAreaView>
   );
 }
