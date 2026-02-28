@@ -42,6 +42,7 @@ export default function CreateListingScreen() {
   const [location, setLocation] = useState('');
   const [contactInfo, setContactInfo] = useState('');
   const [images, setImages] = useState<string[]>([]);
+  const [selectedMotoType, setSelectedMotoType] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
