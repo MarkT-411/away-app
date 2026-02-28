@@ -42,6 +42,8 @@ const CURRENT_USER = {
   avatar: null,
 };
 
+// This is now deprecated - using currentUser from auth context instead
+
 export default function FeedScreen() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
