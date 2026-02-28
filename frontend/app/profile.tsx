@@ -60,7 +60,7 @@ export default function ProfileScreen() {
 
   const fetchProfile = async () => {
     try {
-      const response = await fetch(`${API_URL}/api/profile/${CURRENT_USER.id}`);
+      const response = await fetch(`${API_URL}/api/profile/${currentUser.id}`);
       if (response.ok) {
         const data = await response.json();
         setProfile(data);
@@ -71,6 +71,24 @@ export default function ProfileScreen() {
       setLoading(false);
       setRefreshing(false);
     }
+  };
+  
+  const handleLogout = () => {
+    Alert.alert(
+      t('auth.logout'),
+      'Are you sure you want to log out?',
+      [
+        { text: t('common.cancel'), style: 'cancel' },
+        { 
+          text: t('auth.logout'), 
+          style: 'destructive',
+          onPress: async () => {
+            await logout();
+            router.replace('/');
+          }
+        },
+      ]
+    );
   };
 
   useEffect(() => {
