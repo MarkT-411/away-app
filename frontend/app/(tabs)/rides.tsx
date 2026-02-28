@@ -49,9 +49,21 @@ export default function RidesScreen() {
   const [trips, setTrips] = useState<Trip[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [guestPrompt, setGuestPrompt] = useState<{ visible: boolean; action: string }>({ visible: false, action: '' });
   const router = useRouter();
   const { selectedCountry, setSelectedCountry } = useCountry();
   const { getMotoTypesParam } = useMotoTypes();
+  const { user, isGuest } = useAuth();
+
+  const currentUser = user ? { id: user.id, username: user.username } : { id: 'guest', username: 'Guest' };
+
+  const requireAuth = (action: string, callback: () => void) => {
+    if (isGuest) {
+      setGuestPrompt({ visible: true, action });
+    } else {
+      callback();
+    }
+  };
 
   const fetchTrips = async () => {
     try {
