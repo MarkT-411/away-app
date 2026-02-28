@@ -80,12 +80,14 @@ function AppContent() {
 export default function RootLayout() {
   return (
     <AuthProvider>
-      <CountryProvider>
-        <MotoTypesProvider>
-          <StatusBar style="light" />
-          <AppContent />
-        </MotoTypesProvider>
-      </CountryProvider>
+      <LanguageProvider>
+        <CountryProvider>
+          <MotoTypesProvider>
+            <StatusBar style="light" />
+            <AppContent />
+          </MotoTypesProvider>
+        </CountryProvider>
+      </LanguageProvider>
     </AuthProvider>
   );
 }
