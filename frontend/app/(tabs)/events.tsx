@@ -411,7 +411,7 @@ export default function EventsScreen() {
           </TouchableOpacity>
           <TouchableOpacity 
             style={styles.addButton}
-            onPress={() => router.push('/create-event')}
+            onPress={() => requireAuth('create an event', () => router.push('/create-event'))}
           >
             <Ionicons name="add-circle" size={32} color="#FF6B35" />
           </TouchableOpacity>
