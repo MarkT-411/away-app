@@ -201,6 +201,11 @@ export default function CreateEventScreen() {
               onChangeText={setMaxAttendees}
             />
           </View>
+
+          <MotoTypeSelector 
+            selectedType={selectedMotoType}
+            onSelect={setSelectedMotoType}
+          />
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
