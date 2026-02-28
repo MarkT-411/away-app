@@ -53,9 +53,21 @@ export default function MarketScreen() {
   const [refreshing, setRefreshing] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [favoriteItems, setFavoriteItems] = useState<string[]>([]);
+  const [guestPrompt, setGuestPrompt] = useState<{ visible: boolean; action: string }>({ visible: false, action: '' });
   const router = useRouter();
   const { selectedCountry, setSelectedCountry } = useCountry();
   const { getMotoTypesParam } = useMotoTypes();
+  const { user, isGuest } = useAuth();
+
+  const currentUser = user ? { id: user.id, username: user.username } : { id: 'guest', username: 'Guest' };
+
+  const requireAuth = (action: string, callback: () => void) => {
+    if (isGuest) {
+      setGuestPrompt({ visible: true, action });
+    } else {
+      callback();
+    }
+  };
 
   const fetchItems = async () => {
     try {
@@ -88,8 +100,9 @@ export default function MarketScreen() {
   };
 
   const fetchFavorites = async () => {
+    if (isGuest) return;
     try {
-      const response = await fetch(`${API_URL}/api/profile/${CURRENT_USER.id}`);
+      const response = await fetch(`${API_URL}/api/profile/${currentUser.id}`);
       if (response.ok) {
         const data = await response.json();
         setFavoriteItems(data.favorite_items?.map((i: any) => i.id) || []);
@@ -101,9 +114,15 @@ export default function MarketScreen() {
 
   const handleToggleFavorite = async (itemId: string, e: any) => {
     e.stopPropagation();
+    // Guests CANNOT favorite items
+    if (isGuest) {
+      setGuestPrompt({ visible: true, action: 'save items to favorites' });
+      return;
+    }
+    
     try {
       const response = await fetch(
-        `${API_URL}/api/market/${itemId}/favorite?user_id=${CURRENT_USER.id}`,
+        `${API_URL}/api/market/${itemId}/favorite?user_id=${currentUser.id}`,
         { method: 'POST' }
       );
       if (response.ok) {
