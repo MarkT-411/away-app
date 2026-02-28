@@ -81,6 +81,7 @@ class Post(BaseModel):
     content: str
     image: Optional[str] = None  # Base64 image
     country: Optional[str] = None  # Country where post was made
+    moto_type: Optional[str] = None  # Type of motorcycle related to post
     likes: List[str] = Field(default_factory=list)  # List of user_ids who liked
     comments_enabled: bool = True  # Whether comments are allowed
     comments_count: int = 0
@@ -93,6 +94,7 @@ class PostCreate(BaseModel):
     content: str
     image: Optional[str] = None
     country: Optional[str] = None
+    moto_type: Optional[str] = None
     comments_enabled: bool = True
 
 # Comment Model
