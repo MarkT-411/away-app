@@ -64,9 +64,21 @@ export default function EventsScreen() {
   const [selectedMonth, setSelectedMonth] = useState<number | null>(null);
   const [filterLocation, setFilterLocation] = useState('');
   const [showFilters, setShowFilters] = useState(false);
+  const [guestPrompt, setGuestPrompt] = useState<{ visible: boolean; action: string }>({ visible: false, action: '' });
   const router = useRouter();
   const { selectedCountry, setSelectedCountry } = useCountry();
   const { getMotoTypesParam } = useMotoTypes();
+  const { user, isGuest } = useAuth();
+
+  const currentUser = user ? { id: user.id, username: user.username } : { id: 'guest', username: 'Guest' };
+
+  const requireAuth = (action: string, callback: () => void) => {
+    if (isGuest) {
+      setGuestPrompt({ visible: true, action });
+    } else {
+      callback();
+    }
+  };
 
   const fetchEvents = async () => {
     try {
