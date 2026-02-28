@@ -105,8 +105,15 @@ export default function AuthScreen({ onComplete, onSkip }: AuthScreenProps) {
       return;
     }
 
-    // Step 2 - Submit registration
+    if (step === 2) {
+      // Go to language selection
+      setStep(3);
+      return;
+    }
+
+    // Step 3 - Submit registration with language
     setLoading(true);
+    await setSelectedLanguage(tempLanguage);
     const motoTypes = selectedMotoTypes.includes('all') ? [] : selectedMotoTypes;
     const result = await register({
       email,
