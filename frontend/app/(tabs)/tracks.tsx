@@ -18,8 +18,10 @@ import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
 import { useCountry } from '../../context/CountryContext';
 import { useMotoTypes, getMotoTypeIcon } from '../../context/MotoTypesContext';
+import { useAuth } from '../../context/AuthContext';
 import CountryPicker from '../../components/CountryPicker';
 import MotoTypePicker from '../../components/MotoTypePicker';
+import GuestPrompt from '../../components/GuestPrompt';
 
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
 
