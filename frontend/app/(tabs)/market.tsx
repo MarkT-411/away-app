@@ -20,6 +20,11 @@ import MotoTypePicker from '../../components/MotoTypePicker';
 
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
 
+const CURRENT_USER = {
+  id: 'user-1',
+  username: 'RiderJohn',
+};
+
 interface MarketItem {
   id: string;
   title: string;
