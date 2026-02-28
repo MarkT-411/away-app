@@ -244,7 +244,7 @@ export default function RidesScreen() {
           />
           <TouchableOpacity 
             style={styles.addButton}
-            onPress={() => router.push('/create-trip')}
+            onPress={() => requireAuth('create a group ride', () => router.push('/create-trip'))}
           >
             <Ionicons name="add-circle" size={32} color="#FF6B35" />
           </TouchableOpacity>
@@ -272,6 +272,20 @@ export default function RidesScreen() {
           ListEmptyComponent={renderEmpty}
         />
       )}
+
+      <GuestPrompt
+        visible={guestPrompt.visible}
+        action={guestPrompt.action}
+        onClose={() => setGuestPrompt({ visible: false, action: '' })}
+        onLogin={() => {
+          setGuestPrompt({ visible: false, action: '' });
+          router.push('/auth');
+        }}
+        onRegister={() => {
+          setGuestPrompt({ visible: false, action: '' });
+          router.push('/auth');
+        }}
+      />
     </SafeAreaView>
   );
 }
