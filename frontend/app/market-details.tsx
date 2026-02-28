@@ -434,11 +434,25 @@ const styles = StyleSheet.create({
     lineHeight: 24,
   },
   footer: {
+    flexDirection: 'row',
     padding: 16,
     borderTopWidth: 1,
     borderTopColor: '#222',
   },
+  favoriteButton: {
+    width: 56,
+    height: 56,
+    borderRadius: 12,
+    backgroundColor: '#1A1A1A',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 12,
+  },
+  favoriteButtonActive: {
+    backgroundColor: '#3A2A1A',
+  },
   contactButton: {
+    flex: 1,
     backgroundColor: '#FF6B35',
     flexDirection: 'row',
     justifyContent: 'center',
