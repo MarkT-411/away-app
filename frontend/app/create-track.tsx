@@ -122,6 +122,7 @@ export default function CreateTrackScreen() {
           distance: distance.trim() || null,
           elevation_gain: elevationGain.trim() || null,
           difficulty,
+          moto_type: selectedMotoType,
           region: region.trim() || null,
           uploader_id: CURRENT_USER.id,
           uploader_name: CURRENT_USER.username,
