@@ -7,6 +7,7 @@ import {
   Modal,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useLanguage } from '../context/LanguageContext';
 
 interface GuestPromptProps {
   visible: boolean;
@@ -23,6 +24,8 @@ export default function GuestPrompt({
   onLogin, 
   onRegister 
 }: GuestPromptProps) {
+  const { t } = useLanguage();
+  
   return (
     <Modal
       visible={visible}
@@ -40,18 +43,18 @@ export default function GuestPrompt({
             <Ionicons name="lock-closed" size={48} color="#FF6B35" />
           </View>
           
-          <Text style={styles.title}>Account Required</Text>
+          <Text style={styles.title}>{t('guest.accountRequired')}</Text>
           <Text style={styles.message}>
-            Create an account to {action}
+            {t('guest.createAccountTo')} {action}
           </Text>
           
           <TouchableOpacity style={styles.primaryButton} onPress={onRegister}>
             <Ionicons name="person-add" size={20} color="#fff" />
-            <Text style={styles.primaryButtonText}>Create Account</Text>
+            <Text style={styles.primaryButtonText}>{t('auth.createAccount')}</Text>
           </TouchableOpacity>
           
           <TouchableOpacity style={styles.secondaryButton} onPress={onLogin}>
-            <Text style={styles.secondaryButtonText}>Already have an account? Log In</Text>
+            <Text style={styles.secondaryButtonText}>{t('auth.alreadyHaveAccount')} {t('auth.login')}</Text>
           </TouchableOpacity>
         </View>
       </View>
