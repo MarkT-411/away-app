@@ -52,6 +52,11 @@ export default function ProfileScreen() {
   const [refreshing, setRefreshing] = useState(false);
   const [activeTab, setActiveTab] = useState<TabType>('posts');
   const router = useRouter();
+  const { user, logout } = useAuth();
+  const { t } = useLanguage();
+  
+  // Use current user from auth context or fallback
+  const currentUser = user || { id: 'user-1', username: 'RiderJohn' };
 
   const fetchProfile = async () => {
     try {
