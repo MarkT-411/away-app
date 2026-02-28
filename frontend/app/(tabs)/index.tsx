@@ -182,6 +182,9 @@ export default function FeedScreen() {
               {item.country && (
                 <Text style={styles.countryFlag}>{getCountryFlag(item.country)}</Text>
               )}
+              {item.moto_type && (
+                <Text style={styles.motoTypeIcon}>{getMotoTypeIcon(item.moto_type)}</Text>
+              )}
             </View>
             <Text style={styles.timeAgo}>{formatTimeAgo(item.created_at)}</Text>
           </View>
