@@ -19,11 +19,6 @@ import { useLanguage } from '../context/LanguageContext';
 
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
 
-const CURRENT_USER = {
-  id: 'user-1',
-  username: 'RiderJohn',
-};
-
 type TabType = 'posts' | 'events' | 'rides' | 'market' | 'tracks' | 'followers';
 
 interface ProfileData {
