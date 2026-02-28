@@ -166,8 +166,8 @@ export default function AuthScreen({ onComplete, onSkip }: AuthScreenProps) {
         <View style={styles.welcomeContent}>
           <View style={styles.logoContainer}>
             <Ionicons name="bicycle" size={80} color="#FF6B35" />
-            <Text style={styles.appName}>Moto Community</Text>
-            <Text style={styles.tagline}>Connect with riders worldwide</Text>
+            <Text style={styles.appName}>{t('auth.welcome')}</Text>
+            <Text style={styles.tagline}>{t('auth.tagline')}</Text>
           </View>
 
           <View style={styles.welcomeButtons}>
@@ -176,7 +176,7 @@ export default function AuthScreen({ onComplete, onSkip }: AuthScreenProps) {
               onPress={() => setMode('register')}
             >
               <Ionicons name="person-add" size={22} color="#fff" />
-              <Text style={styles.primaryButtonText}>Create Account</Text>
+              <Text style={styles.primaryButtonText}>{t('auth.createAccount')}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -184,7 +184,7 @@ export default function AuthScreen({ onComplete, onSkip }: AuthScreenProps) {
               onPress={() => setMode('login')}
             >
               <Ionicons name="log-in" size={22} color="#FF6B35" />
-              <Text style={styles.secondaryButtonText}>Log In</Text>
+              <Text style={styles.secondaryButtonText}>{t('auth.login')}</Text>
             </TouchableOpacity>
 
             {biometricAvailable && (
@@ -197,7 +197,7 @@ export default function AuthScreen({ onComplete, onSkip }: AuthScreenProps) {
                   size={22} 
                   color="#FF6B35" 
                 />
-                <Text style={styles.biometricButtonText}>Login with {biometricType}</Text>
+                <Text style={styles.biometricButtonText}>{t('auth.loginWithBiometric')} {biometricType}</Text>
               </TouchableOpacity>
             )}
 
@@ -205,13 +205,13 @@ export default function AuthScreen({ onComplete, onSkip }: AuthScreenProps) {
               style={styles.guestButton}
               onPress={handleSkip}
             >
-              <Text style={styles.guestButtonText}>Browse as Guest</Text>
+              <Text style={styles.guestButtonText}>{t('auth.browseAsGuest')}</Text>
               <Ionicons name="arrow-forward" size={18} color="#888" />
             </TouchableOpacity>
           </View>
 
           <Text style={styles.guestNote}>
-            Guests can browse content but cannot interact
+            {t('auth.guestNote')}
           </Text>
         </View>
       </SafeAreaView>
