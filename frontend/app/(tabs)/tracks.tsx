@@ -257,6 +257,7 @@ export default function TracksScreen() {
       <View style={styles.header}>
         <Text style={styles.headerTitle}>GPX Tracks</Text>
         <View style={styles.headerActions}>
+          <MotoTypePicker compact />
           <CountryPicker 
             selectedCountry={selectedCountry} 
             onSelect={setSelectedCountry}
