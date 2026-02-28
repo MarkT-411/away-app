@@ -1,0 +1,131 @@
+{
+  "common": {
+    "loading": "Caricamento...",
+    "error": "Errore",
+    "success": "Successo",
+    "cancel": "Annulla",
+    "save": "Salva",
+    "delete": "Elimina",
+    "edit": "Modifica",
+    "close": "Chiudi",
+    "done": "Fatto",
+    "back": "Indietro",
+    "next": "Avanti",
+    "continue": "Continua",
+    "search": "Cerca",
+    "filter": "Filtra",
+    "all": "Tutti",
+    "worldwide": "Tutto il mondo",
+    "share": "Condividi"
+  },
+  "auth": {
+    "welcome": "Benvenuto su Moto Community",
+    "tagline": "Connettiti con i motociclisti di tutto il mondo",
+    "createAccount": "Crea Account",
+    "login": "Accedi",
+    "logout": "Esci",
+    "browseAsGuest": "Continua come Ospite",
+    "guestNote": "Gli ospiti possono solo visualizzare i contenuti",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Conferma Password",
+    "username": "Nome utente",
+    "welcomeBack": "Bentornato",
+    "loginToAccount": "Accedi al tuo account",
+    "enterDetails": "Inserisci i tuoi dati",
+    "setPreferences": "Imposta le tue preferenze",
+    "chooseLanguage": "Scegli la tua lingua",
+    "alreadyHaveAccount": "Hai già un account?",
+    "dontHaveAccount": "Non hai un account?",
+    "signUp": "Registrati",
+    "selectCountry": "Seleziona il tuo paese (opzionale)",
+    "selectMotoTypes": "Tipi di moto che ti piacciono",
+    "selectLanguage": "Seleziona la tua lingua preferita"
+  },
+  "guest": {
+    "accountRequired": "Account Richiesto",
+    "createAccountTo": "Crea un account per",
+    "joinEvents": "partecipare agli eventi",
+    "joinRides": "partecipare ai viaggi di gruppo",
+    "downloadTracks": "scaricare tracce GPX",
+    "saveFavorites": "salvare negli preferiti"
+  },
+  "tabs": {
+    "feed": "Feed",
+    "events": "Eventi",
+    "rides": "Viaggi",
+    "tracks": "Tracce",
+    "market": "Mercato"
+  },
+  "feed": {
+    "title": "Moto Community",
+    "newPost": "Nuovo Post",
+    "shareYourRide": "Condividi il tuo viaggio, fai una domanda o pubblica un aggiornamento...",
+    "motorcycleType": "Tipo di Moto",
+    "tagYourPost": "Tagga il tuo post con un tipo di moto",
+    "postSettings": "Impostazioni Post",
+    "allowComments": "Permetti Commenti",
+    "post": "Pubblica",
+    "like": "Mi piace",
+    "comment": "Commenta",
+    "follow": "Segui",
+    "following": "Seguito",
+    "noPosts": "Nessun post ancora"
+  },
+  "events": {
+    "title": "Eventi",
+    "join": "Partecipa",
+    "joined": "Iscritto",
+    "full": "Completo",
+    "attendees": "partecipanti",
+    "noEvents": "Nessun evento trovato"
+  },
+  "rides": {
+    "title": "Viaggi di Gruppo",
+    "join": "Partecipa",
+    "joined": "Iscritto",
+    "riders": "motociclisti",
+    "noRides": "Nessun viaggio programmato"
+  },
+  "tracks": {
+    "title": "Tracce GPX",
+    "download": "Scarica",
+    "downloads": "download",
+    "difficulty": "Difficoltà",
+    "easy": "Facile",
+    "moderate": "Moderato",
+    "hard": "Difficile",
+    "expert": "Esperto",
+    "noTracks": "Nessuna traccia disponibile"
+  },
+  "market": {
+    "title": "Mercato",
+    "contactSeller": "Contatta Venditore",
+    "favorite": "Preferito",
+    "new": "Nuovo",
+    "likeNew": "Come Nuovo",
+    "good": "Buono",
+    "fair": "Discreto",
+    "noItems": "Nessun articolo in vendita"
+  },
+  "profile": {
+    "title": "Profilo",
+    "followers": "Follower",
+    "following": "Seguiti",
+    "settings": "Impostazioni"
+  },
+  "notifications": {
+    "title": "Notifiche",
+    "noNotifications": "Nessuna notifica"
+  },
+  "motoTypes": {
+    "all": "Tutti i Tipi",
+    "sport": "Sport",
+    "scooter": "Scooter",
+    "adventure": "Adventure",
+    "naked": "Naked",
+    "cruiser": "Cruiser",
+    "enduro": "Enduro",
+    "cafeRacer": "Cafe Racer"
+  }
+}

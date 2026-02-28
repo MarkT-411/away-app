@@ -1,0 +1,118 @@
+{
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "close": "Cerrar",
+    "done": "Hecho",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "continue": "Continuar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "all": "Todos",
+    "worldwide": "Todo el mundo",
+    "share": "Compartir"
+  },
+  "auth": {
+    "welcome": "Bienvenido a Moto Community",
+    "tagline": "Conecta con motoristas de todo el mundo",
+    "createAccount": "Crear Cuenta",
+    "login": "Iniciar Sesión",
+    "logout": "Cerrar Sesión",
+    "browseAsGuest": "Continuar como Invitado",
+    "guestNote": "Los invitados solo pueden ver contenido",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar Contraseña",
+    "username": "Nombre de usuario",
+    "welcomeBack": "Bienvenido de nuevo",
+    "selectCountry": "Selecciona tu país (opcional)",
+    "selectMotoTypes": "Tipos de moto que te gustan",
+    "selectLanguage": "Selecciona tu idioma preferido"
+  },
+  "guest": {
+    "accountRequired": "Cuenta Requerida",
+    "createAccountTo": "Crea una cuenta para",
+    "joinEvents": "unirte a eventos",
+    "joinRides": "unirte a viajes en grupo",
+    "downloadTracks": "descargar rutas GPX",
+    "saveFavorites": "guardar en favoritos"
+  },
+  "tabs": {
+    "feed": "Feed",
+    "events": "Eventos",
+    "rides": "Viajes",
+    "tracks": "Rutas",
+    "market": "Mercado"
+  },
+  "feed": {
+    "title": "Moto Community",
+    "newPost": "Nueva Publicación",
+    "shareYourRide": "Comparte tu viaje, haz una pregunta o publica una actualización...",
+    "post": "Publicar",
+    "like": "Me gusta",
+    "comment": "Comentar",
+    "follow": "Seguir",
+    "following": "Siguiendo",
+    "noPosts": "No hay publicaciones aún"
+  },
+  "events": {
+    "title": "Eventos",
+    "join": "Unirse",
+    "joined": "Inscrito",
+    "full": "Completo",
+    "attendees": "asistentes",
+    "noEvents": "No se encontraron eventos"
+  },
+  "rides": {
+    "title": "Viajes en Grupo",
+    "join": "Unirse",
+    "joined": "Inscrito",
+    "riders": "motoristas",
+    "noRides": "No hay viajes programados"
+  },
+  "tracks": {
+    "title": "Rutas GPX",
+    "download": "Descargar",
+    "downloads": "descargas",
+    "easy": "Fácil",
+    "moderate": "Moderado",
+    "hard": "Difícil",
+    "expert": "Experto",
+    "noTracks": "No hay rutas disponibles"
+  },
+  "market": {
+    "title": "Mercado",
+    "contactSeller": "Contactar Vendedor",
+    "favorite": "Favorito",
+    "new": "Nuevo",
+    "likeNew": "Como Nuevo",
+    "good": "Bueno",
+    "fair": "Regular",
+    "noItems": "No hay artículos en venta"
+  },
+  "profile": {
+    "title": "Perfil",
+    "followers": "Seguidores",
+    "following": "Siguiendo"
+  },
+  "notifications": {
+    "title": "Notificaciones",
+    "noNotifications": "No hay notificaciones"
+  },
+  "motoTypes": {
+    "all": "Todos los Tipos",
+    "sport": "Deportiva",
+    "scooter": "Scooter",
+    "adventure": "Adventure",
+    "naked": "Naked",
+    "cruiser": "Cruiser",
+    "enduro": "Enduro",
+    "cafeRacer": "Cafe Racer"
+  }
+}
