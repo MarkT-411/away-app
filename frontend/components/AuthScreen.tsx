@@ -34,7 +34,12 @@ export default function AuthScreen({ onComplete, onSkip }: AuthScreenProps) {
   const [selectedMotoTypes, setSelectedMotoTypes] = useState<string[]>(['all']);
   const [step, setStep] = useState(1); // For register: 1=credentials, 2=preferences
 
-  const { login, register, authenticateWithBiometric, biometricAvailable, biometricType } = useAuth();
+  const { login, register, authenticateWithBiometric, biometricAvailable, biometricType, continueAsGuest } = useAuth();
+
+  const handleSkip = async () => {
+    await continueAsGuest();
+    onSkip();
+  };
 
   const validateEmail = (email: string) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
