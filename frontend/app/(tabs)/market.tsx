@@ -197,7 +197,7 @@ export default function MarketScreen() {
 
   const renderItem = ({ item }: { item: MarketItem }) => {
     const isFavorite = favoriteItems.includes(item.id);
-    const isOwnItem = item.seller_id === CURRENT_USER.id;
+    const isOwnItem = item.seller_id === currentUser.id;
     
     return (
       <TouchableOpacity 
