@@ -216,6 +216,7 @@ export default function RidesScreen() {
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Group Rides</Text>
         <View style={styles.headerActions}>
+          <MotoTypePicker compact />
           <CountryPicker 
             selectedCountry={selectedCountry} 
             onSelect={setSelectedCountry}
