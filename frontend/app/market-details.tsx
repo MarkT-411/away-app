@@ -18,6 +18,11 @@ import { useRouter, useLocalSearchParams } from 'expo-router';
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
 const { width } = Dimensions.get('window');
 
+const CURRENT_USER = {
+  id: 'user-1',
+  username: 'RiderJohn',
+};
+
 interface MarketItem {
   id: string;
   title: string;
