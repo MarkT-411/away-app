@@ -179,46 +179,63 @@ export default function MarketScreen() {
     </ScrollView>
   );
 
-  const renderItem = ({ item }: { item: MarketItem }) => (
-    <TouchableOpacity 
-      style={styles.itemCard}
-      onPress={() => router.push({ pathname: '/market-details', params: { id: item.id } })}
-    >
-      <View style={styles.itemImageContainer}>
-        {item.images.length > 0 ? (
-          <Image source={{ uri: item.images[0] }} style={styles.itemImage} />
-        ) : (
-          <View style={styles.placeholderImage}>
-            <Ionicons name="image-outline" size={32} color="#444" />
-          </View>
-        )}
-        <View style={[
-          styles.conditionBadge,
-          { backgroundColor: getConditionColor(item.condition) }
-        ]}>
-          <Text style={styles.conditionText}>{item.condition}</Text>
-        </View>
-      </View>
-      
-      <View style={styles.itemInfo}>
-        <Text style={styles.itemTitle} numberOfLines={2}>{item.title}</Text>
-        <Text style={styles.itemPrice}>{formatPrice(item.price)}</Text>
-        
-        <View style={styles.itemMeta}>
-          <View style={styles.sellerInfo}>
-            <Ionicons name="person-outline" size={12} color="#888" />
-            <Text style={styles.sellerName} numberOfLines={1}>{item.seller_name}</Text>
-          </View>
-          {item.location && (
-            <View style={styles.locationInfo}>
-              <Ionicons name="location-outline" size={12} color="#888" />
-              <Text style={styles.locationText} numberOfLines={1}>{item.location}</Text>
+  const renderItem = ({ item }: { item: MarketItem }) => {
+    const isFavorite = favoriteItems.includes(item.id);
+    const isOwnItem = item.seller_id === CURRENT_USER.id;
+    
+    return (
+      <TouchableOpacity 
+        style={styles.itemCard}
+        onPress={() => router.push({ pathname: '/market-details', params: { id: item.id } })}
+      >
+        <View style={styles.itemImageContainer}>
+          {item.images.length > 0 ? (
+            <Image source={{ uri: item.images[0] }} style={styles.itemImage} />
+          ) : (
+            <View style={styles.placeholderImage}>
+              <Ionicons name="image-outline" size={32} color="#444" />
             </View>
           )}
+          <View style={[
+            styles.conditionBadge,
+            { backgroundColor: getConditionColor(item.condition) }
+          ]}>
+            <Text style={styles.conditionText}>{item.condition}</Text>
+          </View>
+          {!isOwnItem && (
+            <TouchableOpacity
+              style={styles.favoriteButton}
+              onPress={(e) => handleToggleFavorite(item.id, e)}
+            >
+              <Ionicons 
+                name={isFavorite ? "heart" : "heart-outline"} 
+                size={22} 
+                color={isFavorite ? "#FF6B35" : "#fff"} 
+              />
+            </TouchableOpacity>
+          )}
         </View>
-      </View>
-    </TouchableOpacity>
-  );
+        
+        <View style={styles.itemInfo}>
+          <Text style={styles.itemTitle} numberOfLines={2}>{item.title}</Text>
+          <Text style={styles.itemPrice}>{formatPrice(item.price)}</Text>
+          
+          <View style={styles.itemMeta}>
+            <View style={styles.sellerInfo}>
+              <Ionicons name="person-outline" size={12} color="#888" />
+              <Text style={styles.sellerName} numberOfLines={1}>{item.seller_name}</Text>
+            </View>
+            {item.location && (
+              <View style={styles.locationInfo}>
+                <Ionicons name="location-outline" size={12} color="#888" />
+                <Text style={styles.locationText} numberOfLines={1}>{item.location}</Text>
+              </View>
+            )}
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
   const renderEmpty = () => (
     <View style={styles.emptyContainer}>
