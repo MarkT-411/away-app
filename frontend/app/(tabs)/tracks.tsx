@@ -17,7 +17,9 @@ import { useRouter } from 'expo-router';
 import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
 import { useCountry } from '../../context/CountryContext';
+import { useMotoTypes, getMotoTypeIcon } from '../../context/MotoTypesContext';
 import CountryPicker from '../../components/CountryPicker';
+import MotoTypePicker from '../../components/MotoTypePicker';
 
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
 
@@ -29,6 +31,7 @@ interface GpxTrack {
   distance?: string;
   elevation_gain?: string;
   difficulty: string;
+  moto_type?: string;
   region?: string;
   uploader_id: string;
   uploader_name: string;
