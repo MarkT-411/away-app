@@ -56,6 +56,7 @@ export default function FeedScreen() {
   const { selectedCountry, setSelectedCountry } = useCountry();
   const { getMotoTypesParam } = useMotoTypes();
   const { user, isGuest, isAuthenticated } = useAuth();
+  const { t } = useLanguage();
 
   // Use authenticated user or guest placeholder
   const currentUser = user ? { id: user.id, username: user.username, avatar: user.avatar || null } : { id: 'guest', username: 'Guest', avatar: null };
