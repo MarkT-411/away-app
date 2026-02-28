@@ -55,9 +55,19 @@ export default function TracksScreen() {
   const [refreshing, setRefreshing] = useState(false);
   const [selectedDifficulty, setSelectedDifficulty] = useState('all');
   const [downloading, setDownloading] = useState<string | null>(null);
+  const [guestPrompt, setGuestPrompt] = useState<{ visible: boolean; action: string }>({ visible: false, action: '' });
   const router = useRouter();
   const { selectedCountry, setSelectedCountry } = useCountry();
   const { getMotoTypesParam } = useMotoTypes();
+  const { isGuest } = useAuth();
+
+  const requireAuth = (action: string, callback: () => void) => {
+    if (isGuest) {
+      setGuestPrompt({ visible: true, action });
+    } else {
+      callback();
+    }
+  };
 
   const fetchTracks = async () => {
     try {
