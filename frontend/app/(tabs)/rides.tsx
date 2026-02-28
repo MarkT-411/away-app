@@ -102,9 +102,15 @@ export default function RidesScreen() {
   }, [selectedCountry, getMotoTypesParam()]);
 
   const handleJoin = async (tripId: string) => {
+    // Guests CANNOT join rides
+    if (isGuest) {
+      setGuestPrompt({ visible: true, action: 'join group rides' });
+      return;
+    }
+    
     try {
       const response = await fetch(
-        `${API_URL}/api/trips/${tripId}/join?user_id=${CURRENT_USER.id}`,
+        `${API_URL}/api/trips/${tripId}/join?user_id=${currentUser.id}`,
         { method: 'POST' }
       );
       if (response.ok) {
@@ -128,7 +134,7 @@ export default function RidesScreen() {
   };
 
   const renderTrip = ({ item }: { item: Trip }) => {
-    const isJoined = item.participants.includes(CURRENT_USER.id);
+    const isJoined = item.participants.includes(currentUser.id);
     const isFull = item.max_participants && item.participants.length >= item.max_participants;
     
     return (
