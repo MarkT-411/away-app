@@ -36,7 +36,7 @@ export default function AuthScreen({ onComplete, onSkip }: AuthScreenProps) {
   const [step, setStep] = useState(1); // For register: 1=credentials, 2=preferences, 3=language
 
   const { login, register, authenticateWithBiometric, biometricAvailable, biometricType, continueAsGuest } = useAuth();
-  const { selectedLanguage, setSelectedLanguage } = useLanguage();
+  const { selectedLanguage, setSelectedLanguage, t } = useLanguage();
   const [tempLanguage, setTempLanguage] = useState(selectedLanguage);
 
   const handleSkip = async () => {
