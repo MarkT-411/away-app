@@ -271,6 +271,7 @@ export default function FeedScreen() {
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Moto Community</Text>
         <View style={styles.headerActions}>
+          <MotoTypePicker compact />
           <CountryPicker 
             selectedCountry={selectedCountry} 
             onSelect={setSelectedCountry}
