@@ -246,6 +246,18 @@ export default function MarketDetailsScreen() {
       </ScrollView>
 
       <View style={styles.footer}>
+        {item.seller_id !== CURRENT_USER.id && (
+          <TouchableOpacity
+            style={[styles.favoriteButton, isFavorite && styles.favoriteButtonActive]}
+            onPress={handleToggleFavorite}
+          >
+            <Ionicons 
+              name={isFavorite ? "heart" : "heart-outline"} 
+              size={24} 
+              color={isFavorite ? "#FF6B35" : "#888"} 
+            />
+          </TouchableOpacity>
+        )}
         <TouchableOpacity
           style={styles.contactButton}
           onPress={handleContact}
