@@ -1,54 +1,79 @@
-diff --git a/test_result.md b/test_result.md
-index d105c0c..ceac3f6 100644
---- a/test_result.md
-+++ b/test_result.md
-@@ -116,6 +116,9 @@ backend:
-       - working: true
-         agent: "main"
-         comment: "All post endpoints created and tested with curl - working"
-+      - working: true
-+        agent: "testing"
-+        comment: "Comprehensive testing completed: Create Post, Get All Posts, Get Specific Post, Like/Unlike toggle functionality all working correctly. Data persistence verified."
+diff --git a/frontend/app/create-listing.tsx b/frontend/app/create-listing.tsx
+index 17bd532..79fa036 100644
+--- a/frontend/app/create-listing.tsx
++++ b/frontend/app/create-listing.tsx
+@@ -16,6 +16,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
+ import { Ionicons } from '@expo/vector-icons';
+ import { useRouter } from 'expo-router';
+ import * as ImagePicker from 'expo-image-picker';
++import MotoTypeSelector from '../components/MotoTypeSelector';
  
-   - task: "Events API (Create, Read, Join)"
-     implemented: true
-@@ -128,6 +131,9 @@ backend:
-       - working: true
-         agent: "main"
-         comment: "All event endpoints created and tested with curl - working"
-+      - working: true
-+        agent: "testing"
-+        comment: "Comprehensive testing completed: Create Event, Get All Events, Get Specific Event, Join/Leave toggle functionality, max_attendees validation all working correctly."
+ const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
  
-   - task: "Trips API (Create, Read, Join)"
-     implemented: true
-@@ -140,6 +146,9 @@ backend:
-       - working: true
-         agent: "main"
-         comment: "All trip endpoints created and tested with curl - working"
-+      - working: true
-+        agent: "testing"
-+        comment: "Comprehensive testing completed: Create Trip, Get All Trips, Get Specific Trip, Join/Leave toggle functionality, max_participants validation all working correctly."
+@@ -41,6 +42,7 @@ export default function CreateListingScreen() {
+   const [location, setLocation] = useState('');
+   const [contactInfo, setContactInfo] = useState('');
+   const [images, setImages] = useState<string[]>([]);
++  const [selectedMotoType, setSelectedMotoType] = useState<string | null>(null);
+   const [loading, setLoading] = useState(false);
+   const router = useRouter();
  
-   - task: "Market API (Create, Read, Filter by Category)"
-     implemented: true
-@@ -152,6 +161,9 @@ backend:
-       - working: true
-         agent: "main"
-         comment: "All market endpoints created and tested with curl - working"
-+      - working: true
-+        agent: "testing"
-+        comment: "Comprehensive testing completed: Create Market Item, Get All Items, Category Filtering (parts/accessories/gear/bikes), Get Specific Item, Mark as Sold functionality, Delete Item all working correctly. Sold items properly filtered from listings."
- 
- frontend:
-   - task: "Tab Navigation (Feed, Events, Rides, Market)"
-@@ -317,4 +329,6 @@ test_plan:
- 
- agent_communication:
-   - agent: "main"
--    message: "MVP implementation complete. All backend APIs tested with curl and working. Frontend screens implemented with tab navigation, list views, create forms, and detail screens. Ready for UI testing."
-\ No newline at end of file
-+    message: "MVP implementation complete. All backend APIs tested with curl and working. Frontend screens implemented with tab navigation, list views, create forms, and detail screens. Ready for UI testing."
-+  - agent: "testing"
-+    message: "Comprehensive backend API testing completed with 28 test cases. All CRUD operations, data persistence, like/join toggles, and category filtering verified working correctly. 100% success rate achieved. Backend is production-ready."
-\ No newline at end of file
+diff --git a/model.patch b/model.patch
+index 2f77dd1..e69de29 100644
+--- a/model.patch
++++ b/model.patch
+@@ -1,54 +0,0 @@
+-diff --git a/test_result.md b/test_result.md
+-index d105c0c..ceac3f6 100644
+---- a/test_result.md
+-+++ b/test_result.md
+-@@ -116,6 +116,9 @@ backend:
+-       - working: true
+-         agent: "main"
+-         comment: "All post endpoints created and tested with curl - working"
+-+      - working: true
+-+        agent: "testing"
+-+        comment: "Comprehensive testing completed: Create Post, Get All Posts, Get Specific Post, Like/Unlike toggle functionality all working correctly. Data persistence verified."
+- 
+-   - task: "Events API (Create, Read, Join)"
+-     implemented: true
+-@@ -128,6 +131,9 @@ backend:
+-       - working: true
+-         agent: "main"
+-         comment: "All event endpoints created and tested with curl - working"
+-+      - working: true
+-+        agent: "testing"
+-+        comment: "Comprehensive testing completed: Create Event, Get All Events, Get Specific Event, Join/Leave toggle functionality, max_attendees validation all working correctly."
+- 
+-   - task: "Trips API (Create, Read, Join)"
+-     implemented: true
+-@@ -140,6 +146,9 @@ backend:
+-       - working: true
+-         agent: "main"
+-         comment: "All trip endpoints created and tested with curl - working"
+-+      - working: true
+-+        agent: "testing"
+-+        comment: "Comprehensive testing completed: Create Trip, Get All Trips, Get Specific Trip, Join/Leave toggle functionality, max_participants validation all working correctly."
+- 
+-   - task: "Market API (Create, Read, Filter by Category)"
+-     implemented: true
+-@@ -152,6 +161,9 @@ backend:
+-       - working: true
+-         agent: "main"
+-         comment: "All market endpoints created and tested with curl - working"
+-+      - working: true
+-+        agent: "testing"
+-+        comment: "Comprehensive testing completed: Create Market Item, Get All Items, Category Filtering (parts/accessories/gear/bikes), Get Specific Item, Mark as Sold functionality, Delete Item all working correctly. Sold items properly filtered from listings."
+- 
+- frontend:
+-   - task: "Tab Navigation (Feed, Events, Rides, Market)"
+-@@ -317,4 +329,6 @@ test_plan:
+- 
+- agent_communication:
+-   - agent: "main"
+--    message: "MVP implementation complete. All backend APIs tested with curl and working. Frontend screens implemented with tab navigation, list views, create forms, and detail screens. Ready for UI testing."
+-\ No newline at end of file
+-+    message: "MVP implementation complete. All backend APIs tested with curl and working. Frontend screens implemented with tab navigation, list views, create forms, and detail screens. Ready for UI testing."
+-+  - agent: "testing"
+-+    message: "Comprehensive backend API testing completed with 28 test cases. All CRUD operations, data persistence, like/join toggles, and category filtering verified working correctly. 100% success rate achieved. Backend is production-ready."
+-\ No newline at end of file
