@@ -55,6 +55,7 @@ export default function TracksScreen() {
   const [downloading, setDownloading] = useState<string | null>(null);
   const router = useRouter();
   const { selectedCountry, setSelectedCountry } = useCountry();
+  const { getMotoTypesParam } = useMotoTypes();
 
   const fetchTracks = async () => {
     try {
@@ -65,6 +66,10 @@ export default function TracksScreen() {
       }
       if (selectedCountry && selectedCountry !== 'all') {
         params.append('country', selectedCountry);
+      }
+      const motoTypes = getMotoTypesParam();
+      if (motoTypes !== 'all') {
+        params.append('moto_types', motoTypes);
       }
       if (params.toString()) {
         url += `?${params.toString()}`;
@@ -84,12 +89,12 @@ export default function TracksScreen() {
 
   useEffect(() => {
     fetchTracks();
-  }, [selectedDifficulty, selectedCountry]);
+  }, [selectedDifficulty, selectedCountry, getMotoTypesParam()]);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     fetchTracks();
-  }, [selectedDifficulty, selectedCountry]);
+  }, [selectedDifficulty, selectedCountry, getMotoTypesParam()]);
 
   const handleDownload = async (trackId: string, fileName: string) => {
     setDownloading(trackId);
