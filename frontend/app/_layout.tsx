@@ -1,16 +1,19 @@
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useState } from 'react';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import { CountryProvider, useCountry } from '../context/CountryContext';
 import { MotoTypesProvider, useMotoTypes } from '../context/MotoTypesContext';
-import WelcomeScreen from '../components/WelcomeScreen';
+import { AuthProvider, useAuth } from '../context/AuthContext';
+import AuthScreen from '../components/AuthScreen';
 
 function AppContent() {
   const { isOnboarded, setIsOnboarded, setSelectedCountry, loading: countryLoading } = useCountry();
   const { setSelectedMotoTypes, loading: motoTypesLoading } = useMotoTypes();
+  const { isAuthenticated, isGuest, isLoading: authLoading, logout } = useAuth();
+  const [showAuth, setShowAuth] = useState(false);
 
-  const loading = countryLoading || motoTypesLoading;
+  const loading = countryLoading || motoTypesLoading || authLoading;
 
   if (loading) {
     return (
@@ -20,13 +23,29 @@ function AppContent() {
     );
   }
 
-  if (!isOnboarded) {
+  // If not authenticated and not guest, show auth screen
+  if (!isAuthenticated && !isGuest) {
     return (
-      <WelcomeScreen
-        onComplete={(country, motoTypes) => {
-          setSelectedCountry(country);
-          setSelectedMotoTypes(motoTypes);
+      <AuthScreen
+        onComplete={() => {
           setIsOnboarded(true);
+        }}
+        onSkip={() => {
+          setIsOnboarded(true);
+        }}
+      />
+    );
+  }
+
+  // If user wants to login/register from within app
+  if (showAuth) {
+    return (
+      <AuthScreen
+        onComplete={() => {
+          setShowAuth(false);
+        }}
+        onSkip={() => {
+          setShowAuth(false);
         }}
       />
     );
@@ -46,6 +65,7 @@ function AppContent() {
       <Stack.Screen name="market-details" options={{ headerShown: false }} />
       <Stack.Screen name="notifications" options={{ headerShown: false }} />
       <Stack.Screen name="profile" options={{ headerShown: false }} />
+      <Stack.Screen name="auth" options={{ headerShown: false, presentation: 'modal' }} />
       <Stack.Screen name="create-post" options={{ headerShown: false, presentation: 'modal' }} />
       <Stack.Screen name="create-event" options={{ headerShown: false, presentation: 'modal' }} />
       <Stack.Screen name="create-trip" options={{ headerShown: false, presentation: 'modal' }} />
@@ -57,12 +77,14 @@ function AppContent() {
 
 export default function RootLayout() {
   return (
-    <CountryProvider>
-      <MotoTypesProvider>
-        <StatusBar style="light" />
-        <AppContent />
-      </MotoTypesProvider>
-    </CountryProvider>
+    <AuthProvider>
+      <CountryProvider>
+        <MotoTypesProvider>
+          <StatusBar style="light" />
+          <AppContent />
+        </MotoTypesProvider>
+      </CountryProvider>
+    </AuthProvider>
   );
 }
 
