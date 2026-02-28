@@ -17,6 +17,7 @@ import { useRouter } from 'expo-router';
 import { useCountry } from '../../context/CountryContext';
 import { useMotoTypes, getMotoTypeIcon } from '../../context/MotoTypesContext';
 import { useAuth } from '../../context/AuthContext';
+import { useLanguage } from '../../context/LanguageContext';
 import CountryPicker from '../../components/CountryPicker';
 import MotoTypePicker from '../../components/MotoTypePicker';
 import GuestPrompt from '../../components/GuestPrompt';
