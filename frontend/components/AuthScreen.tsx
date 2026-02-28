@@ -438,7 +438,7 @@ export default function AuthScreen({ onComplete, onSkip }: AuthScreenProps) {
                 </Text>
               </TouchableOpacity>
             </View>
-          ) : (
+          ) : step === 2 ? (
             <View style={styles.form}>
               <Text style={styles.prefLabel}>Select your country (optional)</Text>
               <ScrollView 
