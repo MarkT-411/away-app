@@ -338,6 +338,20 @@ export default function TracksScreen() {
           ListEmptyComponent={renderEmpty}
         />
       )}
+
+      <GuestPrompt
+        visible={guestPrompt.visible}
+        action={guestPrompt.action}
+        onClose={() => setGuestPrompt({ visible: false, action: '' })}
+        onLogin={() => {
+          setGuestPrompt({ visible: false, action: '' });
+          router.push('/auth');
+        }}
+        onRegister={() => {
+          setGuestPrompt({ visible: false, action: '' });
+          router.push('/auth');
+        }}
+      />
     </SafeAreaView>
   );
 }
