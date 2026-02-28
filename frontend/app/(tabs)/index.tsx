@@ -132,9 +132,13 @@ export default function FeedScreen() {
   }, [selectedCountry, getMotoTypesParam()]);
 
   const handleLike = async (postId: string) => {
+    // Guests CAN like posts
+    const userId = isGuest ? 'guest' : currentUser.id;
+    const userName = isGuest ? 'Guest' : currentUser.username;
+    
     try {
       const response = await fetch(
-        `${API_URL}/api/posts/${postId}/like?user_id=${CURRENT_USER.id}&username=${CURRENT_USER.username}`,
+        `${API_URL}/api/posts/${postId}/like?user_id=${userId}&username=${userName}`,
         { method: 'POST' }
       );
       if (response.ok) {
@@ -149,9 +153,15 @@ export default function FeedScreen() {
   };
 
   const handleFollow = async (userId: string, username: string) => {
+    // Guests CANNOT follow users
+    if (isGuest) {
+      setGuestPrompt({ visible: true, action: 'follow users' });
+      return;
+    }
+    
     try {
       const response = await fetch(
-        `${API_URL}/api/users/${userId}/follow?follower_id=${CURRENT_USER.id}&follower_username=${CURRENT_USER.username}`,
+        `${API_URL}/api/users/${userId}/follow?follower_id=${currentUser.id}&follower_username=${currentUser.username}`,
         { method: 'POST' }
       );
       if (response.ok) {
