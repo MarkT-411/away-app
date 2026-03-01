@@ -253,7 +253,7 @@ export default function FeedScreen() {
           />
         )}
         
-        <View style={styles.postActions}>
+        <View style={[styles.postActions, { borderTopColor: colors.border }]}>
           <TouchableOpacity 
             style={styles.actionButton}
             onPress={() => handleLike(item.id)}
@@ -261,29 +261,29 @@ export default function FeedScreen() {
             <Ionicons 
               name={isLiked ? "heart" : "heart-outline"} 
               size={24} 
-              color={isLiked ? "#FF6B35" : "#888"} 
+              color={isLiked ? colors.accent : colors.textSecondary} 
             />
-            <Text style={[styles.actionText, isLiked && styles.likedText]}>
+            <Text style={[styles.actionText, { color: colors.textSecondary }, isLiked && { color: colors.accent }]}>
               {item.likes.length}
             </Text>
           </TouchableOpacity>
           
           {item.comments_enabled !== false && (
             <TouchableOpacity style={styles.actionButton}>
-              <Ionicons name="chatbubble-outline" size={22} color="#888" />
-              <Text style={styles.actionText}>{item.comments_count}</Text>
+              <Ionicons name="chatbubble-outline" size={22} color={colors.textSecondary} />
+              <Text style={[styles.actionText, { color: colors.textSecondary }]}>{item.comments_count}</Text>
             </TouchableOpacity>
           )}
           
           {item.comments_enabled === false && (
             <View style={styles.commentsDisabled}>
-              <Ionicons name="chatbubble" size={18} color="#444" />
-              <Text style={styles.commentsDisabledText}>Comments off</Text>
+              <Ionicons name="chatbubble" size={18} color={colors.border} />
+              <Text style={[styles.commentsDisabledText, { color: colors.border }]}>Comments off</Text>
             </View>
           )}
           
           <TouchableOpacity style={styles.actionButton}>
-            <Ionicons name="share-outline" size={24} color="#888" />
+            <Ionicons name="share-outline" size={24} color={colors.textSecondary} />
           </TouchableOpacity>
         </View>
       </View>
@@ -292,9 +292,9 @@ export default function FeedScreen() {
 
   const renderEmpty = () => (
     <View style={styles.emptyContainer}>
-      <Ionicons name="images-outline" size={64} color="#444" />
-      <Text style={styles.emptyTitle}>{t('feed.noPosts')}</Text>
-      <Text style={styles.emptySubtitle}>{t('feed.beFirstToShare')}</Text>
+      <Ionicons name="images-outline" size={64} color={colors.border} />
+      <Text style={[styles.emptyTitle, { color: colors.text }]}>{t('feed.noPosts')}</Text>
+      <Text style={[styles.emptySubtitle, { color: colors.textSecondary }]}>{t('feed.beFirstToShare')}</Text>
     </View>
   );
 
