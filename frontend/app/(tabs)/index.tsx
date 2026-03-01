@@ -332,9 +332,9 @@ export default function FeedScreen() {
       </View>
 
       {loading ? (
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#FF6B35" />
-        </View>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <FeedSkeleton />
+        </ScrollView>
       ) : (
         <FlatList
           data={posts}
