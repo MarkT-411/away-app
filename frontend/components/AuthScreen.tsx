@@ -166,7 +166,7 @@ export default function AuthScreen({ onComplete, onSkip }: AuthScreenProps) {
         <View style={styles.welcomeContent}>
           <View style={styles.logoContainer}>
             <Ionicons name="bicycle" size={80} color="#FF6B35" />
-            <Text style={styles.appName}>{t('auth.welcome')}</Text>
+            <Text style={styles.appName}>TAM</Text>
             <Text style={styles.tagline}>{t('auth.tagline')}</Text>
           </View>
 
