@@ -304,7 +304,7 @@ export default function FeedScreen() {
             <Ionicons name="person-circle" size={32} color="#FF6B35" />
           </View>
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>{t('feed.title')}</Text>
+        <Text style={styles.headerTitle}>TAM</Text>
         <View style={styles.headerActions}>
           <MotoTypePicker compact />
           <CountryPicker 
@@ -324,6 +324,12 @@ export default function FeedScreen() {
                 </Text>
               </View>
             )}
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.settingsButton}
+            onPress={() => router.push('/settings')}
+          >
+            <Ionicons name="settings-outline" size={24} color="#fff" />
           </TouchableOpacity>
           <TouchableOpacity 
             style={styles.addButton}
