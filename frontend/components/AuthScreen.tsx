@@ -440,41 +440,43 @@ export default function AuthScreen({ onComplete, onSkip }: AuthScreenProps) {
             </View>
           ) : step === 2 ? (
             <View style={styles.form}>
-              <Text style={styles.prefLabel}>Select your country (optional)</Text>
-              <ScrollView 
-                horizontal 
-                showsHorizontalScrollIndicator={false}
-                style={styles.prefScroll}
-              >
+              <Text style={styles.prefLabel}>{t('auth.selectCountry')}</Text>
+              <View style={styles.countryGrid}>
                 <TouchableOpacity
-                  style={[styles.prefChip, selectedCountry === 'all' && styles.prefChipSelected]}
+                  style={[styles.countryCard, selectedCountry === 'all' && styles.countryCardSelected]}
                   onPress={() => setSelectedCountry('all')}
                 >
-                  <Text style={styles.prefChipIcon}>🌍</Text>
-                  <Text style={[styles.prefChipText, selectedCountry === 'all' && styles.prefChipTextSelected]}>
-                    Worldwide
+                  <Text style={styles.countryFlag}>🌍</Text>
+                  <Text style={[styles.countryName, selectedCountry === 'all' && styles.countryNameSelected]}>
+                    {t('common.worldwide')}
                   </Text>
+                  {selectedCountry === 'all' && (
+                    <View style={styles.countryCheck}>
+                      <Ionicons name="checkmark" size={12} color="#fff" />
+                    </View>
+                  )}
                 </TouchableOpacity>
-                {COUNTRIES.filter(c => c.code !== 'all').slice(0, 10).map(country => (
+                {COUNTRIES.filter(c => c.code !== 'all').slice(0, 9).map(country => (
                   <TouchableOpacity
                     key={country.code}
-                    style={[styles.prefChip, selectedCountry === country.code && styles.prefChipSelected]}
+                    style={[styles.countryCard, selectedCountry === country.code && styles.countryCardSelected]}
                     onPress={() => setSelectedCountry(country.code)}
                   >
-                    <Text style={styles.prefChipIcon}>{country.flag}</Text>
-                    <Text style={[styles.prefChipText, selectedCountry === country.code && styles.prefChipTextSelected]}>
-                      {country.name.length > 10 ? country.name.substring(0, 10) + '...' : country.name}
+                    <Text style={styles.countryFlag}>{country.flag}</Text>
+                    <Text style={[styles.countryName, selectedCountry === country.code && styles.countryNameSelected]}>
+                      {country.name.length > 12 ? country.name.substring(0, 12) + '...' : country.name}
                     </Text>
+                    {selectedCountry === country.code && (
+                      <View style={styles.countryCheck}>
+                        <Ionicons name="checkmark" size={12} color="#fff" />
+                      </View>
+                    )}
                   </TouchableOpacity>
                 ))}
-              </ScrollView>
+              </View>
 
-              <Text style={[styles.prefLabel, { marginTop: 20 }]}>Motorcycle types you like</Text>
-              <ScrollView 
-                horizontal 
-                showsHorizontalScrollIndicator={false}
-                style={styles.prefScroll}
-              >
+              <Text style={[styles.prefLabel, { marginTop: 20 }]}>{t('auth.selectMotoTypes')}</Text>
+              <View style={styles.motoTypeGrid}>
                 {MOTO_TYPES.map(type => {
                   const isSelected = type.id === 'all' 
                     ? selectedMotoTypes.includes('all')
@@ -482,23 +484,28 @@ export default function AuthScreen({ onComplete, onSkip }: AuthScreenProps) {
                   return (
                     <TouchableOpacity
                       key={type.id}
-                      style={[styles.prefChip, isSelected && styles.prefChipSelected]}
+                      style={[styles.motoTypeCard, isSelected && styles.motoTypeCardSelected]}
                       onPress={() => toggleMotoType(type.id)}
                     >
-                      <Text style={styles.prefChipIcon}>{type.icon}</Text>
-                      <Text style={[styles.prefChipText, isSelected && styles.prefChipTextSelected]}>
+                      <Text style={styles.motoTypeIcon}>{type.icon}</Text>
+                      <Text style={[styles.motoTypeName, isSelected && styles.motoTypeNameSelected]}>
                         {type.label.split(' ')[0]}
                       </Text>
+                      {isSelected && (
+                        <View style={styles.motoTypeCheck}>
+                          <Ionicons name="checkmark" size={12} color="#fff" />
+                        </View>
+                      )}
                     </TouchableOpacity>
                   );
                 })}
-              </ScrollView>
+              </View>
 
               <TouchableOpacity
                 style={styles.submitButton}
                 onPress={handleRegister}
               >
-                <Text style={styles.submitButtonText}>Continue</Text>
+                <Text style={styles.submitButtonText}>{t('common.continue')}</Text>
                 <Ionicons name="arrow-forward" size={20} color="#fff" />
               </TouchableOpacity>
             </View>
