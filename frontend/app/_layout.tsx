@@ -77,6 +77,7 @@ function AppContent() {
         <Stack.Screen name="create-trip" options={{ headerShown: false, presentation: 'modal' }} />
         <Stack.Screen name="create-listing" options={{ headerShown: false, presentation: 'modal' }} />
         <Stack.Screen name="create-track" options={{ headerShown: false, presentation: 'modal' }} />
+        <Stack.Screen name="settings" options={{ headerShown: false, presentation: 'modal' }} />
       </Stack>
     </>
   );
