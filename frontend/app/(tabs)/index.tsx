@@ -8,6 +8,7 @@ import {
   Image,
   RefreshControl,
   ActivityIndicator,
+  ScrollView,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -19,6 +20,8 @@ import { useLanguage } from '../../context/LanguageContext';
 import CountryPicker from '../../components/CountryPicker';
 import MotoTypePicker from '../../components/MotoTypePicker';
 import GuestPrompt from '../../components/GuestPrompt';
+import { FeedSkeleton } from '../../components/SkeletonLoader';
+import * as Haptics from 'expo-haptics';
 
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
 
