@@ -204,18 +204,18 @@ export default function FeedScreen() {
     const isOwnPost = item.user_id === CURRENT_USER.id;
     
     return (
-      <View style={styles.postCard}>
+      <View style={[styles.postCard, { backgroundColor: colors.card }]}>
         <View style={styles.postHeader}>
-          <View style={styles.avatar}>
+          <View style={[styles.avatar, { backgroundColor: colors.inputBackground }]}>
             {item.user_avatar ? (
               <Image source={{ uri: item.user_avatar }} style={styles.avatarImage} />
             ) : (
-              <Ionicons name="person" size={20} color="#888" />
+              <Ionicons name="person" size={20} color={colors.textSecondary} />
             )}
           </View>
           <View style={styles.postHeaderInfo}>
             <View style={styles.usernameRow}>
-              <Text style={styles.username}>{item.username}</Text>
+              <Text style={[styles.username, { color: colors.text }]}>{item.username}</Text>
               {item.country && (
                 <Text style={styles.countryFlag}>{getCountryFlag(item.country)}</Text>
               )}
@@ -223,27 +223,27 @@ export default function FeedScreen() {
                 <Text style={styles.motoTypeIcon}>{getMotoTypeIcon(item.moto_type)}</Text>
               )}
             </View>
-            <Text style={styles.timeAgo}>{formatTimeAgo(item.created_at)}</Text>
+            <Text style={[styles.timeAgo, { color: colors.textSecondary }]}>{formatTimeAgo(item.created_at)}</Text>
           </View>
           
           {!isOwnPost && (
             <TouchableOpacity
-              style={[styles.followButton, isFollowing && styles.followingButton]}
+              style={[styles.followButton, isFollowing && styles.followingButton, { borderColor: isFollowing ? colors.accent : colors.border }]}
               onPress={() => handleFollow(item.user_id, item.username)}
             >
               <Ionicons 
                 name={isFollowing ? "checkmark" : "person-add"} 
                 size={16} 
-                color={isFollowing ? "#FF6B35" : "#fff"} 
+                color={isFollowing ? colors.accent : colors.text} 
               />
-              <Text style={[styles.followButtonText, isFollowing && styles.followingButtonText]}>
+              <Text style={[styles.followButtonText, { color: isFollowing ? colors.accent : colors.text }]}>
                 {isFollowing ? t('feed.following') : t('feed.follow')}
               </Text>
             </TouchableOpacity>
           )}
         </View>
         
-        <Text style={styles.postContent}>{item.content}</Text>
+        <Text style={[styles.postContent, { color: colors.text }]}>{item.content}</Text>
         
         {item.image && (
           <Image 
