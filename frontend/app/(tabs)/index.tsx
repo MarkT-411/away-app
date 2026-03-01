@@ -433,6 +433,10 @@ const styles = StyleSheet.create({
     padding: 2,
     marginLeft: 4,
   },
+  settingsButton: {
+    padding: 4,
+    marginLeft: 4,
+  },
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
