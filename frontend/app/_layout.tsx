@@ -6,6 +6,7 @@ import { CountryProvider, useCountry } from '../context/CountryContext';
 import { MotoTypesProvider, useMotoTypes } from '../context/MotoTypesContext';
 import { AuthProvider, useAuth } from '../context/AuthContext';
 import { LanguageProvider, useLanguage } from '../context/LanguageContext';
+import { ThemeProvider, useTheme } from '../context/ThemeContext';
 import AuthScreen from '../components/AuthScreen';
 
 function AppContent() {
@@ -13,14 +14,15 @@ function AppContent() {
   const { setSelectedMotoTypes, loading: motoTypesLoading } = useMotoTypes();
   const { isAuthenticated, isGuest, isLoading: authLoading, logout } = useAuth();
   const { loading: languageLoading } = useLanguage();
+  const { colors, isDark } = useTheme();
   const [showAuth, setShowAuth] = useState(false);
 
   const loading = countryLoading || motoTypesLoading || authLoading || languageLoading;
 
   if (loading) {
     return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#FF6B35" />
+      <View style={[styles.loadingContainer, { backgroundColor: colors.background }]}>
+        <ActivityIndicator size="large" color={colors.accent} />
       </View>
     );
   }
@@ -54,41 +56,45 @@ function AppContent() {
   }
 
   return (
-    <Stack
-      screenOptions={{
-        headerShown: false,
-        contentStyle: { backgroundColor: '#0D0D0D' },
-        animation: 'slide_from_right',
-      }}
-    >
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="event-details" options={{ headerShown: false }} />
-      <Stack.Screen name="trip-details" options={{ headerShown: false }} />
-      <Stack.Screen name="market-details" options={{ headerShown: false }} />
-      <Stack.Screen name="notifications" options={{ headerShown: false }} />
-      <Stack.Screen name="profile" options={{ headerShown: false }} />
-      <Stack.Screen name="auth" options={{ headerShown: false, presentation: 'modal' }} />
-      <Stack.Screen name="create-post" options={{ headerShown: false, presentation: 'modal' }} />
-      <Stack.Screen name="create-event" options={{ headerShown: false, presentation: 'modal' }} />
-      <Stack.Screen name="create-trip" options={{ headerShown: false, presentation: 'modal' }} />
-      <Stack.Screen name="create-listing" options={{ headerShown: false, presentation: 'modal' }} />
-      <Stack.Screen name="create-track" options={{ headerShown: false, presentation: 'modal' }} />
-    </Stack>
+    <>
+      <StatusBar style={isDark ? 'light' : 'dark'} />
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          contentStyle: { backgroundColor: colors.background },
+          animation: 'slide_from_right',
+        }}
+      >
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="event-details" options={{ headerShown: false }} />
+        <Stack.Screen name="trip-details" options={{ headerShown: false }} />
+        <Stack.Screen name="market-details" options={{ headerShown: false }} />
+        <Stack.Screen name="notifications" options={{ headerShown: false }} />
+        <Stack.Screen name="profile" options={{ headerShown: false }} />
+        <Stack.Screen name="auth" options={{ headerShown: false, presentation: 'modal' }} />
+        <Stack.Screen name="create-post" options={{ headerShown: false, presentation: 'modal' }} />
+        <Stack.Screen name="create-event" options={{ headerShown: false, presentation: 'modal' }} />
+        <Stack.Screen name="create-trip" options={{ headerShown: false, presentation: 'modal' }} />
+        <Stack.Screen name="create-listing" options={{ headerShown: false, presentation: 'modal' }} />
+        <Stack.Screen name="create-track" options={{ headerShown: false, presentation: 'modal' }} />
+      </Stack>
+    </>
   );
 }
 
 export default function RootLayout() {
   return (
-    <AuthProvider>
-      <LanguageProvider>
-        <CountryProvider>
-          <MotoTypesProvider>
-            <StatusBar style="light" />
-            <AppContent />
-          </MotoTypesProvider>
-        </CountryProvider>
-      </LanguageProvider>
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <LanguageProvider>
+          <CountryProvider>
+            <MotoTypesProvider>
+              <AppContent />
+            </MotoTypesProvider>
+          </CountryProvider>
+        </LanguageProvider>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 
