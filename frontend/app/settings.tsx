@@ -12,6 +12,7 @@ import { useRouter } from 'expo-router';
 import { useTheme, ThemeMode } from '../context/ThemeContext';
 import { useLanguage, LANGUAGES } from '../context/LanguageContext';
 import { useAuth } from '../context/AuthContext';
+import HelmetLogo from '../components/HelmetLogo';
 
 export default function SettingsScreen() {
   const router = useRouter();
