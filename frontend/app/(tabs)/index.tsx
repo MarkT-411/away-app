@@ -137,6 +137,9 @@ export default function FeedScreen() {
   }, [selectedCountry, getMotoTypesParam()]);
 
   const handleLike = async (postId: string) => {
+    // Haptic feedback
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    
     // Guests CAN like posts
     const userId = isGuest ? 'guest' : currentUser.id;
     const userName = isGuest ? 'Guest' : currentUser.username;
