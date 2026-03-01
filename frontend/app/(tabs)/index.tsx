@@ -299,14 +299,14 @@ export default function FeedScreen() {
   );
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
-      <View style={styles.header}>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]} edges={['top']}>
+      <View style={[styles.header, { backgroundColor: colors.background }]}>
         <TouchableOpacity onPress={() => requireAuth('view your profile', () => router.push('/profile'))}>
           <View style={styles.profileButton}>
-            <Ionicons name="person-circle" size={32} color="#FF6B35" />
+            <Ionicons name="person-circle" size={32} color={colors.accent} />
           </View>
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>TAM</Text>
+        <Text style={[styles.headerTitle, { color: colors.accent }]}>TAM</Text>
         <View style={styles.headerActions}>
           <MotoTypePicker compact />
           <CountryPicker 
@@ -318,7 +318,7 @@ export default function FeedScreen() {
             style={styles.notificationButton}
             onPress={() => requireAuth('view notifications', () => router.push('/notifications'))}
           >
-            <Ionicons name="notifications-outline" size={26} color="#fff" />
+            <Ionicons name="notifications-outline" size={26} color={colors.text} />
             {unreadCount > 0 && (
               <View style={styles.badge}>
                 <Text style={styles.badgeText}>
@@ -331,13 +331,13 @@ export default function FeedScreen() {
             style={styles.settingsButton}
             onPress={() => router.push('/settings')}
           >
-            <Ionicons name="settings-outline" size={24} color="#fff" />
+            <Ionicons name="settings-outline" size={24} color={colors.text} />
           </TouchableOpacity>
           <TouchableOpacity 
             style={styles.addButton}
             onPress={() => requireAuth('create a post', () => router.push('/create-post'))}
           >
-            <Ionicons name="add-circle" size={32} color="#FF6B35" />
+            <Ionicons name="add-circle" size={32} color={colors.accent} />
           </TouchableOpacity>
         </View>
       </View>
