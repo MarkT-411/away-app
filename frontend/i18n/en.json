@@ -178,6 +178,16 @@
     "language": "Language",
     "notifications": "Notifications"
   },
+  "settings": {
+    "title": "Settings",
+    "appearance": "Appearance",
+    "lightMode": "Light Mode",
+    "darkMode": "Dark Mode",
+    "systemDefault": "System Default",
+    "language": "Language",
+    "account": "Account",
+    "about": "About"
+  },
   "notifications": {
     "title": "Notifications",
     "noNotifications": "No notifications yet",
