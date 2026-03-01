@@ -17,6 +17,7 @@ import { useAuth } from '../context/AuthContext';
 import { COUNTRIES } from '../context/CountryContext';
 import { MOTO_TYPES } from '../context/MotoTypesContext';
 import { LANGUAGES, useLanguage } from '../context/LanguageContext';
+import HelmetLogo from './HelmetLogo';
 
 interface AuthScreenProps {
   onComplete: () => void;
