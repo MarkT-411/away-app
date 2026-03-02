@@ -588,6 +588,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: 'bold',
     marginTop: 16,
+    fontFamily: 'Rostex',
   },
   tagline: {
     color: '#888',
