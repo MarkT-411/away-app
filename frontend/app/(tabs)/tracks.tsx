@@ -64,6 +64,8 @@ export default function TracksScreen() {
   const { selectedCountry, setSelectedCountry } = useCountry();
   const { getMotoTypesParam } = useMotoTypes();
   const { isGuest } = useAuth();
+  const { t } = useLanguage();
+  const { colors } = useTheme();
 
   const requireAuth = (action: string, callback: () => void) => {
     if (isGuest) {
