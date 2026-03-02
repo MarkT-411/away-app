@@ -16,6 +16,7 @@ export const MOTO_TYPES: MotoType[] = [
   { id: 'cruiser', label: 'Cruiser / Chopper', icon: '🏁' },
   { id: 'enduro', label: 'Enduro / Off-road', icon: '🌲' },
   { id: 'cafe_racer', label: 'Cafe Racer / Classic', icon: '🏎️' },
+  { id: 'quad', label: 'Quad / ATV', icon: '🚜' },
 ];
 
 interface MotoTypesContextType {
