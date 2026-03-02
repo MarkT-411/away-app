@@ -195,14 +195,14 @@ export default function TracksScreen() {
   };
 
   const renderTrack = ({ item }: { item: GpxTrack }) => (
-    <View style={styles.trackCard}>
+    <View style={[styles.trackCard, { backgroundColor: colors.card }]}>
       <View style={styles.trackHeader}>
-        <View style={styles.trackIconContainer}>
-          <Ionicons name="navigate" size={28} color="#FF6B35" />
+        <View style={[styles.trackIconContainer, { backgroundColor: colors.accentLight }]}>
+          <Ionicons name="navigate" size={28} color={colors.accent} />
         </View>
         <View style={styles.trackTitleContainer}>
-          <Text style={styles.trackTitle} numberOfLines={1}>{item.title}</Text>
-          <Text style={styles.trackUploader}>by {item.uploader_name}</Text>
+          <Text style={[styles.trackTitle, { color: colors.text }]} numberOfLines={1}>{item.title}</Text>
+          <Text style={[styles.trackUploader, { color: colors.textSecondary }]}>by {item.uploader_name}</Text>
         </View>
         <View style={[
           styles.difficultyBadge,
@@ -214,40 +214,40 @@ export default function TracksScreen() {
         </View>
       </View>
 
-      <Text style={styles.trackDescription} numberOfLines={2}>
+      <Text style={[styles.trackDescription, { color: colors.textSecondary }]} numberOfLines={2}>
         {item.description}
       </Text>
 
-      <View style={styles.trackMeta}>
+      <View style={[styles.trackMeta, { borderTopColor: colors.border }]}>
         {item.distance && (
           <View style={styles.metaItem}>
-            <Ionicons name="speedometer-outline" size={16} color="#888" />
-            <Text style={styles.metaText}>{item.distance}</Text>
+            <Ionicons name="speedometer-outline" size={16} color={colors.textSecondary} />
+            <Text style={[styles.metaText, { color: colors.textSecondary }]}>{item.distance}</Text>
           </View>
         )}
         {item.elevation_gain && (
           <View style={styles.metaItem}>
-            <Ionicons name="trending-up" size={16} color="#888" />
-            <Text style={styles.metaText}>{item.elevation_gain}</Text>
+            <Ionicons name="trending-up" size={16} color={colors.textSecondary} />
+            <Text style={[styles.metaText, { color: colors.textSecondary }]}>{item.elevation_gain}</Text>
           </View>
         )}
         {item.region && (
           <View style={styles.metaItem}>
-            <Ionicons name="location-outline" size={16} color="#888" />
-            <Text style={styles.metaText}>{item.region}</Text>
+            <Ionicons name="location-outline" size={16} color={colors.textSecondary} />
+            <Text style={[styles.metaText, { color: colors.textSecondary }]}>{item.region}</Text>
           </View>
         )}
       </View>
 
-      <View style={styles.trackFooter}>
+      <View style={[styles.trackFooter, { borderTopColor: colors.border }]}>
         <View style={styles.trackStats}>
-          <Ionicons name="download-outline" size={16} color="#666" />
-          <Text style={styles.statsText}>{item.downloads} downloads</Text>
-          <Text style={styles.dateText}>• {formatDate(item.created_at)}</Text>
+          <Ionicons name="download-outline" size={16} color={colors.textSecondary} />
+          <Text style={[styles.statsText, { color: colors.textSecondary }]}>{item.downloads} downloads</Text>
+          <Text style={[styles.dateText, { color: colors.textSecondary }]}>• {formatDate(item.created_at)}</Text>
         </View>
         
         <TouchableOpacity
-          style={styles.downloadButton}
+          style={[styles.downloadButton, { backgroundColor: colors.accent }]}
           onPress={() => handleDownload(item.id, item.file_name)}
           disabled={downloading === item.id}
         >
