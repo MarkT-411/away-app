@@ -261,16 +261,16 @@ export default function MarketScreen() {
 
   const renderEmpty = () => (
     <View style={styles.emptyContainer}>
-      <Ionicons name="cart-outline" size={64} color="#444" />
-      <Text style={styles.emptyTitle}>No items listed</Text>
-      <Text style={styles.emptySubtitle}>Be the first to list something for sale!</Text>
+      <Ionicons name="cart-outline" size={64} color={colors.border} />
+      <Text style={[styles.emptyTitle, { color: colors.text }]}>No items listed</Text>
+      <Text style={[styles.emptySubtitle, { color: colors.textSecondary }]}>Be the first to list something for sale!</Text>
     </View>
   );
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Marketplace</Text>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]} edges={['top']}>
+      <View style={[styles.header, { backgroundColor: colors.background }]}>
+        <Text style={[styles.headerTitle, { color: colors.text }]}>Marketplace</Text>
         <View style={styles.headerActions}>
           <MotoTypePicker compact />
           <CountryPicker 
@@ -282,7 +282,7 @@ export default function MarketScreen() {
             style={styles.addButton}
             onPress={() => requireAuth('create a listing', () => router.push('/create-listing'))}
           >
-            <Ionicons name="add-circle" size={32} color="#FF6B35" />
+            <Ionicons name="add-circle" size={32} color={colors.accent} />
           </TouchableOpacity>
         </View>
       </View>
@@ -291,7 +291,7 @@ export default function MarketScreen() {
 
       {loading ? (
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#FF6B35" />
+          <ActivityIndicator size="large" color={colors.accent} />
         </View>
       ) : (
         <FlatList
@@ -306,7 +306,7 @@ export default function MarketScreen() {
             <RefreshControl
               refreshing={refreshing}
               onRefresh={onRefresh}
-              tintColor="#FF6B35"
+              tintColor={colors.accent}
             />
           }
           ListEmptyComponent={renderEmpty}
