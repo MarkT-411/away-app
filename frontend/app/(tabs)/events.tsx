@@ -212,15 +212,15 @@ export default function EventsScreen() {
     
     return (
       <TouchableOpacity 
-        style={styles.eventCard}
+        style={[styles.eventCard, { backgroundColor: colors.card }]}
         onPress={() => router.push({ pathname: '/event-details', params: { id: item.id } })}
       >
         <View style={styles.eventImageContainer}>
           {item.image ? (
             <Image source={{ uri: item.image }} style={styles.eventImage} />
           ) : (
-            <View style={styles.placeholderImage}>
-              <Ionicons name="calendar" size={40} color="#444" />
+            <View style={[styles.placeholderImage, { backgroundColor: colors.inputBackground }]}>
+              <Ionicons name="calendar" size={40} color={colors.textSecondary} />
             </View>
           )}
           <View style={styles.dateOverlay}>
@@ -229,23 +229,23 @@ export default function EventsScreen() {
         </View>
         
         <View style={styles.eventInfo}>
-          <Text style={styles.eventTitle} numberOfLines={1}>{item.title}</Text>
+          <Text style={[styles.eventTitle, { color: colors.text }]} numberOfLines={1}>{item.title}</Text>
           
           <View style={styles.eventMeta}>
             <View style={styles.metaItem}>
-              <Ionicons name="location-outline" size={14} color="#888" />
-              <Text style={styles.metaText} numberOfLines={1}>{item.location}</Text>
+              <Ionicons name="location-outline" size={14} color={colors.textSecondary} />
+              <Text style={[styles.metaText, { color: colors.textSecondary }]} numberOfLines={1}>{item.location}</Text>
             </View>
             <View style={styles.metaItem}>
-              <Ionicons name="time-outline" size={14} color="#888" />
-              <Text style={styles.metaText}>{item.time}</Text>
+              <Ionicons name="time-outline" size={14} color={colors.textSecondary} />
+              <Text style={[styles.metaText, { color: colors.textSecondary }]}>{item.time}</Text>
             </View>
           </View>
           
           <View style={styles.eventFooter}>
             <View style={styles.attendeeInfo}>
-              <Ionicons name="people-outline" size={16} color="#FF6B35" />
-              <Text style={styles.attendeeText}>
+              <Ionicons name="people-outline" size={16} color={colors.accent} />
+              <Text style={[styles.attendeeText, { color: colors.textSecondary }]}>
                 {item.attendees.length}{item.max_attendees ? `/${item.max_attendees}` : ''} going
               </Text>
             </View>
