@@ -207,15 +207,15 @@ export default function MarketScreen() {
     
     return (
       <TouchableOpacity 
-        style={styles.itemCard}
+        style={[styles.itemCard, { backgroundColor: colors.card }]}
         onPress={() => router.push({ pathname: '/market-details', params: { id: item.id } })}
       >
         <View style={styles.itemImageContainer}>
           {item.images.length > 0 ? (
             <Image source={{ uri: item.images[0] }} style={styles.itemImage} />
           ) : (
-            <View style={styles.placeholderImage}>
-              <Ionicons name="image-outline" size={32} color="#444" />
+            <View style={[styles.placeholderImage, { backgroundColor: colors.inputBackground }]}>
+              <Ionicons name="image-outline" size={32} color={colors.textSecondary} />
             </View>
           )}
           <View style={[
@@ -232,25 +232,25 @@ export default function MarketScreen() {
               <Ionicons 
                 name={isFavorite ? "heart" : "heart-outline"} 
                 size={22} 
-                color={isFavorite ? "#FF6B35" : "#fff"} 
+                color={isFavorite ? colors.accent : "#fff"} 
               />
             </TouchableOpacity>
           )}
         </View>
         
         <View style={styles.itemInfo}>
-          <Text style={styles.itemTitle} numberOfLines={2}>{item.title}</Text>
-          <Text style={styles.itemPrice}>{formatPrice(item.price)}</Text>
+          <Text style={[styles.itemTitle, { color: colors.text }]} numberOfLines={2}>{item.title}</Text>
+          <Text style={[styles.itemPrice, { color: colors.accent }]}>{formatPrice(item.price)}</Text>
           
           <View style={styles.itemMeta}>
             <View style={styles.sellerInfo}>
-              <Ionicons name="person-outline" size={12} color="#888" />
-              <Text style={styles.sellerName} numberOfLines={1}>{item.seller_name}</Text>
+              <Ionicons name="person-outline" size={12} color={colors.textSecondary} />
+              <Text style={[styles.sellerName, { color: colors.textSecondary }]} numberOfLines={1}>{item.seller_name}</Text>
             </View>
             {item.location && (
               <View style={styles.locationInfo}>
-                <Ionicons name="location-outline" size={12} color="#888" />
-                <Text style={styles.locationText} numberOfLines={1}>{item.location}</Text>
+                <Ionicons name="location-outline" size={12} color={colors.textSecondary} />
+                <Text style={[styles.locationText, { color: colors.textSecondary }]} numberOfLines={1}>{item.location}</Text>
               </View>
             )}
           </View>
