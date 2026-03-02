@@ -59,6 +59,8 @@ export default function RidesScreen() {
   const { selectedCountry, setSelectedCountry } = useCountry();
   const { getMotoTypesParam } = useMotoTypes();
   const { user, isGuest } = useAuth();
+  const { t } = useLanguage();
+  const { colors } = useTheme();
 
   const currentUser = user ? { id: user.id, username: user.username } : { id: 'guest', username: 'Guest' };
 
