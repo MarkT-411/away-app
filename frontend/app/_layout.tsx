@@ -1,7 +1,8 @@
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
+import * as Font from 'expo-font';
 import { CountryProvider, useCountry } from '../context/CountryContext';
 import { MotoTypesProvider, useMotoTypes } from '../context/MotoTypesContext';
 import { AuthProvider, useAuth } from '../context/AuthContext';
@@ -16,8 +17,20 @@ function AppContent() {
   const { loading: languageLoading } = useLanguage();
   const { colors, isDark } = useTheme();
   const [showAuth, setShowAuth] = useState(false);
+  const [fontsLoaded, setFontsLoaded] = useState(false);
 
-  const loading = countryLoading || motoTypesLoading || authLoading || languageLoading;
+  useEffect(() => {
+    async function loadFonts() {
+      await Font.loadAsync({
+        'Rostex': require('../assets/fonts/Rostex-Regular.ttf'),
+        'Rostex-Outline': require('../assets/fonts/Rostex-Outline.ttf'),
+      });
+      setFontsLoaded(true);
+    }
+    loadFonts();
+  }, []);
+
+  const loading = countryLoading || motoTypesLoading || authLoading || languageLoading || !fontsLoaded;
 
   if (loading) {
     return (
