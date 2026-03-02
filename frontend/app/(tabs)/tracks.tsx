@@ -278,8 +278,8 @@ export default function TracksScreen() {
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]} edges={['top']}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>GPX Tracks</Text>
+      <View style={[styles.header, { backgroundColor: colors.background }]}>
+        <Text style={[styles.headerTitle, { color: colors.text }]}>GPX Tracks</Text>
         <View style={styles.headerActions}>
           <MotoTypePicker compact />
           <CountryPicker 
@@ -291,7 +291,7 @@ export default function TracksScreen() {
             style={styles.addButton}
             onPress={() => requireAuth('upload a GPX track', () => router.push('/create-track'))}
           >
-            <Ionicons name="add-circle" size={32} color="#FF6B35" />
+            <Ionicons name="add-circle" size={32} color={colors.accent} />
           </TouchableOpacity>
         </View>
       </View>
@@ -300,7 +300,7 @@ export default function TracksScreen() {
       <ScrollView 
         horizontal 
         showsHorizontalScrollIndicator={false}
-        style={styles.filterContainer}
+        style={[styles.filterContainer, { backgroundColor: colors.background }]}
         contentContainerStyle={styles.filterContent}
       >
         {DIFFICULTIES.map((diff) => (
@@ -308,13 +308,15 @@ export default function TracksScreen() {
             key={diff.id}
             style={[
               styles.filterChip,
+              { backgroundColor: colors.card, borderColor: colors.border },
               selectedDifficulty === diff.id && styles.filterChipActive,
-              selectedDifficulty === diff.id && { backgroundColor: diff.color },
+              selectedDifficulty === diff.id && { backgroundColor: diff.color, borderColor: diff.color },
             ]}
             onPress={() => setSelectedDifficulty(diff.id)}
           >
             <Text style={[
               styles.filterChipText,
+              { color: colors.textSecondary },
               selectedDifficulty === diff.id && styles.filterChipTextActive,
             ]}>
               {diff.label}
@@ -325,7 +327,7 @@ export default function TracksScreen() {
 
       {loading ? (
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#FF6B35" />
+          <ActivityIndicator size="large" color={colors.accent} />
         </View>
       ) : (
         <FlatList
@@ -338,6 +340,7 @@ export default function TracksScreen() {
             <RefreshControl
               refreshing={refreshing}
               onRefresh={onRefresh}
+              tintColor={colors.accent}
               tintColor="#FF6B35"
             />
           }
