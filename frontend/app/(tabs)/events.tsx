@@ -377,9 +377,9 @@ export default function EventsScreen() {
 
   const renderEmpty = () => (
     <View style={styles.emptyContainer}>
-      <Ionicons name="calendar-outline" size={64} color="#444" />
-      <Text style={styles.emptyTitle}>No events found</Text>
-      <Text style={styles.emptySubtitle}>
+      <Ionicons name="calendar-outline" size={64} color={colors.border} />
+      <Text style={[styles.emptyTitle, { color: colors.text }]}>No events found</Text>
+      <Text style={[styles.emptySubtitle, { color: colors.textSecondary }]}>
         {selectedMonth ? `No events in ${MONTHS[selectedMonth - 1]}` : 'Create an event for the community to join!'}
       </Text>
       {selectedMonth && (
@@ -394,9 +394,9 @@ export default function EventsScreen() {
   );
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Events</Text>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]} edges={['top']}>
+      <View style={[styles.header, { backgroundColor: colors.background }]}>
+        <Text style={[styles.headerTitle, { color: colors.text }]}>Events</Text>
         <View style={styles.headerActions}>
           <MotoTypePicker compact />
           <CountryPicker 
@@ -411,14 +411,14 @@ export default function EventsScreen() {
             <Ionicons 
               name={viewMode === 'list' ? 'calendar' : 'list'} 
               size={24} 
-              color="#FF6B35" 
+              color={colors.accent} 
             />
           </TouchableOpacity>
           <TouchableOpacity 
             style={styles.addButton}
             onPress={() => requireAuth('create an event', () => router.push('/create-event'))}
           >
-            <Ionicons name="add-circle" size={32} color="#FF6B35" />
+            <Ionicons name="add-circle" size={32} color={colors.accent} />
           </TouchableOpacity>
         </View>
       </View>
