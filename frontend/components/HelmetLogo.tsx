@@ -1,5 +1,5 @@
 import React from 'react';
-import Svg, { Path, G } from 'react-native-svg';
+import Svg, { Path, G, Circle } from 'react-native-svg';
 
 interface HelmetLogoProps {
   size?: number;
@@ -7,10 +7,10 @@ interface HelmetLogoProps {
 }
 
 export default function HelmetLogo({ size = 80, color = '#FF6B35' }: HelmetLogoProps) {
-  const strokeWidth = size * 0.035; // Scale stroke width with size
+  const strokeWidth = size * 0.04; // Thick lines
   
   return (
-    <Svg width={size} height={size} viewBox="-400 -250 800 600">
+    <Svg width={size} height={size} viewBox="0 0 100 100">
       <G 
         stroke={color} 
         strokeWidth={strokeWidth} 
@@ -18,59 +18,63 @@ export default function HelmetLogo({ size = 80, color = '#FF6B35' }: HelmetLogoP
         strokeLinecap="round" 
         strokeLinejoin="round"
       >
-        {/* Main helmet shell */}
+        {/* Main helmet shell - rounded profile */}
         <Path d="
-          M -80 -180
-          C -200 -180, -280 -100, -300 40
-          C -310 120, -280 200, -200 260
-          C -120 310, 60 320, 160 280
-          C 240 250, 300 180, 300 80
-          C 300 -40, 260 -140, 180 -180
-          C 100 -220, -20 -220, -80 -180
+          M 55 15
+          C 75 15, 88 30, 88 50
+          C 88 70, 75 85, 55 88
+          C 40 90, 28 85, 22 75
+          C 18 68, 18 58, 22 48
+          C 26 38, 35 25, 55 15
         "/>
         
-        {/* Visor peak (adventure helmet characteristic) */}
+        {/* Sharp visor/beak pointing forward-down */}
         <Path d="
-          M -280 -60
-          L -380 -120
-          L -360 -80
-          L -280 -20
+          M 35 32
+          L 12 42
+          L 15 48
+          L 30 45
         "/>
         
-        {/* Visor/Eye shield area */}
+        {/* Visor mounting screws */}
+        <Circle cx="32" cy="35" r="2" fill={color} />
+        <Circle cx="28" cy="42" r="2" fill={color} />
+        
+        {/* Eye port / visor opening */}
         <Path d="
-          M -260 20
-          C -240 -40, -140 -80, -40 -80
-          C 60 -80, 140 -40, 180 20
+          M 30 45
+          C 32 38, 45 32, 60 35
+          C 70 37, 78 42, 80 50
         "/>
         
-        {/* Visor bottom line */}
+        {/* Eye port bottom curve */}
         <Path d="
-          M -260 60
-          C -200 40, -80 30, 40 40
-          C 120 50, 180 70, 200 90
+          M 28 55
+          C 35 50, 50 48, 65 50
+          C 75 52, 80 55, 82 60
         "/>
         
-        {/* Chin guard / Lower helmet */}
+        {/* Chin bar with ribbed ventilation lines */}
         <Path d="
-          M -280 100
-          C -300 160, -280 220, -200 260
+          M 22 60
+          C 20 68, 22 76, 30 82
         "/>
         
-        {/* Ventilation detail on chin */}
-        <Path d="M -220 180 L -180 180"/>
-        <Path d="M -200 200 L -160 200"/>
+        {/* Horizontal vent lines on chin bar */}
+        <Path d="M 24 65 L 32 63"/>
+        <Path d="M 25 70 L 35 68"/>
+        <Path d="M 27 75 L 38 73"/>
         
-        {/* Top vent detail */}
+        {/* Top shell contour line */}
         <Path d="
-          M -40 -200
-          C 0 -210, 60 -200, 80 -190
+          M 45 18
+          C 55 16, 70 20, 80 30
         "/>
         
-        {/* Back neck area detail */}
+        {/* Back of helmet detail */}
         <Path d="
-          M 200 140
-          C 240 180, 240 220, 200 260
+          M 85 55
+          C 86 65, 82 75, 72 82
         "/>
       </G>
     </Svg>
