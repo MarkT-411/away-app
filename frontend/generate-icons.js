@@ -1,98 +1,94 @@
 const sharp = require('sharp');
 const path = require('path');
 
-// SVG matching the reference helmet image - accurate proportions
+// SVG with improved helmet shape matching reference
 const svgContent = `<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-  <!-- Dark grey background -->
   <rect width="1024" height="1024" fill="#1A1A1A"/>
   
-  <!-- Helmet centered and scaled -->
-  <g transform="translate(512, 512) scale(4)" stroke="#FF6B35" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
-    
-    <!-- Main helmet shell - smooth rounded curve -->
+  <g transform="translate(512, 512) scale(5)" stroke="#FF6B35" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Main helmet shell - profile facing left -->
     <path d="
-      M 25 -15
-      C 30 -5, 32 5, 30 15
-      C 28 25, 20 32, 8 35
-      C -5 38, -18 35, -25 28
-      C -30 23, -32 15, -30 5
-      C -28 -5, -20 -15, -5 -22
-      C 5 -27, 18 -25, 25 -15
+      M 20 -20
+      C 28 -12, 32 0, 30 12
+      C 28 24, 18 32, 5 35
+      C -8 38, -20 34, -26 26
+      C -30 20, -32 10, -28 0
     "/>
     
-    <!-- Visor peak - sharp triangular pointing forward-up -->
+    <!-- Top curve of helmet -->
     <path d="
-      M -20 -8
-      L -38 -15
-      L -36 -8
-      L -22 2
+      M -28 0
+      C -24 -12, -12 -22, 5 -25
+      C 12 -26, 18 -24, 20 -20
     "/>
     
-    <!-- Eye port - elongated horizontal opening top -->
+    <!-- Visor peak - prominent sharp angle extending forward -->
     <path d="
-      M -22 2
-      C -15 -8, 0 -10, 15 -6
-      C 22 -4, 26 0, 28 5
+      M -22 -6
+      L -42 -14
+      L -40 -6
+      L -24 2
     "/>
     
-    <!-- Eye port bottom edge -->
+    <!-- Eye port top curve -->
     <path d="
-      M -25 8
-      C -15 4, 2 2, 18 5
-      C 24 6, 28 10, 30 15
+      M -24 2
+      C -16 -6, 0 -10, 16 -5
+      C 24 -2, 28 4, 30 12
     "/>
     
-    <!-- Chin bar outer curve -->
+    <!-- Eye port bottom -->
     <path d="
-      M -30 5
-      C -32 12, -32 20, -28 26
-      C -24 32, -15 35, -5 35
+      M -26 10
+      C -16 5, 2 2, 18 6
+      C 26 8, 30 14, 30 20
     "/>
     
-    <!-- Horizontal vent slits on chin bar - 4 parallel lines -->
-    <path d="M -28 12 L -15 10"/>
-    <path d="M -27 17 L -12 15"/>
-    <path d="M -26 22 L -10 20"/>
-    <path d="M -24 27 L -8 25"/>
-    
-    <!-- Top of helmet contour -->
+    <!-- Chin bar with vents -->
     <path d="
-      M -5 -22
-      C 5 -25, 18 -22, 25 -15
+      M -28 0
+      C -32 8, -32 18, -28 26
+      C -24 32, -14 36, -2 36
     "/>
+    
+    <!-- Vent lines on chin - horizontal slits -->
+    <path d="M -30 8 L -16 5"/>
+    <path d="M -30 14 L -12 11"/>
+    <path d="M -29 20 L -10 17"/>
+    <path d="M -27 26 L -8 23"/>
   </g>
 </svg>`;
 
 const outputDir = path.join(__dirname, 'assets', 'images');
 
 async function generateIcons() {
-  console.log('Generating helmet app icons with accurate proportions...');
+  console.log('Generating helmet icons...');
   
   await sharp(Buffer.from(svgContent))
     .resize(1024, 1024)
     .png()
     .toFile(path.join(outputDir, 'icon.png'));
-  console.log('✓ Generated icon.png (1024x1024)');
+  console.log('✓ icon.png');
 
   await sharp(Buffer.from(svgContent))
     .resize(1024, 1024)
     .png()
     .toFile(path.join(outputDir, 'adaptive-icon.png'));
-  console.log('✓ Generated adaptive-icon.png (1024x1024)');
+  console.log('✓ adaptive-icon.png');
 
   await sharp(Buffer.from(svgContent))
     .resize(48, 48)
     .png()
     .toFile(path.join(outputDir, 'favicon.png'));
-  console.log('✓ Generated favicon.png (48x48)');
+  console.log('✓ favicon.png');
 
   await sharp(Buffer.from(svgContent))
     .resize(200, 200)
     .png()
     .toFile(path.join(outputDir, 'splash-icon.png'));
-  console.log('✓ Generated splash-icon.png (200x200)');
+  console.log('✓ splash-icon.png');
 
-  console.log('\n✅ All icons generated!');
+  console.log('Done!');
 }
 
 generateIcons().catch(console.error);
