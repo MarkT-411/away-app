@@ -266,9 +266,9 @@ export default function TracksScreen() {
 
   const renderEmpty = () => (
     <View style={styles.emptyContainer}>
-      <Ionicons name="map-outline" size={64} color="#444" />
-      <Text style={styles.emptyTitle}>No tracks found</Text>
-      <Text style={styles.emptySubtitle}>
+      <Ionicons name="map-outline" size={64} color={colors.border} />
+      <Text style={[styles.emptyTitle, { color: colors.text }]}>No tracks found</Text>
+      <Text style={[styles.emptySubtitle, { color: colors.textSecondary }]}>
         {selectedDifficulty !== 'all' 
           ? `No ${selectedDifficulty} tracks available` 
           : 'Be the first to share a GPX track!'}
@@ -277,7 +277,7 @@ export default function TracksScreen() {
   );
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]} edges={['top']}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>GPX Tracks</Text>
         <View style={styles.headerActions}>
