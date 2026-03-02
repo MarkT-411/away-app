@@ -7,7 +7,7 @@ interface HelmetLogoProps {
 }
 
 export default function HelmetLogo({ size = 80, color = '#FF6B35' }: HelmetLogoProps) {
-  const strokeWidth = size * 0.035;
+  const strokeWidth = size * 0.03;
   
   return (
     <Svg width={size} height={size} viewBox="0 0 100 100">
@@ -18,57 +18,56 @@ export default function HelmetLogo({ size = 80, color = '#FF6B35' }: HelmetLogoP
         strokeLinecap="round" 
         strokeLinejoin="round"
       >
-        {/* Main helmet shell - smooth rounded curve */}
+        {/* Main helmet shell - profile facing left */}
         <Path d="
-          M 75 35
-          C 80 45, 82 55, 80 65
-          C 78 75, 70 82, 58 85
-          C 45 88, 32 85, 25 78
-          C 20 73, 18 65, 20 55
-          C 22 45, 30 35, 45 28
-          C 55 23, 68 25, 75 35
+          M 70 30
+          C 78 38, 82 50, 80 62
+          C 78 74, 68 82, 55 85
+          C 42 88, 30 84, 24 76
+          C 20 70, 18 60, 22 50
         "/>
         
-        {/* Visor peak - sharp triangular pointing forward-up at ~18 degrees */}
+        {/* Top curve of helmet */}
         <Path d="
-          M 30 42
-          L 12 35
-          L 14 42
-          L 28 48
+          M 22 50
+          C 26 38, 38 28, 55 25
+          C 62 24, 68 26, 70 30
         "/>
         
-        {/* Eye port - elongated horizontal opening */}
+        {/* Visor peak - prominent sharp angle extending forward */}
         <Path d="
-          M 28 48
-          C 35 42, 50 40, 65 44
-          C 72 46, 76 50, 78 55
+          M 28 44
+          L 8 36
+          L 10 44
+          L 26 52
         "/>
         
-        {/* Eye port bottom edge */}
+        {/* Eye port top curve */}
         <Path d="
-          M 25 58
-          C 35 54, 52 52, 68 55
-          C 74 56, 78 60, 80 65
+          M 26 52
+          C 34 44, 50 40, 66 45
+          C 74 48, 78 54, 80 62
         "/>
         
-        {/* Chin bar outer curve */}
+        {/* Eye port bottom */}
         <Path d="
-          M 20 55
-          C 18 62, 18 70, 22 76
-          C 26 82, 35 85, 45 85
+          M 24 60
+          C 34 55, 52 52, 68 56
+          C 76 58, 80 64, 80 70
         "/>
         
-        {/* Horizontal vent slits on chin bar - 4 lines */}
-        <Path d="M 22 62 L 35 60"/>
-        <Path d="M 23 67 L 38 65"/>
-        <Path d="M 24 72 L 40 70"/>
-        <Path d="M 26 77 L 42 75"/>
-        
-        {/* Top of helmet contour */}
+        {/* Chin bar with vents */}
         <Path d="
-          M 45 28
-          C 55 25, 68 28, 75 35
+          M 22 50
+          C 18 58, 18 68, 22 76
+          C 26 82, 36 86, 48 86
         "/>
+        
+        {/* Vent lines on chin - horizontal slits */}
+        <Path d="M 20 58 L 34 55"/>
+        <Path d="M 20 64 L 38 61"/>
+        <Path d="M 21 70 L 40 67"/>
+        <Path d="M 23 76 L 42 73"/>
       </G>
     </Svg>
   );
