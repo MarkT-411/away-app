@@ -7,7 +7,7 @@ interface HelmetLogoProps {
 }
 
 export default function HelmetLogo({ size = 80, color = '#FF6B35' }: HelmetLogoProps) {
-  const strokeWidth = size * 0.028;
+  const strokeWidth = size * 0.026;
   
   return (
     <Svg width={size} height={size} viewBox="0 0 100 100">
@@ -18,52 +18,51 @@ export default function HelmetLogo({ size = 80, color = '#FF6B35' }: HelmetLogoP
         strokeLinecap="round" 
         strokeLinejoin="round"
       >
-        {/* Main helmet shell outline - clean rounded profile */}
+        {/* Outer helmet shell - smooth oval shape */}
         <Path d="
-          M 72 40
-          Q 78 50, 76 62
-          Q 74 74, 62 80
-          Q 48 86, 34 82
-          Q 24 78, 20 68
-          Q 16 58, 20 48
-          Q 24 36, 40 28
-          Q 56 22, 68 28
-          Q 74 32, 72 40
+          M 70 38
+          C 76 48, 76 60, 72 70
+          C 68 78, 58 84, 46 84
+          C 34 84, 24 78, 20 68
+          C 16 58, 18 46, 24 38
+          C 32 28, 46 24, 58 26
+          C 66 28, 70 32, 70 38
         "/>
         
-        {/* Sharp visor/peak - triangular pointing forward-up */}
+        {/* Visor peak - sharp angular extension */}
         <Path d="
-          M 24 42
-          L 6 32
-          L 10 42
-          L 22 50
+          M 26 40
+          L 8 30
+          L 12 40
+          L 24 48
         "/>
         
-        {/* Eye port / visor opening - smooth curves */}
+        {/* Eye port top curve */}
         <Path d="
-          M 22 50
-          Q 36 42, 54 44
-          Q 68 46, 74 54
+          M 24 48
+          C 34 42, 50 40, 64 46
+          C 70 48, 74 54, 74 60
         "/>
         
+        {/* Eye port bottom curve */}
         <Path d="
-          M 20 58
-          Q 38 52, 56 54
-          Q 70 56, 76 64
+          M 22 56
+          C 34 50, 52 48, 66 54
+          C 72 56, 76 62, 76 68
         "/>
         
-        {/* Chin guard curve */}
+        {/* Chin bar */}
         <Path d="
-          M 20 48
-          Q 16 58, 18 68
-          Q 20 78, 32 82
+          M 24 38
+          C 18 46, 16 58, 18 68
+          C 20 76, 28 82, 40 84
         "/>
         
-        {/* Chin vent lines - 4 horizontal slits */}
-        <Path d="M 18 56 L 32 53"/>
-        <Path d="M 18 62 L 36 59"/>
-        <Path d="M 19 68 L 38 65"/>
-        <Path d="M 22 74 L 40 71"/>
+        {/* Horizontal chin vents */}
+        <Path d="M 20 52 L 36 48"/>
+        <Path d="M 19 60 L 40 56"/>
+        <Path d="M 20 68 L 42 64"/>
+        <Path d="M 24 76 L 44 72"/>
       </G>
     </Svg>
   );
