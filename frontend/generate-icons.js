@@ -1,70 +1,64 @@
 const sharp = require('sharp');
 const path = require('path');
 
-// New SVG content for the TAM helmet icon - Motocross style with sharp visor
+// SVG matching the reference helmet image - accurate proportions
 const svgContent = `<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
   <!-- Dark grey background -->
   <rect width="1024" height="1024" fill="#1A1A1A"/>
   
-  <!-- Adventure/Motocross Helmet - Profile view - Thick orange lines -->
-  <g transform="translate(512, 512) scale(4.5)" stroke="#FF6B35" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <!-- Main helmet shell - rounded profile -->
+  <!-- Helmet centered and scaled -->
+  <g transform="translate(512, 512) scale(4)" stroke="#FF6B35" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    
+    <!-- Main helmet shell - smooth rounded curve -->
     <path d="
-      M 5 -35
-      C 25 -35, 38 -20, 38 0
-      C 38 20, 25 35, 5 38
-      C -10 40, -22 35, -28 25
-      C -32 18, -32 8, -28 -2
-      C -24 -12, -15 -25, 5 -35
+      M 25 -15
+      C 30 -5, 32 5, 30 15
+      C 28 25, 20 32, 8 35
+      C -5 38, -18 35, -25 28
+      C -30 23, -32 15, -30 5
+      C -28 -5, -20 -15, -5 -22
+      C 5 -27, 18 -25, 25 -15
     "/>
     
-    <!-- Sharp visor/beak pointing forward-down -->
+    <!-- Visor peak - sharp triangular pointing forward-up -->
     <path d="
-      M -15 -18
-      L -38 -8
-      L -35 -2
-      L -20 -5
+      M -20 -8
+      L -38 -15
+      L -36 -8
+      L -22 2
     "/>
     
-    <!-- Visor mounting screws -->
-    <circle cx="-18" cy="-15" r="2" fill="#FF6B35"/>
-    <circle cx="-22" cy="-8" r="2" fill="#FF6B35"/>
-    
-    <!-- Eye port / visor opening -->
+    <!-- Eye port - elongated horizontal opening top -->
     <path d="
-      M -20 -5
-      C -18 -12, -5 -18, 10 -15
-      C 20 -13, 28 -8, 30 0
+      M -22 2
+      C -15 -8, 0 -10, 15 -6
+      C 22 -4, 26 0, 28 5
     "/>
     
-    <!-- Eye port bottom curve -->
+    <!-- Eye port bottom edge -->
     <path d="
-      M -22 5
-      C -15 0, 0 -2, 15 0
-      C 25 2, 30 5, 32 10
+      M -25 8
+      C -15 4, 2 2, 18 5
+      C 24 6, 28 10, 30 15
     "/>
     
-    <!-- Chin bar -->
+    <!-- Chin bar outer curve -->
     <path d="
-      M -28 10
-      C -30 18, -28 26, -20 32
+      M -30 5
+      C -32 12, -32 20, -28 26
+      C -24 32, -15 35, -5 35
     "/>
     
-    <!-- Horizontal vent lines on chin bar -->
-    <path d="M -26 15 L -18 13"/>
-    <path d="M -25 20 L -15 18"/>
-    <path d="M -23 25 L -12 23"/>
+    <!-- Horizontal vent slits on chin bar - 4 parallel lines -->
+    <path d="M -28 12 L -15 10"/>
+    <path d="M -27 17 L -12 15"/>
+    <path d="M -26 22 L -10 20"/>
+    <path d="M -24 27 L -8 25"/>
     
-    <!-- Top shell contour line -->
+    <!-- Top of helmet contour -->
     <path d="
-      M -5 -32
-      C 5 -34, 20 -30, 30 -20
-    "/>
-    
-    <!-- Back of helmet detail -->
-    <path d="
-      M 35 5
-      C 36 15, 32 25, 22 32
+      M -5 -22
+      C 5 -25, 18 -22, 25 -15
     "/>
   </g>
 </svg>`;
@@ -72,37 +66,33 @@ const svgContent = `<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmln
 const outputDir = path.join(__dirname, 'assets', 'images');
 
 async function generateIcons() {
-  console.log('Generating new helmet app icons...');
+  console.log('Generating helmet app icons with accurate proportions...');
   
-  // Main icon (1024x1024) for iOS App Store
   await sharp(Buffer.from(svgContent))
     .resize(1024, 1024)
     .png()
     .toFile(path.join(outputDir, 'icon.png'));
   console.log('✓ Generated icon.png (1024x1024)');
 
-  // Adaptive icon for Android (1024x1024)
   await sharp(Buffer.from(svgContent))
     .resize(1024, 1024)
     .png()
     .toFile(path.join(outputDir, 'adaptive-icon.png'));
   console.log('✓ Generated adaptive-icon.png (1024x1024)');
 
-  // Favicon for web (48x48)
   await sharp(Buffer.from(svgContent))
     .resize(48, 48)
     .png()
     .toFile(path.join(outputDir, 'favicon.png'));
   console.log('✓ Generated favicon.png (48x48)');
 
-  // Splash icon (200x200)
   await sharp(Buffer.from(svgContent))
     .resize(200, 200)
     .png()
     .toFile(path.join(outputDir, 'splash-icon.png'));
   console.log('✓ Generated splash-icon.png (200x200)');
 
-  console.log('\n✅ All helmet icons generated successfully!');
+  console.log('\n✅ All icons generated!');
 }
 
 generateIcons().catch(console.error);
