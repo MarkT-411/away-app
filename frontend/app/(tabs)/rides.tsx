@@ -146,15 +146,15 @@ export default function RidesScreen() {
     
     return (
       <TouchableOpacity 
-        style={styles.tripCard}
+        style={[styles.tripCard, { backgroundColor: colors.card }]}
         onPress={() => router.push({ pathname: '/trip-details', params: { id: item.id } })}
       >
         <View style={styles.tripImageContainer}>
           {item.image ? (
             <Image source={{ uri: item.image }} style={styles.tripImage} />
           ) : (
-            <View style={styles.placeholderImage}>
-              <Ionicons name="map" size={40} color="#444" />
+            <View style={[styles.placeholderImage, { backgroundColor: colors.inputBackground }]}>
+              <Ionicons name="map" size={40} color={colors.textSecondary} />
             </View>
           )}
           <View style={styles.dateOverlay}>
@@ -163,36 +163,36 @@ export default function RidesScreen() {
         </View>
         
         <View style={styles.tripInfo}>
-          <Text style={styles.tripTitle} numberOfLines={1}>{item.title}</Text>
+          <Text style={[styles.tripTitle, { color: colors.text }]} numberOfLines={1}>{item.title}</Text>
           
           <View style={styles.routeContainer}>
             <View style={styles.routePoint}>
-              <View style={styles.routeDot} />
-              <Text style={styles.routeText} numberOfLines={1}>{item.start_location}</Text>
+              <View style={[styles.routeDot, { backgroundColor: colors.accent }]} />
+              <Text style={[styles.routeText, { color: colors.textSecondary }]} numberOfLines={1}>{item.start_location}</Text>
             </View>
-            <View style={styles.routeLine} />
+            <View style={[styles.routeLine, { borderColor: colors.border }]} />
             <View style={styles.routePoint}>
-              <View style={[styles.routeDot, styles.routeDotEnd]} />
-              <Text style={styles.routeText} numberOfLines={1}>{item.end_location}</Text>
+              <View style={[styles.routeDot, styles.routeDotEnd, { backgroundColor: colors.accent }]} />
+              <Text style={[styles.routeText, { color: colors.textSecondary }]} numberOfLines={1}>{item.end_location}</Text>
             </View>
           </View>
           
           <View style={styles.tripMeta}>
             {item.distance && (
               <View style={styles.metaItem}>
-                <Ionicons name="speedometer-outline" size={14} color="#888" />
-                <Text style={styles.metaText}>{item.distance}</Text>
+                <Ionicons name="speedometer-outline" size={14} color={colors.textSecondary} />
+                <Text style={[styles.metaText, { color: colors.textSecondary }]}>{item.distance}</Text>
               </View>
             )}
             {item.duration && (
               <View style={styles.metaItem}>
-                <Ionicons name="time-outline" size={14} color="#888" />
-                <Text style={styles.metaText}>{item.duration}</Text>
+                <Ionicons name="time-outline" size={14} color={colors.textSecondary} />
+                <Text style={[styles.metaText, { color: colors.textSecondary }]}>{item.duration}</Text>
               </View>
             )}
             <View style={styles.metaItem}>
-              <Ionicons name="time-outline" size={14} color="#888" />
-              <Text style={styles.metaText}>{item.time}</Text>
+              <Ionicons name="time-outline" size={14} color={colors.textSecondary} />
+              <Text style={[styles.metaText, { color: colors.textSecondary }]}>{item.time}</Text>
             </View>
           </View>
           
