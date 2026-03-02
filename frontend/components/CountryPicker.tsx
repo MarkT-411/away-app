@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { COUNTRIES, getCountryFlag, getCountryName } from '../context/CountryContext';
+import { useTheme } from '../context/ThemeContext';
 
 interface CountryPickerProps {
   selectedCountry: string;
@@ -20,6 +21,7 @@ interface CountryPickerProps {
 export default function CountryPicker({ selectedCountry, onSelect, compact = false }: CountryPickerProps) {
   const [modalVisible, setModalVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const { colors } = useTheme();
 
   const filteredCountries = COUNTRIES.filter(country =>
     country.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -35,11 +37,11 @@ export default function CountryPicker({ selectedCountry, onSelect, compact = fal
     return (
       <>
         <TouchableOpacity 
-          style={styles.compactButton}
+          style={[styles.compactButton, { backgroundColor: colors.card, borderColor: colors.border }]}
           onPress={() => setModalVisible(true)}
         >
           <Text style={styles.compactFlag}>{getCountryFlag(selectedCountry)}</Text>
-          <Ionicons name="chevron-down" size={16} color="#888" />
+          <Ionicons name="chevron-down" size={16} color={colors.textSecondary} />
         </TouchableOpacity>
 
         <Modal
@@ -49,20 +51,20 @@ export default function CountryPicker({ selectedCountry, onSelect, compact = fal
           onRequestClose={() => setModalVisible(false)}
         >
           <View style={styles.modalOverlay}>
-            <View style={styles.modalContent}>
-              <View style={styles.modalHeader}>
-                <Text style={styles.modalTitle}>Select Region</Text>
+            <View style={[styles.modalContent, { backgroundColor: colors.card }]}>
+              <View style={[styles.modalHeader, { borderBottomColor: colors.border }]}>
+                <Text style={[styles.modalTitle, { color: colors.text }]}>Select Region</Text>
                 <TouchableOpacity onPress={() => setModalVisible(false)}>
-                  <Ionicons name="close" size={24} color="#fff" />
+                  <Ionicons name="close" size={24} color={colors.text} />
                 </TouchableOpacity>
               </View>
 
-              <View style={styles.searchContainer}>
-                <Ionicons name="search" size={20} color="#666" />
+              <View style={[styles.searchContainer, { backgroundColor: colors.inputBackground }]}>
+                <Ionicons name="search" size={20} color={colors.textSecondary} />
                 <TextInput
-                  style={styles.searchInput}
+                  style={[styles.searchInput, { color: colors.text }]}
                   placeholder="Search countries..."
-                  placeholderTextColor="#666"
+                  placeholderTextColor={colors.textSecondary}
                   value={searchQuery}
                   onChangeText={setSearchQuery}
                 />
@@ -75,14 +77,15 @@ export default function CountryPicker({ selectedCountry, onSelect, compact = fal
                   <TouchableOpacity
                     style={[
                       styles.countryItem,
-                      selectedCountry === item.code && styles.countryItemSelected,
+                      { borderBottomColor: colors.border },
+                      selectedCountry === item.code && { backgroundColor: colors.accentLight },
                     ]}
                     onPress={() => handleSelect(item.code)}
                   >
                     <Text style={styles.countryFlag}>{item.flag}</Text>
-                    <Text style={styles.countryName}>{item.name}</Text>
+                    <Text style={[styles.countryName, { color: colors.text }]}>{item.name}</Text>
                     {selectedCountry === item.code && (
-                      <Ionicons name="checkmark-circle" size={22} color="#FF6B35" />
+                      <Ionicons name="checkmark-circle" size={22} color={colors.accent} />
                     )}
                   </TouchableOpacity>
                 )}
@@ -97,12 +100,12 @@ export default function CountryPicker({ selectedCountry, onSelect, compact = fal
   return (
     <>
       <TouchableOpacity 
-        style={styles.button}
+        style={[styles.button, { backgroundColor: colors.card, borderColor: colors.border }]}
         onPress={() => setModalVisible(true)}
       >
         <Text style={styles.buttonFlag}>{getCountryFlag(selectedCountry)}</Text>
-        <Text style={styles.buttonText}>{getCountryName(selectedCountry)}</Text>
-        <Ionicons name="chevron-down" size={20} color="#FF6B35" />
+        <Text style={[styles.buttonText, { color: colors.text }]}>{getCountryName(selectedCountry)}</Text>
+        <Ionicons name="chevron-down" size={20} color={colors.accent} />
       </TouchableOpacity>
 
       <Modal
@@ -112,20 +115,20 @@ export default function CountryPicker({ selectedCountry, onSelect, compact = fal
         onRequestClose={() => setModalVisible(false)}
       >
         <View style={styles.modalOverlay}>
-          <View style={styles.modalContent}>
-            <View style={styles.modalHeader}>
-              <Text style={styles.modalTitle}>Select Region</Text>
+          <View style={[styles.modalContent, { backgroundColor: colors.card }]}>
+            <View style={[styles.modalHeader, { borderBottomColor: colors.border }]}>
+              <Text style={[styles.modalTitle, { color: colors.text }]}>Select Region</Text>
               <TouchableOpacity onPress={() => setModalVisible(false)}>
-                <Ionicons name="close" size={24} color="#fff" />
+                <Ionicons name="close" size={24} color={colors.text} />
               </TouchableOpacity>
             </View>
 
-            <View style={styles.searchContainer}>
-              <Ionicons name="search" size={20} color="#666" />
+            <View style={[styles.searchContainer, { backgroundColor: colors.inputBackground }]}>
+              <Ionicons name="search" size={20} color={colors.textSecondary} />
               <TextInput
-                style={styles.searchInput}
+                style={[styles.searchInput, { color: colors.text }]}
                 placeholder="Search countries..."
-                placeholderTextColor="#666"
+                placeholderTextColor={colors.textSecondary}
                 value={searchQuery}
                 onChangeText={setSearchQuery}
               />
@@ -138,14 +141,15 @@ export default function CountryPicker({ selectedCountry, onSelect, compact = fal
                 <TouchableOpacity
                   style={[
                     styles.countryItem,
-                    selectedCountry === item.code && styles.countryItemSelected,
+                    { borderBottomColor: colors.border },
+                    selectedCountry === item.code && { backgroundColor: colors.accentLight },
                   ]}
                   onPress={() => handleSelect(item.code)}
                 >
                   <Text style={styles.countryFlag}>{item.flag}</Text>
-                  <Text style={styles.countryName}>{item.name}</Text>
+                  <Text style={[styles.countryName, { color: colors.text }]}>{item.name}</Text>
                   {selectedCountry === item.code && (
-                    <Ionicons name="checkmark-circle" size={22} color="#FF6B35" />
+                    <Ionicons name="checkmark-circle" size={22} color={colors.accent} />
                   )}
                 </TouchableOpacity>
               )}
@@ -161,30 +165,27 @@ const styles = StyleSheet.create({
   button: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#1A1A1A',
     paddingHorizontal: 14,
     paddingVertical: 10,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#333',
   },
   buttonFlag: {
     fontSize: 20,
     marginRight: 8,
   },
   buttonText: {
-    color: '#fff',
     fontSize: 15,
     flex: 1,
   },
   compactButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#1A1A1A',
     paddingHorizontal: 10,
     paddingVertical: 6,
     borderRadius: 16,
     marginLeft: 8,
+    borderWidth: 1,
   },
   compactFlag: {
     fontSize: 18,
@@ -196,7 +197,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   modalContent: {
-    backgroundColor: '#1A1A1A',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     maxHeight: '80%',
@@ -207,24 +207,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
     borderBottomWidth: 1,
-    borderBottomColor: '#333',
   },
   modalTitle: {
-    color: '#fff',
     fontSize: 20,
     fontWeight: '600',
   },
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#0D0D0D',
     margin: 16,
     paddingHorizontal: 12,
     borderRadius: 10,
   },
   searchInput: {
     flex: 1,
-    color: '#fff',
     fontSize: 15,
     paddingVertical: 12,
     marginLeft: 8,
@@ -235,17 +231,12 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 20,
     borderBottomWidth: 1,
-    borderBottomColor: '#252525',
-  },
-  countryItemSelected: {
-    backgroundColor: '#252525',
   },
   countryFlag: {
     fontSize: 24,
     marginRight: 14,
   },
   countryName: {
-    color: '#fff',
     fontSize: 16,
     flex: 1,
   },
