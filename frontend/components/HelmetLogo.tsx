@@ -1,5 +1,5 @@
 import React from 'react';
-import Svg, { Path, G, Circle } from 'react-native-svg';
+import Svg, { Path, G } from 'react-native-svg';
 
 interface HelmetLogoProps {
   size?: number;
@@ -7,7 +7,7 @@ interface HelmetLogoProps {
 }
 
 export default function HelmetLogo({ size = 80, color = '#FF6B35' }: HelmetLogoProps) {
-  const strokeWidth = size * 0.04; // Thick lines
+  const strokeWidth = size * 0.035;
   
   return (
     <Svg width={size} height={size} viewBox="0 0 100 100">
@@ -18,63 +18,56 @@ export default function HelmetLogo({ size = 80, color = '#FF6B35' }: HelmetLogoP
         strokeLinecap="round" 
         strokeLinejoin="round"
       >
-        {/* Main helmet shell - rounded profile */}
+        {/* Main helmet shell - smooth rounded curve */}
         <Path d="
-          M 55 15
-          C 75 15, 88 30, 88 50
-          C 88 70, 75 85, 55 88
-          C 40 90, 28 85, 22 75
-          C 18 68, 18 58, 22 48
-          C 26 38, 35 25, 55 15
+          M 75 35
+          C 80 45, 82 55, 80 65
+          C 78 75, 70 82, 58 85
+          C 45 88, 32 85, 25 78
+          C 20 73, 18 65, 20 55
+          C 22 45, 30 35, 45 28
+          C 55 23, 68 25, 75 35
         "/>
         
-        {/* Sharp visor/beak pointing forward-down */}
+        {/* Visor peak - sharp triangular pointing forward-up at ~18 degrees */}
         <Path d="
-          M 35 32
-          L 12 42
-          L 15 48
-          L 30 45
+          M 30 42
+          L 12 35
+          L 14 42
+          L 28 48
         "/>
         
-        {/* Visor mounting screws */}
-        <Circle cx="32" cy="35" r="2" fill={color} />
-        <Circle cx="28" cy="42" r="2" fill={color} />
-        
-        {/* Eye port / visor opening */}
+        {/* Eye port - elongated horizontal opening */}
         <Path d="
-          M 30 45
-          C 32 38, 45 32, 60 35
-          C 70 37, 78 42, 80 50
+          M 28 48
+          C 35 42, 50 40, 65 44
+          C 72 46, 76 50, 78 55
         "/>
         
-        {/* Eye port bottom curve */}
+        {/* Eye port bottom edge */}
         <Path d="
-          M 28 55
-          C 35 50, 50 48, 65 50
-          C 75 52, 80 55, 82 60
+          M 25 58
+          C 35 54, 52 52, 68 55
+          C 74 56, 78 60, 80 65
         "/>
         
-        {/* Chin bar with ribbed ventilation lines */}
+        {/* Chin bar outer curve */}
         <Path d="
-          M 22 60
-          C 20 68, 22 76, 30 82
+          M 20 55
+          C 18 62, 18 70, 22 76
+          C 26 82, 35 85, 45 85
         "/>
         
-        {/* Horizontal vent lines on chin bar */}
-        <Path d="M 24 65 L 32 63"/>
-        <Path d="M 25 70 L 35 68"/>
-        <Path d="M 27 75 L 38 73"/>
+        {/* Horizontal vent slits on chin bar - 4 lines */}
+        <Path d="M 22 62 L 35 60"/>
+        <Path d="M 23 67 L 38 65"/>
+        <Path d="M 24 72 L 40 70"/>
+        <Path d="M 26 77 L 42 75"/>
         
-        {/* Top shell contour line */}
+        {/* Top of helmet contour */}
         <Path d="
-          M 45 18
-          C 55 16, 70 20, 80 30
-        "/>
-        
-        {/* Back of helmet detail */}
-        <Path d="
-          M 85 55
-          C 86 65, 82 75, 72 82
+          M 45 28
+          C 55 25, 68 28, 75 35
         "/>
       </G>
     </Svg>
