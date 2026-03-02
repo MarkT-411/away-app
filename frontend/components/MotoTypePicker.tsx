@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { MOTO_TYPES, getMotoTypeIcon, useMotoTypes } from '../context/MotoTypesContext';
+import { useTheme } from '../context/ThemeContext';
 
 const { width } = Dimensions.get('window');
 
@@ -20,6 +21,7 @@ interface MotoTypePickerProps {
 export default function MotoTypePicker({ compact = false }: MotoTypePickerProps) {
   const [modalVisible, setModalVisible] = useState(false);
   const { selectedMotoTypes, toggleMotoType, getMotoTypesParam } = useMotoTypes();
+  const { colors } = useTheme();
 
   const isAllSelected = selectedMotoTypes.includes('all');
   const selectedCount = isAllSelected ? MOTO_TYPES.length - 1 : selectedMotoTypes.length;
@@ -39,12 +41,16 @@ export default function MotoTypePicker({ compact = false }: MotoTypePickerProps)
   return (
     <>
       <TouchableOpacity
-        style={[styles.pickerButton, compact && styles.pickerButtonCompact]}
+        style={[
+          styles.pickerButton, 
+          compact && styles.pickerButtonCompact,
+          { backgroundColor: colors.card, borderColor: colors.border }
+        ]}
         onPress={() => setModalVisible(true)}
       >
         <Text style={styles.pickerIcon}>{displayIcon}</Text>
-        {!compact && <Text style={styles.pickerText}>{displayText}</Text>}
-        <Ionicons name="chevron-down" size={16} color="#888" />
+        {!compact && <Text style={[styles.pickerText, { color: colors.text }]}>{displayText}</Text>}
+        <Ionicons name="chevron-down" size={16} color={colors.textSecondary} />
       </TouchableOpacity>
 
       <Modal
@@ -54,15 +60,15 @@ export default function MotoTypePicker({ compact = false }: MotoTypePickerProps)
         onRequestClose={() => setModalVisible(false)}
       >
         <View style={styles.modalOverlay}>
-          <View style={styles.modalContent}>
+          <View style={[styles.modalContent, { backgroundColor: colors.card }]}>
             <View style={styles.modalHeader}>
-              <Text style={styles.modalTitle}>Filter by Moto Type</Text>
+              <Text style={[styles.modalTitle, { color: colors.text }]}>Filter by Moto Type</Text>
               <TouchableOpacity onPress={() => setModalVisible(false)}>
-                <Ionicons name="close" size={24} color="#fff" />
+                <Ionicons name="close" size={24} color={colors.text} />
               </TouchableOpacity>
             </View>
             
-            <Text style={styles.modalSubtitle}>
+            <Text style={[styles.modalSubtitle, { color: colors.textSecondary }]}>
               Select one or more motorcycle types
             </Text>
 
@@ -78,15 +84,23 @@ export default function MotoTypePicker({ compact = false }: MotoTypePickerProps)
                 
                 return (
                   <TouchableOpacity
-                    style={[styles.typeOption, isSelected && styles.typeOptionSelected]}
+                    style={[
+                      styles.typeOption, 
+                      { backgroundColor: colors.inputBackground, borderColor: 'transparent' },
+                      isSelected && { borderColor: colors.accent, backgroundColor: colors.accentLight }
+                    ]}
                     onPress={() => toggleMotoType(item.id)}
                   >
                     <Text style={styles.typeIcon}>{item.icon}</Text>
-                    <Text style={[styles.typeLabel, isSelected && styles.typeLabelSelected]}>
+                    <Text style={[
+                      styles.typeLabel, 
+                      { color: colors.textSecondary },
+                      isSelected && { color: colors.text, fontWeight: '600' }
+                    ]}>
                       {item.label}
                     </Text>
                     {isSelected && (
-                      <View style={styles.checkmark}>
+                      <View style={[styles.checkmark, { backgroundColor: colors.accent }]}>
                         <Ionicons name="checkmark" size={18} color="#fff" />
                       </View>
                     )}
@@ -96,7 +110,7 @@ export default function MotoTypePicker({ compact = false }: MotoTypePickerProps)
             />
 
             <TouchableOpacity
-              style={styles.doneButton}
+              style={[styles.doneButton, { backgroundColor: colors.accent }]}
               onPress={() => setModalVisible(false)}
             >
               <Text style={styles.doneButtonText}>Done</Text>
@@ -112,11 +126,11 @@ const styles = StyleSheet.create({
   pickerButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#1A1A1A',
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 20,
     marginRight: 8,
+    borderWidth: 1,
   },
   pickerButtonCompact: {
     paddingHorizontal: 8,
@@ -127,7 +141,6 @@ const styles = StyleSheet.create({
     marginRight: 4,
   },
   pickerText: {
-    color: '#fff',
     fontSize: 13,
     marginRight: 4,
     fontWeight: '500',
@@ -138,7 +151,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   modalContent: {
-    backgroundColor: '#1A1A1A',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     paddingTop: 20,
@@ -153,12 +165,10 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   modalTitle: {
-    color: '#fff',
     fontSize: 20,
     fontWeight: '600',
   },
   modalSubtitle: {
-    color: '#888',
     fontSize: 13,
     paddingHorizontal: 20,
     marginBottom: 16,
@@ -169,40 +179,27 @@ const styles = StyleSheet.create({
   typeOption: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#252525',
     padding: 14,
     borderRadius: 12,
     marginBottom: 8,
     borderWidth: 2,
-    borderColor: 'transparent',
-  },
-  typeOptionSelected: {
-    borderColor: '#FF6B35',
-    backgroundColor: '#2A2A2A',
   },
   typeIcon: {
     fontSize: 24,
     marginRight: 12,
   },
   typeLabel: {
-    color: '#ccc',
     fontSize: 15,
     flex: 1,
-  },
-  typeLabelSelected: {
-    color: '#fff',
-    fontWeight: '600',
   },
   checkmark: {
     width: 28,
     height: 28,
     borderRadius: 14,
-    backgroundColor: '#FF6B35',
     justifyContent: 'center',
     alignItems: 'center',
   },
   doneButton: {
-    backgroundColor: '#FF6B35',
     marginHorizontal: 20,
     marginTop: 16,
     paddingVertical: 14,
