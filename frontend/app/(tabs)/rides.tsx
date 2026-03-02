@@ -232,16 +232,16 @@ export default function RidesScreen() {
 
   const renderEmpty = () => (
     <View style={styles.emptyContainer}>
-      <Ionicons name="map-outline" size={64} color="#444" />
-      <Text style={styles.emptyTitle}>No rides planned</Text>
-      <Text style={styles.emptySubtitle}>Plan a group ride for the community!</Text>
+      <Ionicons name="map-outline" size={64} color={colors.border} />
+      <Text style={[styles.emptyTitle, { color: colors.text }]}>No rides planned</Text>
+      <Text style={[styles.emptySubtitle, { color: colors.textSecondary }]}>Plan a group ride for the community!</Text>
     </View>
   );
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Group Rides</Text>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]} edges={['top']}>
+      <View style={[styles.header, { backgroundColor: colors.background }]}>
+        <Text style={[styles.headerTitle, { color: colors.text }]}>Group Rides</Text>
         <View style={styles.headerActions}>
           <MotoTypePicker compact />
           <CountryPicker 
