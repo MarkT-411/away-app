@@ -1,61 +1,57 @@
 const sharp = require('sharp');
 const path = require('path');
 
-// SVG with improved helmet shape matching reference
+// Clean helmet SVG with accurate proportions
 const svgContent = `<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
   <rect width="1024" height="1024" fill="#1A1A1A"/>
   
-  <g transform="translate(512, 512) scale(5)" stroke="#FF6B35" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <!-- Main helmet shell - profile facing left -->
+  <g transform="translate(512, 512) scale(5)" stroke="#FF6B35" stroke-width="2.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Main helmet shell outline - clean rounded profile -->
     <path d="
-      M 20 -20
-      C 28 -12, 32 0, 30 12
-      C 28 24, 18 32, 5 35
-      C -8 38, -20 34, -26 26
-      C -30 20, -32 10, -28 0
+      M 22 -10
+      Q 28 0, 26 12
+      Q 24 24, 12 30
+      Q -2 36, -16 32
+      Q -26 28, -30 18
+      Q -34 8, -30 -2
+      Q -26 -14, -10 -22
+      Q 6 -28, 18 -22
+      Q 24 -18, 22 -10
     "/>
     
-    <!-- Top curve of helmet -->
+    <!-- Sharp visor/peak - triangular pointing forward-up -->
     <path d="
-      M -28 0
-      C -24 -12, -12 -22, 5 -25
-      C 12 -26, 18 -24, 20 -20
+      M -26 -8
+      L -44 -18
+      L -40 -8
+      L -28 0
     "/>
     
-    <!-- Visor peak - prominent sharp angle extending forward -->
-    <path d="
-      M -22 -6
-      L -42 -14
-      L -40 -6
-      L -24 2
-    "/>
-    
-    <!-- Eye port top curve -->
-    <path d="
-      M -24 2
-      C -16 -6, 0 -10, 16 -5
-      C 24 -2, 28 4, 30 12
-    "/>
-    
-    <!-- Eye port bottom -->
-    <path d="
-      M -26 10
-      C -16 5, 2 2, 18 6
-      C 26 8, 30 14, 30 20
-    "/>
-    
-    <!-- Chin bar with vents -->
+    <!-- Eye port / visor opening - smooth curves -->
     <path d="
       M -28 0
-      C -32 8, -32 18, -28 26
-      C -24 32, -14 36, -2 36
+      Q -14 -8, 4 -6
+      Q 18 -4, 24 4
     "/>
     
-    <!-- Vent lines on chin - horizontal slits -->
-    <path d="M -30 8 L -16 5"/>
-    <path d="M -30 14 L -12 11"/>
-    <path d="M -29 20 L -10 17"/>
-    <path d="M -27 26 L -8 23"/>
+    <path d="
+      M -30 8
+      Q -12 2, 6 4
+      Q 20 6, 26 14
+    "/>
+    
+    <!-- Chin guard curve -->
+    <path d="
+      M -30 -2
+      Q -34 8, -32 18
+      Q -30 28, -18 32
+    "/>
+    
+    <!-- Chin vent lines - 4 horizontal slits -->
+    <path d="M -32 6 L -18 3"/>
+    <path d="M -32 12 L -14 9"/>
+    <path d="M -31 18 L -12 15"/>
+    <path d="M -28 24 L -10 21"/>
   </g>
 </svg>`;
 
@@ -64,29 +60,10 @@ const outputDir = path.join(__dirname, 'assets', 'images');
 async function generateIcons() {
   console.log('Generating helmet icons...');
   
-  await sharp(Buffer.from(svgContent))
-    .resize(1024, 1024)
-    .png()
-    .toFile(path.join(outputDir, 'icon.png'));
-  console.log('✓ icon.png');
-
-  await sharp(Buffer.from(svgContent))
-    .resize(1024, 1024)
-    .png()
-    .toFile(path.join(outputDir, 'adaptive-icon.png'));
-  console.log('✓ adaptive-icon.png');
-
-  await sharp(Buffer.from(svgContent))
-    .resize(48, 48)
-    .png()
-    .toFile(path.join(outputDir, 'favicon.png'));
-  console.log('✓ favicon.png');
-
-  await sharp(Buffer.from(svgContent))
-    .resize(200, 200)
-    .png()
-    .toFile(path.join(outputDir, 'splash-icon.png'));
-  console.log('✓ splash-icon.png');
+  await sharp(Buffer.from(svgContent)).resize(1024, 1024).png().toFile(path.join(outputDir, 'icon.png'));
+  await sharp(Buffer.from(svgContent)).resize(1024, 1024).png().toFile(path.join(outputDir, 'adaptive-icon.png'));
+  await sharp(Buffer.from(svgContent)).resize(48, 48).png().toFile(path.join(outputDir, 'favicon.png'));
+  await sharp(Buffer.from(svgContent)).resize(200, 200).png().toFile(path.join(outputDir, 'splash-icon.png'));
 
   console.log('Done!');
 }
