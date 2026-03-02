@@ -2,67 +2,65 @@
   <!-- Dark grey background -->
   <rect width="1024" height="1024" fill="#1A1A1A"/>
   
-  <!-- Adventure Helmet - Profile facing left - Orange line art -->
-  <g transform="translate(512, 512)" stroke="#FF6B35" stroke-width="18" fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <!-- Main helmet shell -->
+  <!-- Adventure/Motocross Helmet - Profile view - Thick orange lines -->
+  <g transform="translate(512, 512) scale(4.5)" stroke="#FF6B35" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Main helmet shell - rounded profile -->
     <path d="
-      M -80 -180
-      C -200 -180, -280 -100, -300 40
-      C -310 120, -280 200, -200 260
-      C -120 310, 60 320, 160 280
-      C 240 250, 300 180, 300 80
-      C 300 -40, 260 -140, 180 -180
-      C 100 -220, -20 -220, -80 -180
+      M 5 -35
+      C 25 -35, 38 -20, 38 0
+      C 38 20, 25 35, 5 38
+      C -10 40, -22 35, -28 25
+      C -32 18, -32 8, -28 -2
+      C -24 -12, -15 -25, 5 -35
     "/>
     
-    <!-- Visor peak (adventure helmet characteristic) -->
+    <!-- Sharp visor/beak pointing forward-down -->
     <path d="
-      M -280 -60
-      L -380 -120
-      L -360 -80
-      L -280 -20
+      M -15 -18
+      L -38 -8
+      L -35 -2
+      L -20 -5
     "/>
     
-    <!-- Visor/Eye shield area -->
+    <!-- Visor mounting screws -->
+    <circle cx="-18" cy="-15" r="2" fill="#FF6B35"/>
+    <circle cx="-22" cy="-8" r="2" fill="#FF6B35"/>
+    
+    <!-- Eye port / visor opening -->
     <path d="
-      M -260 20
-      C -240 -40, -140 -80, -40 -80
-      C 60 -80, 140 -40, 180 20
+      M -20 -5
+      C -18 -12, -5 -18, 10 -15
+      C 20 -13, 28 -8, 30 0
     "/>
     
-    <!-- Visor bottom line -->
+    <!-- Eye port bottom curve -->
     <path d="
-      M -260 60
-      C -200 40, -80 30, 40 40
-      C 120 50, 180 70, 200 90
+      M -22 5
+      C -15 0, 0 -2, 15 0
+      C 25 2, 30 5, 32 10
     "/>
     
-    <!-- Chin guard / Lower helmet -->
+    <!-- Chin bar -->
     <path d="
-      M -280 100
-      C -300 160, -280 220, -200 260
+      M -28 10
+      C -30 18, -28 26, -20 32
     "/>
     
-    <!-- Ventilation detail on chin -->
+    <!-- Horizontal vent lines on chin bar -->
+    <path d="M -26 15 L -18 13"/>
+    <path d="M -25 20 L -15 18"/>
+    <path d="M -23 25 L -12 23"/>
+    
+    <!-- Top shell contour line -->
     <path d="
-      M -220 180
-      L -180 180
-    "/>
-    <path d="
-      M -200 200
-      L -160 200
+      M -5 -32
+      C 5 -34, 20 -30, 30 -20
     "/>
     
-    <!-- Top vent detail -->
+    <!-- Back of helmet detail -->
     <path d="
-      M -40 -200
-      C 0 -210, 60 -200, 80 -190
-    "/>
-    
-    <!-- Back neck area detail -->
-    <path d="
-      M 200 140
-      C 240 180, 240 220, 200 260
+      M 35 5
+      C 36 15, 32 25, 22 32
     "/>
   </g>
 </svg>
