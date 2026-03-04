@@ -124,7 +124,7 @@ export default function SettingsScreen() {
 
         {/* App Info */}
         <View style={styles.appInfo}>
-          <HelmetLogo size={60} forceTheme={theme === 'system' ? undefined : theme} />
+          <HelmetLogo size={60} forceTheme={themeMode === 'system' ? undefined : themeMode} />
           <Text style={[styles.appName, { color: colors.accent, fontFamily: 'Rostex' }]}>TAM</Text>
           <Text style={[styles.appVersion, { color: colors.textSecondary }]}>
             Travel Adventure Motorcycle
