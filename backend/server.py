@@ -1002,6 +1002,249 @@ async def delete_track(track_id: str):
         raise HTTPException(status_code=404, detail="Track not found")
     return {"message": "Track deleted"}
 
+# ==================== GARAGE ENDPOINTS ====================
+
+@api_router.post("/garage/vehicles", response_model=Vehicle)
+async def create_vehicle(vehicle_input: VehicleCreate):
+    """Add a new vehicle to user's garage"""
+    vehicle = Vehicle(**vehicle_input.dict())
+    
+    # If this is set as primary, unset other primary vehicles for this user
+    if vehicle.is_primary:
+        await db.vehicles.update_many(
+            {"user_id": vehicle_input.user_id},
+            {"$set": {"is_primary": False}}
+        )
+    
+    await db.vehicles.insert_one(vehicle.dict())
+    return vehicle
+
+@api_router.get("/garage/{user_id}/vehicles", response_model=List[Vehicle])
+async def get_user_vehicles(user_id: str):
+    """Get all vehicles in user's garage"""
+    vehicles = await db.vehicles.find({"user_id": user_id}).sort("created_at", -1).to_list(50)
+    return [Vehicle(**v) for v in vehicles]
+
+@api_router.get("/garage/vehicles/{vehicle_id}", response_model=Vehicle)
+async def get_vehicle(vehicle_id: str):
+    """Get a specific vehicle"""
+    vehicle = await db.vehicles.find_one({"id": vehicle_id})
+    if not vehicle:
+        raise HTTPException(status_code=404, detail="Vehicle not found")
+    return Vehicle(**vehicle)
+
+@api_router.put("/garage/vehicles/{vehicle_id}", response_model=Vehicle)
+async def update_vehicle(vehicle_id: str, vehicle_update: VehicleUpdate):
+    """Update a vehicle"""
+    vehicle = await db.vehicles.find_one({"id": vehicle_id})
+    if not vehicle:
+        raise HTTPException(status_code=404, detail="Vehicle not found")
+    
+    update_data = {k: v for k, v in vehicle_update.dict().items() if v is not None}
+    
+    # If setting as primary, unset other primary vehicles
+    if update_data.get("is_primary"):
+        await db.vehicles.update_many(
+            {"user_id": vehicle["user_id"], "id": {"$ne": vehicle_id}},
+            {"$set": {"is_primary": False}}
+        )
+    
+    if update_data:
+        await db.vehicles.update_one({"id": vehicle_id}, {"$set": update_data})
+    
+    updated = await db.vehicles.find_one({"id": vehicle_id})
+    return Vehicle(**updated)
+
+@api_router.delete("/garage/vehicles/{vehicle_id}")
+async def delete_vehicle(vehicle_id: str):
+    """Delete a vehicle and its maintenance records"""
+    result = await db.vehicles.delete_one({"id": vehicle_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Vehicle not found")
+    
+    # Also delete associated maintenance records and reminders
+    await db.maintenance_records.delete_many({"vehicle_id": vehicle_id})
+    await db.maintenance_reminders.delete_many({"vehicle_id": vehicle_id})
+    
+    return {"message": "Vehicle and associated records deleted"}
+
+@api_router.put("/garage/vehicles/{vehicle_id}/km")
+async def update_vehicle_km(vehicle_id: str, current_km: int):
+    """Update vehicle's current kilometers"""
+    result = await db.vehicles.update_one(
+        {"id": vehicle_id},
+        {"$set": {"current_km": current_km}}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Vehicle not found")
+    return {"current_km": current_km}
+
+# ==================== MAINTENANCE ENDPOINTS ====================
+
+@api_router.post("/garage/maintenance", response_model=MaintenanceRecord)
+async def create_maintenance_record(record_input: MaintenanceCreate):
+    """Add a maintenance record"""
+    record = MaintenanceRecord(**record_input.dict())
+    await db.maintenance_records.insert_one(record.dict())
+    
+    # Update vehicle's current km if service km is higher
+    vehicle = await db.vehicles.find_one({"id": record_input.vehicle_id})
+    if vehicle and record_input.km_at_service > vehicle.get("current_km", 0):
+        await db.vehicles.update_one(
+            {"id": record_input.vehicle_id},
+            {"$set": {"current_km": record_input.km_at_service}}
+        )
+    
+    return record
+
+@api_router.get("/garage/vehicles/{vehicle_id}/maintenance", response_model=List[MaintenanceRecord])
+async def get_vehicle_maintenance(vehicle_id: str):
+    """Get all maintenance records for a vehicle"""
+    records = await db.maintenance_records.find(
+        {"vehicle_id": vehicle_id}
+    ).sort("service_date", -1).to_list(100)
+    return [MaintenanceRecord(**r) for r in records]
+
+@api_router.get("/garage/{user_id}/maintenance", response_model=List[MaintenanceRecord])
+async def get_user_maintenance(user_id: str, limit: int = 20):
+    """Get recent maintenance records for all user's vehicles"""
+    records = await db.maintenance_records.find(
+        {"user_id": user_id}
+    ).sort("service_date", -1).to_list(limit)
+    return [MaintenanceRecord(**r) for r in records]
+
+@api_router.delete("/garage/maintenance/{record_id}")
+async def delete_maintenance_record(record_id: str):
+    """Delete a maintenance record"""
+    result = await db.maintenance_records.delete_one({"id": record_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Record not found")
+    return {"message": "Maintenance record deleted"}
+
+# ==================== REMINDER ENDPOINTS ====================
+
+@api_router.post("/garage/reminders", response_model=MaintenanceReminder)
+async def create_reminder(reminder_input: ReminderCreate):
+    """Create a maintenance reminder"""
+    reminder = MaintenanceReminder(**reminder_input.dict())
+    await db.maintenance_reminders.insert_one(reminder.dict())
+    return reminder
+
+@api_router.get("/garage/{user_id}/reminders")
+async def get_user_reminders(user_id: str):
+    """Get all pending reminders for user"""
+    reminders = await db.maintenance_reminders.find(
+        {"user_id": user_id, "is_completed": False}
+    ).to_list(50)
+    
+    # Also check for km-based reminders that are due
+    vehicles = await db.vehicles.find({"user_id": user_id}).to_list(50)
+    vehicle_km = {v["id"]: v.get("current_km", 0) for v in vehicles}
+    
+    due_reminders = []
+    upcoming_reminders = []
+    
+    for r in reminders:
+        reminder = MaintenanceReminder(**r)
+        vehicle_current_km = vehicle_km.get(reminder.vehicle_id, 0)
+        
+        is_due = False
+        if reminder.remind_at_km and vehicle_current_km >= reminder.remind_at_km:
+            is_due = True
+        if reminder.remind_at_date:
+            from datetime import datetime as dt
+            try:
+                remind_date = dt.strptime(reminder.remind_at_date, "%Y-%m-%d")
+                if remind_date <= dt.now():
+                    is_due = True
+            except:
+                pass
+        
+        if is_due:
+            due_reminders.append(reminder.dict())
+        else:
+            upcoming_reminders.append(reminder.dict())
+    
+    return {
+        "due": due_reminders,
+        "upcoming": upcoming_reminders
+    }
+
+@api_router.put("/garage/reminders/{reminder_id}/complete")
+async def complete_reminder(reminder_id: str):
+    """Mark a reminder as completed"""
+    result = await db.maintenance_reminders.update_one(
+        {"id": reminder_id},
+        {"$set": {"is_completed": True}}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Reminder not found")
+    return {"message": "Reminder completed"}
+
+@api_router.delete("/garage/reminders/{reminder_id}")
+async def delete_reminder(reminder_id: str):
+    """Delete a reminder"""
+    result = await db.maintenance_reminders.delete_one({"id": reminder_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Reminder not found")
+    return {"message": "Reminder deleted"}
+
+@api_router.get("/garage/{user_id}/stats")
+async def get_garage_stats(user_id: str):
+    """Get garage statistics for user"""
+    vehicles = await db.vehicles.find({"user_id": user_id}).to_list(50)
+    records = await db.maintenance_records.find({"user_id": user_id}).to_list(500)
+    
+    total_vehicles = len(vehicles)
+    total_km = sum(v.get("current_km", 0) for v in vehicles)
+    total_maintenance_cost = sum(r.get("cost", 0) or 0 for r in records)
+    total_services = len(records)
+    
+    # Get pending reminders count
+    pending_reminders = await db.maintenance_reminders.count_documents({
+        "user_id": user_id,
+        "is_completed": False
+    })
+    
+    return {
+        "total_vehicles": total_vehicles,
+        "total_km": total_km,
+        "total_maintenance_cost": total_maintenance_cost,
+        "total_services": total_services,
+        "pending_reminders": pending_reminders
+    }
+
+@api_router.get("/maintenance-types")
+async def get_maintenance_types():
+    """Get available maintenance types"""
+    return {
+        "types": MAINTENANCE_TYPES,
+        "labels": {
+            "oil_change": "Oil Change",
+            "tire_change": "Tire Change",
+            "brake_pads": "Brake Pads",
+            "chain_maintenance": "Chain Maintenance",
+            "spark_plugs": "Spark Plugs",
+            "air_filter": "Air Filter",
+            "coolant": "Coolant",
+            "general_service": "General Service",
+            "battery": "Battery",
+            "other": "Other"
+        },
+        "icons": {
+            "oil_change": "💧",
+            "tire_change": "🛞",
+            "brake_pads": "🛑",
+            "chain_maintenance": "⛓️",
+            "spark_plugs": "⚡",
+            "air_filter": "💨",
+            "coolant": "❄️",
+            "general_service": "🔧",
+            "battery": "🔋",
+            "other": "📝"
+        }
+    }
+
 # ==================== HEALTH CHECK ====================
 
 @api_router.get("/")
