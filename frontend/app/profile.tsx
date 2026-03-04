@@ -50,6 +50,7 @@ export default function ProfileScreen() {
   const router = useRouter();
   const { user, logout } = useAuth();
   const { t } = useLanguage();
+  const { colors } = useTheme();
   
   // Use current user from auth context or fallback
   const currentUser = user || { id: 'user-1', username: 'RiderJohn' };
