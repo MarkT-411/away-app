@@ -334,7 +334,7 @@ export default function MarketScreen() {
         </View>
       ) : (
         <FlatList
-          data={items}
+          data={filteredItems}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
           numColumns={2}
