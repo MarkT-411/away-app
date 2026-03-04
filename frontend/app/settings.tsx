@@ -105,36 +105,6 @@ export default function SettingsScreen() {
               {t('settings.account')}
             </Text>
             <View style={[styles.card, { backgroundColor: colors.card }]}>
-              {/* AI Trip Planner */}
-              <TouchableOpacity
-                style={[styles.optionRow, { borderBottomWidth: 1, borderBottomColor: colors.border }]}
-                onPress={() => router.push('/trip-planner')}
-              >
-                <View style={styles.optionLeft}>
-                  <View style={[styles.iconContainer, { backgroundColor: '#E8F5E9' }]}>
-                    <Ionicons name="map-outline" size={20} color="#4CAF50" />
-                  </View>
-                  <Text style={[styles.optionText, { color: colors.text }]}>AI Trip Planner</Text>
-                </View>
-                <View style={styles.aiBadge}>
-                  <Text style={styles.aiBadgeText}>AI</Text>
-                </View>
-              </TouchableOpacity>
-              
-              {/* SOS & Safety */}
-              <TouchableOpacity
-                style={[styles.optionRow, { borderBottomWidth: 1, borderBottomColor: colors.border }]}
-                onPress={() => router.push('/sos')}
-              >
-                <View style={styles.optionLeft}>
-                  <View style={[styles.iconContainer, { backgroundColor: '#FFE5E5' }]}>
-                    <Ionicons name="alert-circle-outline" size={20} color="#FF4444" />
-                  </View>
-                  <Text style={[styles.optionText, { color: colors.text }]}>SOS & Safety</Text>
-                </View>
-                <Ionicons name="chevron-forward" size={20} color={colors.textSecondary} />
-              </TouchableOpacity>
-              
               {/* Logout */}
               <TouchableOpacity
                 style={styles.optionRow}
