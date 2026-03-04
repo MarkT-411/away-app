@@ -102,6 +102,32 @@ class RideSession(BaseModel):
     is_active: bool = True
     crash_detection_enabled: bool = True
 
+# ==================== AI TRIP PLANNER MODELS ====================
+
+class TripPlanRequest(BaseModel):
+    user_id: str
+    starting_point: str  # City or address
+    distance_km: int  # Desired distance
+    road_preferences: List[str] = Field(default_factory=list)  # curves, panoramic, coastal, mountain, etc.
+    moto_type: Optional[str] = None  # Type of motorcycle
+    duration_hours: Optional[float] = None  # Preferred duration
+    avoid: List[str] = Field(default_factory=list)  # highways, tolls, etc.
+    language: str = "en"  # Response language
+
+class TripPlanResponse(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    user_id: str
+    starting_point: str
+    route_name: str
+    description: str
+    total_distance_km: int
+    estimated_duration: str
+    waypoints: List[dict]  # List of stops/waypoints
+    highlights: List[str]  # Key attractions
+    tips: List[str]  # Riding tips
+    difficulty: str  # easy, moderate, challenging
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+
 # MongoDB connection
 mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
