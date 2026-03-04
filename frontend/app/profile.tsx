@@ -444,6 +444,16 @@ export default function ProfileScreen() {
               <Text style={styles.statLabel}>{t('profile.following')}</Text>
             </View>
           </View>
+
+          {/* My Garage Button */}
+          <TouchableOpacity
+            style={[styles.garageButton, { backgroundColor: colors.accent }]}
+            onPress={() => router.push('/garage')}
+          >
+            <Ionicons name="car-sport" size={20} color="#fff" />
+            <Text style={styles.garageButtonText}>{t('garage.title')}</Text>
+            <Ionicons name="chevron-forward" size={18} color="#fff" />
+          </TouchableOpacity>
         </View>
 
         {/* Tab Bar */}
