@@ -12,6 +12,10 @@ from datetime import datetime
 import base64
 import hashlib
 import re
+import json
+
+# LLM integration for AI Trip Planner
+from emergentintegrations.llm.chat import LlmChat, UserMessage
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
