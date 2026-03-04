@@ -48,6 +48,20 @@ const STORAGE_KEYS = {
   BIOMETRIC_USER_ID: 'moto_app_biometric_user_id',
 };
 
+// DEV MODE: Set to true to bypass login screen
+const DEV_BYPASS_AUTH = true;
+
+const DEV_USER: User = {
+  id: 'dev-user-1',
+  email: 'dev@test.com',
+  username: 'DevTester',
+  avatar: undefined,
+  bio: 'Developer test account',
+  country: 'IT',
+  moto_types: ['sport', 'adventure'],
+  biometric_enabled: false,
+};
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isGuest, setIsGuest] = useState(false);
@@ -81,6 +95,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const loadStoredAuth = async () => {
     try {
+      // DEV MODE: Auto-login with dev user
+      if (DEV_BYPASS_AUTH) {
+        setUser(DEV_USER);
+        setIsGuest(false);
+        setIsLoading(false);
+        return;
+      }
+
       const storedUser = await AsyncStorage.getItem(STORAGE_KEYS.USER);
       const storedIsGuest = await AsyncStorage.getItem(STORAGE_KEYS.IS_GUEST);
 
