@@ -93,6 +93,8 @@ function AppContent() {
         <Stack.Screen name="settings" options={{ headerShown: false, presentation: 'modal' }} />
         <Stack.Screen name="garage" options={{ headerShown: false }} />
         <Stack.Screen name="add-vehicle" options={{ headerShown: false, presentation: 'modal' }} />
+        <Stack.Screen name="sos" options={{ headerShown: false }} />
+        <Stack.Screen name="sos-contacts" options={{ headerShown: false, presentation: 'modal' }} />
       </Stack>
     </>
   );
