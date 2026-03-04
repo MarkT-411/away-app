@@ -241,6 +241,7 @@ class MarketItem(BaseModel):
     title: str
     description: str
     price: float
+    currency: str = "EUR"  # Default currency
     condition: str  # new, like-new, good, fair
     category: str  # parts, accessories, gear, bikes
     moto_type: Optional[str] = None  # Type of motorcycle this item is for
@@ -257,6 +258,7 @@ class MarketItemCreate(BaseModel):
     title: str
     description: str
     price: float
+    currency: str = "EUR"
     condition: str
     category: str
     moto_type: Optional[str] = None
