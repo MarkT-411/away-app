@@ -454,6 +454,30 @@ export default function ProfileScreen() {
             <Text style={styles.garageButtonText}>{t('garage.title')}</Text>
             <Ionicons name="chevron-forward" size={18} color="#fff" />
           </TouchableOpacity>
+
+          {/* Quick Actions Row */}
+          <View style={styles.quickActionsRow}>
+            {/* AI Trip Planner */}
+            <TouchableOpacity
+              style={[styles.quickActionButton, { backgroundColor: '#4CAF50' }]}
+              onPress={() => router.push('/trip-planner')}
+            >
+              <Ionicons name="map" size={22} color="#fff" />
+              <Text style={styles.quickActionText}>Trip Planner</Text>
+              <View style={styles.aiBadgeSmall}>
+                <Text style={styles.aiBadgeSmallText}>AI</Text>
+              </View>
+            </TouchableOpacity>
+
+            {/* SOS */}
+            <TouchableOpacity
+              style={[styles.quickActionButton, { backgroundColor: '#FF4444' }]}
+              onPress={() => router.push('/sos')}
+            >
+              <Ionicons name="alert-circle" size={22} color="#fff" />
+              <Text style={styles.quickActionText}>SOS</Text>
+            </TouchableOpacity>
+          </View>
         </View>
 
         {/* Tab Bar */}
