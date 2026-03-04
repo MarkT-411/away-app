@@ -24,7 +24,22 @@ MOTO_TYPES = [
     "naked",
     "cruiser",
     "enduro",
-    "cafe_racer"
+    "cafe_racer",
+    "quad"
+]
+
+# Maintenance Types
+MAINTENANCE_TYPES = [
+    "oil_change",
+    "tire_change",
+    "brake_pads",
+    "chain_maintenance",
+    "spark_plugs",
+    "air_filter",
+    "coolant",
+    "general_service",
+    "battery",
+    "other"
 ]
 
 # MongoDB connection
