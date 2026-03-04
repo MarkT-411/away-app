@@ -299,6 +299,111 @@ class GpxTrackCreate(BaseModel):
     uploader_id: str
     uploader_name: str
 
+# ==================== GARAGE MODELS ====================
+
+# Vehicle Model (Motorcycle in Garage)
+class Vehicle(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    user_id: str
+    nickname: Optional[str] = None  # Custom name for the bike
+    brand: str  # e.g., "Honda", "Yamaha", "BMW"
+    model: str  # e.g., "CBR600RR", "MT-07"
+    year: int
+    moto_type: Optional[str] = None
+    color: Optional[str] = None
+    license_plate: Optional[str] = None
+    vin: Optional[str] = None
+    current_km: int = 0
+    image: Optional[str] = None  # Base64 image
+    purchase_date: Optional[str] = None
+    notes: Optional[str] = None
+    is_primary: bool = False  # Main vehicle
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+
+class VehicleCreate(BaseModel):
+    user_id: str
+    nickname: Optional[str] = None
+    brand: str
+    model: str
+    year: int
+    moto_type: Optional[str] = None
+    color: Optional[str] = None
+    license_plate: Optional[str] = None
+    vin: Optional[str] = None
+    current_km: int = 0
+    image: Optional[str] = None
+    purchase_date: Optional[str] = None
+    notes: Optional[str] = None
+    is_primary: bool = False
+
+class VehicleUpdate(BaseModel):
+    nickname: Optional[str] = None
+    brand: Optional[str] = None
+    model: Optional[str] = None
+    year: Optional[int] = None
+    moto_type: Optional[str] = None
+    color: Optional[str] = None
+    license_plate: Optional[str] = None
+    vin: Optional[str] = None
+    current_km: Optional[int] = None
+    image: Optional[str] = None
+    purchase_date: Optional[str] = None
+    notes: Optional[str] = None
+    is_primary: Optional[bool] = None
+
+# Maintenance Record Model
+class MaintenanceRecord(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    vehicle_id: str
+    user_id: str
+    maintenance_type: str  # oil_change, tire_change, etc.
+    title: str
+    description: Optional[str] = None
+    km_at_service: int
+    cost: Optional[float] = None
+    service_date: str  # YYYY-MM-DD
+    next_service_km: Optional[int] = None  # Reminder at this km
+    next_service_date: Optional[str] = None  # Reminder at this date
+    mechanic_name: Optional[str] = None
+    receipt_image: Optional[str] = None  # Base64 image
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+
+class MaintenanceCreate(BaseModel):
+    vehicle_id: str
+    user_id: str
+    maintenance_type: str
+    title: str
+    description: Optional[str] = None
+    km_at_service: int
+    cost: Optional[float] = None
+    service_date: str
+    next_service_km: Optional[int] = None
+    next_service_date: Optional[str] = None
+    mechanic_name: Optional[str] = None
+    receipt_image: Optional[str] = None
+
+# Maintenance Reminder Model
+class MaintenanceReminder(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    vehicle_id: str
+    user_id: str
+    maintenance_type: str
+    title: str
+    description: Optional[str] = None
+    remind_at_km: Optional[int] = None
+    remind_at_date: Optional[str] = None
+    is_completed: bool = False
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+
+class ReminderCreate(BaseModel):
+    vehicle_id: str
+    user_id: str
+    maintenance_type: str
+    title: str
+    description: Optional[str] = None
+    remind_at_km: Optional[int] = None
+    remind_at_date: Optional[str] = None
+
 # ==================== USER ENDPOINTS ====================
 
 @api_router.post("/users", response_model=User)
