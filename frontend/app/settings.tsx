@@ -241,4 +241,16 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginTop: 4,
   },
+  aiBadge: {
+    backgroundColor: '#4CAF50',
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: 8,
+    marginRight: 8,
+  },
+  aiBadgeText: {
+    color: '#fff',
+    fontSize: 10,
+    fontWeight: 'bold',
+  },
 });
