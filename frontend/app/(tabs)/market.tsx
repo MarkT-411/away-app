@@ -308,6 +308,24 @@ export default function MarketScreen() {
         </View>
       </View>
 
+      {/* Search Bar */}
+      <View style={[styles.searchContainer, { backgroundColor: colors.card }]}>
+        <Ionicons name="search" size={20} color={colors.textSecondary} />
+        <TextInput
+          style={[styles.searchInput, { color: colors.text }]}
+          placeholder="Search items..."
+          placeholderTextColor={colors.textSecondary}
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+          returnKeyType="search"
+        />
+        {searchQuery.length > 0 && (
+          <TouchableOpacity onPress={() => setSearchQuery('')}>
+            <Ionicons name="close-circle" size={20} color={colors.textSecondary} />
+          </TouchableOpacity>
+        )}
+      </View>
+
       {renderCategoryFilter()}
 
       {loading ? (
