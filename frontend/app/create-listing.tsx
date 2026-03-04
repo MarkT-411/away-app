@@ -58,8 +58,12 @@ export default function CreateListingScreen() {
   const [contactInfo, setContactInfo] = useState('');
   const [images, setImages] = useState<string[]>([]);
   const [selectedMotoType, setSelectedMotoType] = useState<string | null>(null);
+  const [currency, setCurrency] = useState('EUR');
+  const [showCurrencyPicker, setShowCurrencyPicker] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+
+  const selectedCurrency = CURRENCIES.find(c => c.code === currency) || CURRENCIES[0];
 
   const pickImage = async () => {
     if (images.length >= 4) {
