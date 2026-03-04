@@ -42,6 +42,62 @@ MAINTENANCE_TYPES = [
     "other"
 ]
 
+# ==================== SOS MODELS ====================
+
+class EmergencyContact(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    user_id: str
+    name: str
+    phone: str
+    email: Optional[str] = None
+    relationship: Optional[str] = None  # family, friend, etc.
+    is_primary: bool = False
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+
+class EmergencyContactCreate(BaseModel):
+    user_id: str
+    name: str
+    phone: str
+    email: Optional[str] = None
+    relationship: Optional[str] = None
+    is_primary: bool = False
+
+class SOSAlert(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    user_id: str
+    username: str
+    alert_type: str  # crash_detected, manual_sos
+    latitude: Optional[float] = None
+    longitude: Optional[float] = None
+    address: Optional[str] = None
+    message: Optional[str] = None
+    is_false_alarm: bool = False
+    is_resolved: bool = False
+    contacts_notified: List[str] = Field(default_factory=list)
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    resolved_at: Optional[datetime] = None
+
+class SOSAlertCreate(BaseModel):
+    user_id: str
+    username: str
+    alert_type: str
+    latitude: Optional[float] = None
+    longitude: Optional[float] = None
+    address: Optional[str] = None
+    message: Optional[str] = None
+
+class RideSession(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    user_id: str
+    vehicle_id: Optional[str] = None
+    start_time: datetime = Field(default_factory=datetime.utcnow)
+    end_time: Optional[datetime] = None
+    start_location: Optional[str] = None
+    end_location: Optional[str] = None
+    distance_km: float = 0
+    is_active: bool = True
+    crash_detection_enabled: bool = True
+
 # MongoDB connection
 mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
