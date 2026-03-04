@@ -116,6 +116,7 @@ export default function CreateListingScreen() {
           title: title.trim(),
           description: description.trim(),
           price: priceNum,
+          currency: currency,
           condition,
           category,
           moto_type: selectedMotoType,
