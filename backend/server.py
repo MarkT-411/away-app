@@ -1444,6 +1444,125 @@ async def update_user_moto_types(user_id: str, moto_types: List[str]):
         await db.users.update_one({"id": user_id}, {"$set": {"moto_types": moto_types}})
     return {"moto_types": moto_types}
 
+# ==================== SOS ENDPOINTS ====================
+
+@api_router.post("/sos/contacts", response_model=EmergencyContact)
+async def create_emergency_contact(contact_input: EmergencyContactCreate):
+    """Add an emergency contact"""
+    contact = EmergencyContact(**contact_input.dict())
+    
+    # If primary, unset other primary contacts
+    if contact.is_primary:
+        await db.emergency_contacts.update_many(
+            {"user_id": contact_input.user_id},
+            {"$set": {"is_primary": False}}
+        )
+    
+    await db.emergency_contacts.insert_one(contact.dict())
+    return contact
+
+@api_router.get("/sos/{user_id}/contacts", response_model=List[EmergencyContact])
+async def get_emergency_contacts(user_id: str):
+    """Get all emergency contacts for user"""
+    contacts = await db.emergency_contacts.find({"user_id": user_id}).to_list(20)
+    return [EmergencyContact(**c) for c in contacts]
+
+@api_router.delete("/sos/contacts/{contact_id}")
+async def delete_emergency_contact(contact_id: str):
+    """Delete an emergency contact"""
+    result = await db.emergency_contacts.delete_one({"id": contact_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Contact not found")
+    return {"message": "Contact deleted"}
+
+@api_router.put("/sos/contacts/{contact_id}/primary")
+async def set_primary_contact(contact_id: str):
+    """Set a contact as primary"""
+    contact = await db.emergency_contacts.find_one({"id": contact_id})
+    if not contact:
+        raise HTTPException(status_code=404, detail="Contact not found")
+    
+    # Unset other primary contacts
+    await db.emergency_contacts.update_many(
+        {"user_id": contact["user_id"]},
+        {"$set": {"is_primary": False}}
+    )
+    
+    # Set this one as primary
+    await db.emergency_contacts.update_one(
+        {"id": contact_id},
+        {"$set": {"is_primary": True}}
+    )
+    
+    return {"message": "Primary contact updated"}
+
+@api_router.post("/sos/alert", response_model=SOSAlert)
+async def create_sos_alert(alert_input: SOSAlertCreate):
+    """Create an SOS alert and notify emergency contacts"""
+    alert = SOSAlert(**alert_input.dict())
+    
+    # Get user's emergency contacts
+    contacts = await db.emergency_contacts.find({"user_id": alert_input.user_id}).to_list(10)
+    contact_ids = [c["id"] for c in contacts]
+    alert.contacts_notified = contact_ids
+    
+    await db.sos_alerts.insert_one(alert.dict())
+    
+    # Create notifications for emergency contacts
+    for contact in contacts:
+        notification = {
+            "id": str(uuid.uuid4()),
+            "user_id": contact.get("email", contact["phone"]),  # Use as identifier
+            "type": "sos_alert",
+            "title": f"🆘 SOS Alert from {alert_input.username}",
+            "message": f"Emergency alert! Location: {alert_input.address or 'Unknown'}",
+            "data": {
+                "alert_id": alert.id,
+                "latitude": alert_input.latitude,
+                "longitude": alert_input.longitude,
+                "alert_type": alert_input.alert_type
+            },
+            "read": False,
+            "created_at": datetime.utcnow()
+        }
+        await db.sos_notifications.insert_one(notification)
+    
+    return alert
+
+@api_router.get("/sos/{user_id}/alerts", response_model=List[SOSAlert])
+async def get_user_sos_alerts(user_id: str, limit: int = 10):
+    """Get SOS alert history for user"""
+    alerts = await db.sos_alerts.find(
+        {"user_id": user_id}
+    ).sort("created_at", -1).to_list(limit)
+    return [SOSAlert(**a) for a in alerts]
+
+@api_router.put("/sos/alerts/{alert_id}/resolve")
+async def resolve_sos_alert(alert_id: str, is_false_alarm: bool = False):
+    """Mark an SOS alert as resolved"""
+    result = await db.sos_alerts.update_one(
+        {"id": alert_id},
+        {"$set": {
+            "is_resolved": True,
+            "is_false_alarm": is_false_alarm,
+            "resolved_at": datetime.utcnow()
+        }}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Alert not found")
+    return {"message": "Alert resolved"}
+
+@api_router.get("/sos/{user_id}/active-alert")
+async def get_active_sos_alert(user_id: str):
+    """Get any active (unresolved) SOS alert for user"""
+    alert = await db.sos_alerts.find_one({
+        "user_id": user_id,
+        "is_resolved": False
+    })
+    if alert:
+        return SOSAlert(**alert)
+    return None
+
 # Include the router
 app.include_router(api_router)
 
