@@ -105,6 +105,21 @@ export default function SettingsScreen() {
               {t('settings.account')}
             </Text>
             <View style={[styles.card, { backgroundColor: colors.card }]}>
+              {/* My Garage */}
+              <TouchableOpacity
+                style={[styles.optionRow, { borderBottomWidth: 1, borderBottomColor: colors.border }]}
+                onPress={() => router.push('/garage')}
+              >
+                <View style={styles.optionLeft}>
+                  <View style={[styles.iconContainer, { backgroundColor: colors.accentLight }]}>
+                    <Ionicons name="car-sport-outline" size={20} color={colors.accent} />
+                  </View>
+                  <Text style={[styles.optionText, { color: colors.text }]}>{t('garage.title')}</Text>
+                </View>
+                <Ionicons name="chevron-forward" size={20} color={colors.textSecondary} />
+              </TouchableOpacity>
+              
+              {/* Logout */}
               <TouchableOpacity
                 style={styles.optionRow}
                 onPress={handleLogout}
