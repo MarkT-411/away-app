@@ -157,9 +157,28 @@ export default function MarketScreen() {
     fetchFavorites();
   }, [selectedCategory, selectedCountry, getMotoTypesParam()]);
 
-  const formatPrice = (price: number) => {
-    return `$${price.toLocaleString()}`;
+  const formatPrice = (price: number, currency?: string) => {
+    const symbols: Record<string, string> = {
+      EUR: '€', USD: '$', GBP: '£', CHF: 'CHF', JPY: '¥',
+      AUD: 'A$', CAD: 'C$', CNY: '¥', INR: '₹', BRL: 'R$',
+      PLN: 'zł', TRY: '₺'
+    };
+    const symbol = symbols[currency || 'EUR'] || '€';
+    return `${symbol}${price.toLocaleString()}`;
   };
+
+  // Filter items based on search query
+  const filteredItems = items.filter(item => {
+    if (!searchQuery.trim()) return true;
+    const query = searchQuery.toLowerCase();
+    return (
+      item.title.toLowerCase().includes(query) ||
+      item.description.toLowerCase().includes(query) ||
+      item.seller_name.toLowerCase().includes(query) ||
+      (item.location && item.location.toLowerCase().includes(query)) ||
+      item.category.toLowerCase().includes(query)
+    );
+  });
 
   const getConditionColor = (condition: string) => {
     switch (condition.toLowerCase()) {
