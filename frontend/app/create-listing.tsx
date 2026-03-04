@@ -449,15 +449,70 @@ const styles = StyleSheet.create({
     minHeight: 100,
     textAlignVertical: 'top',
   },
-  priceInput: {
+  priceRow: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  priceSymbol: {
+  currencyButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#1A1A1A',
+    borderRadius: 10,
+    paddingHorizontal: 14,
+    paddingVertical: 14,
+    marginRight: 10,
+    borderWidth: 1,
+    borderColor: '#333',
+  },
+  currencySymbol: {
     color: '#FF6B35',
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: '700',
-    marginRight: 8,
+    marginRight: 6,
+  },
+  currencyPicker: {
+    backgroundColor: '#1A1A1A',
+    borderRadius: 10,
+    marginTop: 10,
+    borderWidth: 1,
+    borderColor: '#333',
+    maxHeight: 200,
+  },
+  currencyList: {
+    maxHeight: 200,
+  },
+  currencyItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 14,
+    borderBottomWidth: 1,
+    borderBottomColor: '#222',
+  },
+  currencyItemActive: {
+    backgroundColor: '#2A2A2A',
+  },
+  currencyItemSymbol: {
+    color: '#FF6B35',
+    fontSize: 18,
+    fontWeight: '600',
+    width: 40,
+  },
+  currencyItemInfo: {
+    flex: 1,
+    marginLeft: 8,
+  },
+  currencyItemCode: {
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  currencyItemCodeActive: {
+    color: '#FF6B35',
+  },
+  currencyItemName: {
+    color: '#888',
+    fontSize: 12,
   },
   priceField: {
     flex: 1,
