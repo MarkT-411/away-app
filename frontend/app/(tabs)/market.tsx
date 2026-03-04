@@ -396,6 +396,21 @@ const styles = StyleSheet.create({
     padding: 4,
     marginLeft: 8,
   },
+  searchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginHorizontal: 16,
+    marginVertical: 8,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    borderRadius: 12,
+  },
+  searchInput: {
+    flex: 1,
+    fontSize: 16,
+    marginLeft: 10,
+    marginRight: 8,
+  },
   categoryContainer: {
     maxHeight: 50,
     borderBottomWidth: 1,
