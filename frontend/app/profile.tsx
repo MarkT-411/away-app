@@ -613,6 +613,38 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     flex: 1,
   },
+  quickActionsRow: {
+    flexDirection: 'row',
+    marginTop: 12,
+    marginHorizontal: 40,
+    gap: 10,
+  },
+  quickActionButton: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 12,
+    borderRadius: 20,
+    gap: 6,
+  },
+  quickActionText: {
+    color: '#fff',
+    fontSize: 13,
+    fontWeight: '600',
+  },
+  aiBadgeSmall: {
+    backgroundColor: 'rgba(255,255,255,0.3)',
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 6,
+  },
+  aiBadgeSmallText: {
+    color: '#fff',
+    fontSize: 9,
+    fontWeight: 'bold',
+  },
   tabBar: {
     borderBottomWidth: 1,
     borderBottomColor: '#222',
