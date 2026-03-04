@@ -202,8 +202,14 @@ export default function CreateListingScreen() {
 
           <View style={styles.inputGroup}>
             <Text style={styles.label}>Price *</Text>
-            <View style={styles.priceInput}>
-              <Text style={styles.priceSymbol}>$</Text>
+            <View style={styles.priceRow}>
+              <TouchableOpacity 
+                style={styles.currencyButton}
+                onPress={() => setShowCurrencyPicker(!showCurrencyPicker)}
+              >
+                <Text style={styles.currencySymbol}>{selectedCurrency.symbol}</Text>
+                <Ionicons name="chevron-down" size={16} color="#888" />
+              </TouchableOpacity>
               <TextInput
                 style={[styles.input, styles.priceField]}
                 placeholder="0.00"
@@ -213,6 +219,40 @@ export default function CreateListingScreen() {
                 onChangeText={setPrice}
               />
             </View>
+            
+            {showCurrencyPicker && (
+              <View style={styles.currencyPicker}>
+                <ScrollView style={styles.currencyList} nestedScrollEnabled>
+                  {CURRENCIES.map((curr) => (
+                    <TouchableOpacity
+                      key={curr.code}
+                      style={[
+                        styles.currencyItem,
+                        currency === curr.code && styles.currencyItemActive,
+                      ]}
+                      onPress={() => {
+                        setCurrency(curr.code);
+                        setShowCurrencyPicker(false);
+                      }}
+                    >
+                      <Text style={styles.currencyItemSymbol}>{curr.symbol}</Text>
+                      <View style={styles.currencyItemInfo}>
+                        <Text style={[
+                          styles.currencyItemCode,
+                          currency === curr.code && styles.currencyItemCodeActive,
+                        ]}>
+                          {curr.code}
+                        </Text>
+                        <Text style={styles.currencyItemName}>{curr.name}</Text>
+                      </View>
+                      {currency === curr.code && (
+                        <Ionicons name="checkmark" size={20} color="#FF6B35" />
+                      )}
+                    </TouchableOpacity>
+                  ))}
+                </ScrollView>
+              </View>
+            )}
           </View>
 
           <View style={styles.inputGroup}>
