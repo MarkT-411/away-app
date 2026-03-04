@@ -77,12 +77,12 @@ export default function SettingsScreen() {
             {t('settings.language')}
           </Text>
           <View style={[styles.card, { backgroundColor: colors.card }]}>
-            {LANGUAGES.slice(0, 6).map((lang, index) => (
+            {LANGUAGES.map((lang, index) => (
               <TouchableOpacity
                 key={lang.code}
                 style={[
                   styles.optionRow,
-                  index < 5 && { borderBottomWidth: 1, borderBottomColor: colors.border }
+                  index < LANGUAGES.length - 1 && { borderBottomWidth: 1, borderBottomColor: colors.border }
                 ]}
                 onPress={() => setSelectedLanguage(lang.code)}
               >
