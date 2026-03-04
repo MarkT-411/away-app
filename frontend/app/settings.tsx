@@ -105,6 +105,20 @@ export default function SettingsScreen() {
               {t('settings.account')}
             </Text>
             <View style={[styles.card, { backgroundColor: colors.card }]}>
+              {/* SOS & Safety */}
+              <TouchableOpacity
+                style={[styles.optionRow, { borderBottomWidth: 1, borderBottomColor: colors.border }]}
+                onPress={() => router.push('/sos')}
+              >
+                <View style={styles.optionLeft}>
+                  <View style={[styles.iconContainer, { backgroundColor: '#FFE5E5' }]}>
+                    <Ionicons name="alert-circle-outline" size={20} color="#FF4444" />
+                  </View>
+                  <Text style={[styles.optionText, { color: colors.text }]}>SOS & Safety</Text>
+                </View>
+                <Ionicons name="chevron-forward" size={20} color={colors.textSecondary} />
+              </TouchableOpacity>
+              
               {/* Logout */}
               <TouchableOpacity
                 style={styles.optionRow}
