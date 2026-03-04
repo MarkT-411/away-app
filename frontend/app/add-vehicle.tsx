@@ -125,22 +125,29 @@ export default function AddVehicleScreen() {
           </TouchableOpacity>
 
           {showBrands && (
-            <View style={[styles.brandList, { backgroundColor: colors.card }]}>
-              {POPULAR_BRANDS.map((b) => (
-                <TouchableOpacity
-                  key={b}
-                  style={[styles.brandItem, brand === b && { backgroundColor: colors.accentLight }]}
-                  onPress={() => {
-                    setBrand(b);
-                    setShowBrands(false);
-                  }}
-                >
-                  <Text style={[styles.brandText, { color: brand === b ? colors.accent : colors.text }]}>
-                    {b}
-                  </Text>
-                  {brand === b && <Ionicons name="checkmark" size={18} color={colors.accent} />}
-                </TouchableOpacity>
-              ))}
+            <View style={[styles.brandList, { backgroundColor: colors.card, borderColor: colors.border }]}>
+              <ScrollView style={{ maxHeight: 250 }} nestedScrollEnabled>
+                {POPULAR_BRANDS.map((b, index) => (
+                  <TouchableOpacity
+                    key={b}
+                    style={[
+                      styles.brandItem, 
+                      { borderBottomColor: colors.border },
+                      brand === b && { backgroundColor: colors.accentLight },
+                      index === POPULAR_BRANDS.length - 1 && { borderBottomWidth: 0 }
+                    ]}
+                    onPress={() => {
+                      setBrand(b);
+                      setShowBrands(false);
+                    }}
+                  >
+                    <Text style={[styles.brandText, { color: brand === b ? colors.accent : colors.text }]}>
+                      {b}
+                    </Text>
+                    {brand === b && <Ionicons name="checkmark" size={18} color={colors.accent} />}
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
             </View>
           )}
 
