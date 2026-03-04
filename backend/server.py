@@ -1593,6 +1593,121 @@ async def get_active_sos_alert(user_id: str):
         return SOSAlert(**alert)
     return None
 
+# ==================== AI TRIP PLANNER ENDPOINTS ====================
+
+@api_router.post("/trip-planner/generate")
+async def generate_trip_plan(request: TripPlanRequest):
+    """Generate an AI-powered motorcycle trip plan"""
+    
+    llm_key = os.environ.get('EMERGENT_LLM_KEY')
+    if not llm_key:
+        raise HTTPException(status_code=500, detail="LLM key not configured")
+    
+    # Build the prompt
+    preferences = ", ".join(request.road_preferences) if request.road_preferences else "varied"
+    avoid_str = ", ".join(request.avoid) if request.avoid else "none"
+    moto_str = request.moto_type or "standard motorcycle"
+    
+    prompt = f"""You are an expert motorcycle trip planner. Create a detailed motorcycle route with the following requirements:
+
+Starting Point: {request.starting_point}
+Desired Distance: approximately {request.distance_km} km
+Road Preferences: {preferences}
+Motorcycle Type: {moto_str}
+Things to Avoid: {avoid_str}
+{f"Preferred Duration: {request.duration_hours} hours" if request.duration_hours else ""}
+
+Please respond in {request.language} language with a JSON object containing:
+{{
+    "route_name": "Creative name for the route",
+    "description": "Brief 2-3 sentence description of the route",
+    "total_distance_km": {request.distance_km},
+    "estimated_duration": "X hours Y minutes",
+    "difficulty": "easy/moderate/challenging",
+    "waypoints": [
+        {{"name": "Stop name", "description": "Brief description", "type": "start/scenic/rest/fuel/food/end", "estimated_km": 0}},
+        ...
+    ],
+    "highlights": ["highlight 1", "highlight 2", ...],
+    "tips": ["tip 1", "tip 2", ...]
+}}
+
+Include 4-6 waypoints with interesting stops. Make the route realistic and enjoyable for motorcyclists. Focus on scenic roads, interesting curves, and good rest stops.
+Respond ONLY with the JSON object, no additional text."""
+    
+    try:
+        chat = LlmChat(
+            api_key=llm_key,
+            session_id=f"trip-{request.user_id}-{uuid.uuid4()}",
+            system_message="You are an expert motorcycle trip planner who creates detailed, realistic routes."
+        ).with_model("gemini", "gemini-2.5-flash")
+        
+        user_message = UserMessage(text=prompt)
+        response = await chat.send_message(user_message)
+        
+        # Parse the JSON response
+        response_text = response.strip()
+        if response_text.startswith("```json"):
+            response_text = response_text[7:]
+        if response_text.startswith("```"):
+            response_text = response_text[3:]
+        if response_text.endswith("```"):
+            response_text = response_text[:-3]
+        
+        route_data = json.loads(response_text.strip())
+        
+        # Create the response object
+        trip_plan = {
+            "id": str(uuid.uuid4()),
+            "user_id": request.user_id,
+            "starting_point": request.starting_point,
+            "route_name": route_data.get("route_name", "Motorcycle Adventure"),
+            "description": route_data.get("description", ""),
+            "total_distance_km": route_data.get("total_distance_km", request.distance_km),
+            "estimated_duration": route_data.get("estimated_duration", "Unknown"),
+            "waypoints": route_data.get("waypoints", []),
+            "highlights": route_data.get("highlights", []),
+            "tips": route_data.get("tips", []),
+            "difficulty": route_data.get("difficulty", "moderate"),
+            "created_at": datetime.utcnow()
+        }
+        
+        # Save to database
+        await db.trip_plans.insert_one(trip_plan)
+        
+        return trip_plan
+        
+    except json.JSONDecodeError as e:
+        logger.error(f"JSON parse error: {e}")
+        raise HTTPException(status_code=500, detail="Failed to parse AI response")
+    except Exception as e:
+        logger.error(f"Trip planner error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@api_router.get("/trip-planner/{user_id}/history")
+async def get_trip_history(user_id: str, limit: int = 10):
+    """Get user's trip planning history"""
+    trips = await db.trip_plans.find(
+        {"user_id": user_id}
+    ).sort("created_at", -1).to_list(limit)
+    return trips
+
+@api_router.get("/trip-planner/trip/{trip_id}")
+async def get_trip_plan(trip_id: str):
+    """Get a specific trip plan"""
+    trip = await db.trip_plans.find_one({"id": trip_id})
+    if not trip:
+        raise HTTPException(status_code=404, detail="Trip plan not found")
+    return trip
+
+@api_router.delete("/trip-planner/trip/{trip_id}")
+async def delete_trip_plan(trip_id: str):
+    """Delete a trip plan"""
+    result = await db.trip_plans.delete_one({"id": trip_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Trip plan not found")
+    return {"message": "Trip plan deleted"}
+
 # Include the router
 app.include_router(api_router)
 
