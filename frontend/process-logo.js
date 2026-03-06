@@ -1,48 +1,62 @@
 const sharp = require('sharp');
+const path = require('path');
 
 async function processLogo() {
-  const inputPath = '/tmp/original-helmet.jpeg';
-  const outputPath = './assets/images/helmet-logo.png';
+  const inputPath = '/tmp/correct-helmet.jpeg';
+  const outputDir = './assets/images';
   
-  const size = 512;
-  const padding = 50;
+  // Read and get metadata
+  const image = sharp(inputPath);
+  const metadata = await image.metadata();
+  console.log('Original image:', metadata.width, 'x', metadata.height);
   
-  // Colors
-  const darkGrayBg = '#1A1A1A';
+  // Create high-quality PNG for the app (main logo)
+  await sharp(inputPath)
+    .resize(1024, 1024, { 
+      fit: 'cover',
+      kernel: sharp.kernel.lanczos3 // High quality resampling
+    })
+    .sharpen({ sigma: 1.0 }) // Slight sharpening for clarity
+    .png({ 
+      quality: 100,
+      compressionLevel: 9
+    })
+    .toFile(path.join(outputDir, 'helmet-logo.png'));
+  console.log('✅ Created helmet-logo.png (1024x1024)');
   
-  // Resize and colorize the helmet to orange
-  const resizedHelmet = await sharp(inputPath)
-    .resize(size - padding * 2, size - padding * 2, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
-    .negate({ alpha: false })
-    .tint({ r: 255, g: 107, b: 53 }) // Orange #FF6B35
-    .png()
-    .toBuffer();
+  // iOS App Icon (1024x1024 for App Store)
+  await sharp(inputPath)
+    .resize(1024, 1024, { fit: 'cover', kernel: sharp.kernel.lanczos3 })
+    .sharpen({ sigma: 0.8 })
+    .png({ quality: 100 })
+    .toFile(path.join(outputDir, 'icon.png'));
+  console.log('✅ Created icon.png (1024x1024) for iOS');
   
-  // Create dark gray background
-  const background = await sharp({
-    create: {
-      width: size,
-      height: size,
-      channels: 4,
-      background: darkGrayBg
-    }
-  })
-  .png()
-  .toBuffer();
+  // Android Adaptive Icon (1024x1024)
+  await sharp(inputPath)
+    .resize(1024, 1024, { fit: 'cover', kernel: sharp.kernel.lanczos3 })
+    .sharpen({ sigma: 0.8 })
+    .png({ quality: 100 })
+    .toFile(path.join(outputDir, 'adaptive-icon.png'));
+  console.log('✅ Created adaptive-icon.png (1024x1024) for Android');
   
-  // Composite helmet on background (no border)
-  await sharp(background)
-    .composite([
-      {
-        input: resizedHelmet,
-        top: padding,
-        left: padding,
-      }
-    ])
-    .png()
-    .toFile(outputPath);
+  // Favicon (192x192)
+  await sharp(inputPath)
+    .resize(192, 192, { fit: 'cover', kernel: sharp.kernel.lanczos3 })
+    .sharpen({ sigma: 1.2 })
+    .png({ quality: 100 })
+    .toFile(path.join(outputDir, 'favicon.png'));
+  console.log('✅ Created favicon.png (192x192)');
   
-  console.log('Logo created successfully:', outputPath);
+  // Splash icon (smaller for splash screen, 288x288)
+  await sharp(inputPath)
+    .resize(288, 288, { fit: 'cover', kernel: sharp.kernel.lanczos3 })
+    .sharpen({ sigma: 1.0 })
+    .png({ quality: 100 })
+    .toFile(path.join(outputDir, 'splash-icon.png'));
+  console.log('✅ Created splash-icon.png (288x288)');
+  
+  console.log('\n🎉 All icons generated successfully!');
 }
 
 processLogo().catch(console.error);
