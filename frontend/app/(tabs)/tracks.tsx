@@ -21,6 +21,7 @@ import { useMotoTypes, getMotoTypeIcon } from '../../context/MotoTypesContext';
 import { useAuth } from '../../context/AuthContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { useTheme } from '../../context/ThemeContext';
+import { useMembership } from '../../context/MembershipContext';
 import CountryPicker from '../../components/CountryPicker';
 import MotoTypePicker from '../../components/MotoTypePicker';
 import GuestPrompt from '../../components/GuestPrompt';
