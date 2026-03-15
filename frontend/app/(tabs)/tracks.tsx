@@ -123,6 +123,12 @@ export default function TracksScreen() {
       return;
     }
     
+    // Non-members cannot download tracks (Member feature)
+    if (!canAccessFeature('tracks_full')) {
+      showUpgradePrompt('Track Downloads');
+      return;
+    }
+    
     setDownloading(trackId);
     try {
       const response = await fetch(`${API_URL}/api/tracks/${trackId}/download`);
