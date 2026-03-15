@@ -49,7 +49,7 @@ const STORAGE_KEYS = {
 };
 
 // DEV MODE: Set to true to bypass login screen
-const DEV_BYPASS_AUTH = true;
+const DEV_BYPASS_AUTH = false;
 
 const DEV_USER: User = {
   id: 'dev-user-1',
