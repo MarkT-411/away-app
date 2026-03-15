@@ -50,7 +50,7 @@ export default function ProfileScreen() {
   const [refreshing, setRefreshing] = useState(false);
   const [activeTab, setActiveTab] = useState<TabType>('posts');
   const router = useRouter();
-  const { user, logout } = useAuth();
+  const { user, logout, isGuest, updateUserAvatar } = useAuth();
   const { t } = useLanguage();
   const { colors } = useTheme();
   
