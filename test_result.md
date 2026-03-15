@@ -332,3 +332,5 @@ agent_communication:
     message: "MVP implementation complete. All backend APIs tested with curl and working. Frontend screens implemented with tab navigation, list views, create forms, and detail screens. Ready for UI testing."
   - agent: "testing"
     message: "Comprehensive backend API testing completed with 28 test cases. All CRUD operations, data persistence, like/join toggles, and category filtering verified working correctly. 100% success rate achieved. Backend is production-ready."
+  - agent: "main"
+    message: "NEW FEATURES IMPLEMENTED: 1) Freemium/Membership System - Paywall on Rides, Tracks (full), SOS, Trip Planner. Free users can only access Feed, Events, Market. 2) Profile Photo Upload - Complete flow with ImagePicker and backend sync. 3) Developer Bypass Mode - DEV_BYPASS_AUTH=true in AuthContext for testing. Please test: A) Access app without login (dev mode), B) Check paywall appears on Rides tab, C) Check paywall on SOS and Trip Planner screens, D) Verify subscription page works. Note: Payments are MOCK/SIMULATED."
