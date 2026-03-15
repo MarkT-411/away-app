@@ -128,5 +128,21 @@
     "enduro": "Enduro",
     "cafeRacer": "Cafe Racer",
     "quad": "Quad / ATV"
+  },
+  "membership": {
+    "title": "Abbonamento TAM",
+    "becomeMember": "Diventa Membro",
+    "memberBenefits": "Vantaggi Membro:",
+    "featureRequiresMember": "Questa funzionalità è disponibile per i Membri TAM",
+    "ridesDescription": "Pianifica e partecipa a giri di gruppo con altri motociclisti",
+    "sosDescription": "Rilevamento cadute e avvisi di emergenza per tenerti al sicuro in ogni viaggio",
+    "tripPlannerDescription": "Pianifica percorsi moto perfetti con l'AI",
+    "tracksDescription": "Scarica e carica tracce GPX",
+    "monthly": "Mensile",
+    "annual": "Annuale",
+    "subscribe": "Abbonati",
+    "currentPlan": "Piano Attuale",
+    "free": "Gratuito",
+    "member": "Membro"
   }
 }
