@@ -471,7 +471,7 @@ export default function ProfileScreen() {
               <Ionicons name="camera" size={14} color="#fff" />
             </View>
           </TouchableOpacity>
-          <Text style={styles.profileName}>{profile?.user.username || CURRENT_USER.username}</Text>
+          <Text style={styles.profileName}>{profile?.user.username || currentUser.username}</Text>
           {profile?.user.bio && (
             <Text style={styles.profileBio}>{profile.user.bio}</Text>
           )}
