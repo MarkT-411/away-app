@@ -165,6 +165,30 @@ backend:
         agent: "testing"
         comment: "Comprehensive testing completed: Create Market Item, Get All Items, Category Filtering (parts/accessories/gear/bikes), Get Specific Item, Mark as Sold functionality, Delete Item all working correctly. Sold items properly filtered from listings."
 
+  - task: "Avatar Upload API"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "Avatar Upload API (PUT /api/users/{user_id}/avatar) tested successfully. Avatar upload works correctly with base64 image data. Validation properly returns 400 error when avatar data is missing. Minor: One test case had connection timeout but manual verification confirms endpoint is working correctly."
+
+  - task: "Membership API"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "Membership API endpoints tested successfully: GET /api/membership/{user_id} returns membership status, POST /api/membership creates/updates membership, PUT /api/membership/{user_id}/pause pauses membership, PUT /api/membership/{user_id}/resume resumes membership. All endpoints working correctly with proper response formats."
+
 frontend:
   - task: "Tab Navigation (Feed, Events, Rides, Market)"
     implemented: true
