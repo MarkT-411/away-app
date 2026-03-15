@@ -30,6 +30,8 @@ interface AuthContextType {
   continueAsGuest: () => Promise<void>;
   authenticateWithBiometric: () => Promise<{ success: boolean; message: string }>;
   enableBiometric: () => Promise<{ success: boolean; message: string }>;
+  updateUserAvatar: (avatar: string) => Promise<void>;
+  refreshUser: () => Promise<void>;
 }
 
 interface RegisterData {
