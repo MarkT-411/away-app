@@ -90,6 +90,45 @@ export default function ProfileScreen() {
     );
   };
 
+  const handleChangeProfilePhoto = async () => {
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    
+    if (permissionResult.granted === false) {
+      Alert.alert('Permission Required', 'Please allow access to your photo library');
+      return;
+    }
+
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 0.8,
+      base64: true,
+    });
+
+    if (!result.canceled && result.assets[0].base64) {
+      try {
+        const avatarData = `data:image/jpeg;base64,${result.assets[0].base64}`;
+        
+        // Update on server
+        const response = await fetch(`${API_URL}/api/users/${currentUser.id}/avatar`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ avatar: avatarData }),
+        });
+
+        if (response.ok) {
+          // Refresh profile to show new avatar
+          fetchProfile();
+          Alert.alert('Success', 'Profile photo updated!');
+        }
+      } catch (error) {
+        console.error('Error updating avatar:', error);
+        Alert.alert('Error', 'Failed to update profile photo');
+      }
+    }
+  };
+
   useEffect(() => {
     fetchProfile();
   }, []);
