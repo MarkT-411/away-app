@@ -110,7 +110,9 @@ export default function RootLayout() {
         <LanguageProvider>
           <CountryProvider>
             <MotoTypesProvider>
-              <AppContent />
+              <MembershipProvider>
+                <AppContent />
+              </MembershipProvider>
             </MotoTypesProvider>
           </CountryProvider>
         </LanguageProvider>
