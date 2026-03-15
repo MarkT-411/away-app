@@ -58,6 +58,15 @@
     "tracks": "Tracce",
     "market": "Mercato"
   },
+  "profile": {
+    "title": "Profilo",
+    "photoUpdated": "Foto profilo aggiornata!",
+    "photoUpdateFailed": "Impossibile aggiornare la foto profilo",
+    "changePhoto": "Cambia Foto",
+    "myGarage": "Il Mio Garage",
+    "aiTripPlanner": "AI Trip Planner",
+    "sosEmergency": "SOS & Emergenza"
+  },
   "feed": {
     "title": "Moto Community",
     "newPost": "Nuovo Post",
