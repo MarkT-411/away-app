@@ -545,6 +545,8 @@ class MotorbikeAppTester:
         self.test_events_api()
         self.test_trips_api()
         self.test_market_api()
+        self.test_avatar_upload_api()  # NEW: Avatar Upload API
+        self.test_membership_api()     # NEW: Membership API
         self.test_data_persistence()
         
         # Summary
