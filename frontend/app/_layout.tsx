@@ -8,6 +8,7 @@ import { MotoTypesProvider, useMotoTypes } from '../context/MotoTypesContext';
 import { AuthProvider, useAuth } from '../context/AuthContext';
 import { LanguageProvider, useLanguage } from '../context/LanguageContext';
 import { ThemeProvider, useTheme } from '../context/ThemeContext';
+import { MembershipProvider } from '../context/MembershipContext';
 import AuthScreen from '../components/AuthScreen';
 
 function AppContent() {
