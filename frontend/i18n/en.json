@@ -16,7 +16,8 @@
     "filter": "Filter",
     "all": "All",
     "worldwide": "Worldwide",
-    "share": "Share"
+    "share": "Share",
+    "goBack": "Go Back"
   },
   "auth": {
     "welcome": "Welcome to Moto Community",
