@@ -1474,6 +1474,95 @@ async def update_user_moto_types(user_id: str, moto_types: List[str]):
         await db.users.update_one({"id": user_id}, {"$set": {"moto_types": moto_types}})
     return {"moto_types": moto_types}
 
+@api_router.put("/users/{user_id}/avatar")
+async def update_user_avatar(user_id: str, avatar_data: dict):
+    """Update user's profile avatar"""
+    avatar = avatar_data.get("avatar")
+    if not avatar:
+        raise HTTPException(status_code=400, detail="Avatar data required")
+    
+    # Update in users collection
+    result = await db.users.update_one(
+        {"id": user_id},
+        {"$set": {"avatar": avatar}},
+        upsert=True
+    )
+    return {"message": "Avatar updated", "avatar": avatar}
+
+# ==================== MEMBERSHIP ENDPOINTS ====================
+
+class MembershipCreate(BaseModel):
+    user_id: str
+    plan: str  # free, monthly, annual
+    status: str  # active, paused, expired
+    start_date: Optional[str] = None
+    expiry_date: Optional[str] = None
+    paused_until: Optional[str] = None
+    paused_months_used: int = 0
+
+@api_router.get("/membership/{user_id}")
+async def get_membership(user_id: str):
+    """Get user's membership status"""
+    membership = await db.memberships.find_one({"user_id": user_id})
+    if membership:
+        membership.pop("_id", None)
+        return membership
+    return {"plan": "free", "status": "none", "paused_months_used": 0}
+
+@api_router.post("/membership")
+async def create_or_update_membership(membership: MembershipCreate):
+    """Create or update membership"""
+    existing = await db.memberships.find_one({"user_id": membership.user_id})
+    
+    membership_data = membership.dict()
+    membership_data["updated_at"] = datetime.utcnow()
+    
+    if existing:
+        await db.memberships.update_one(
+            {"user_id": membership.user_id},
+            {"$set": membership_data}
+        )
+    else:
+        membership_data["created_at"] = datetime.utcnow()
+        await db.memberships.insert_one(membership_data)
+    
+    return {"message": "Membership updated", **membership_data}
+
+@api_router.put("/membership/{user_id}/pause")
+async def pause_membership(user_id: str, pause_data: dict):
+    """Pause user's membership"""
+    months = pause_data.get("months", 1)
+    
+    membership = await db.memberships.find_one({"user_id": user_id})
+    if not membership:
+        raise HTTPException(status_code=404, detail="Membership not found")
+    
+    if membership.get("paused_months_used", 0) + months > 3:
+        raise HTTPException(status_code=400, detail="Maximum pause limit exceeded")
+    
+    paused_until = datetime.utcnow()
+    paused_until = paused_until.replace(month=paused_until.month + months)
+    
+    await db.memberships.update_one(
+        {"user_id": user_id},
+        {"$set": {
+            "status": "paused",
+            "paused_until": paused_until.isoformat(),
+            "paused_months_used": membership.get("paused_months_used", 0) + months
+        }}
+    )
+    
+    return {"message": "Membership paused", "paused_until": paused_until.isoformat()}
+
+@api_router.put("/membership/{user_id}/resume")
+async def resume_membership(user_id: str):
+    """Resume user's membership"""
+    await db.memberships.update_one(
+        {"user_id": user_id},
+        {"$set": {"status": "active", "paused_until": None}}
+    )
+    return {"message": "Membership resumed"}
+
 # ==================== SOS ENDPOINTS ====================
 
 @api_router.post("/sos/contacts", response_model=EmergencyContact)
