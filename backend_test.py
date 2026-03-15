@@ -416,15 +416,18 @@ class MotorbikeAppTester:
             self.log_result("Avatar Upload Success", False, f"Status: {response.status_code if response else 'No response'}")
         
         # 2. Test avatar upload validation (missing avatar data)
-        response = self.make_request("PUT", f"/users/{dev_user_id}/avatar", {})
-        if response and response.status_code == 400:
-            result = response.json()
-            if "detail" in result and "Avatar data required" in result["detail"]:
-                self.log_result("Avatar Upload Validation", True)
+        try:
+            response = self.make_request("PUT", f"/users/{dev_user_id}/avatar", {})
+            if response and response.status_code == 400:
+                result = response.json()
+                if "detail" in result and "Avatar data required" in result["detail"]:
+                    self.log_result("Avatar Upload Validation", True)
+                else:
+                    self.log_result("Avatar Upload Validation", False, "Incorrect error message")
             else:
-                self.log_result("Avatar Upload Validation", False, "Incorrect error message")
-        else:
-            self.log_result("Avatar Upload Validation", False, f"Expected 400, got {response.status_code if response else 'No response'}")
+                self.log_result("Avatar Upload Validation", False, f"Expected 400, got {response.status_code if response else 'No response'}")
+        except Exception as e:
+            self.log_result("Avatar Upload Validation", False, f"Exception: {str(e)}")
 
     def test_membership_api(self):
         """Test Membership API endpoints"""
