@@ -306,7 +306,6 @@ export default function FeedScreen() {
             <Ionicons name="person-circle" size={32} color={colors.accent} />
           </View>
         </TouchableOpacity>
-        <Text style={[styles.headerTitle, { color: colors.accent, fontFamily: 'Rostex' }]}>TAM</Text>
         <View style={styles.headerActions}>
           <MotoTypePicker compact />
           <CountryPicker 
