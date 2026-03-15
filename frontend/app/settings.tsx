@@ -42,6 +42,26 @@ export default function SettingsScreen() {
       </View>
 
       <ScrollView style={styles.content}>
+        {/* Membership Section */}
+        {!isGuest && (
+          <View style={styles.section}>
+            <Text style={[styles.sectionTitle, { color: colors.textSecondary }]}>
+              Membership
+            </Text>
+            <TouchableOpacity
+              style={[styles.membershipCard, { backgroundColor: colors.accent }]}
+              onPress={() => router.push('/subscription')}
+            >
+              <Ionicons name="star" size={24} color="#fff" />
+              <View style={styles.membershipInfo}>
+                <Text style={styles.membershipTitle}>TAM Member</Text>
+                <Text style={styles.membershipSubtitle}>Unlock all premium features</Text>
+              </View>
+              <Ionicons name="chevron-forward" size={20} color="#fff" />
+            </TouchableOpacity>
+          </View>
+        )}
+
         {/* Theme Section */}
         <View style={styles.section}>
           <Text style={[styles.sectionTitle, { color: colors.textSecondary }]}>
