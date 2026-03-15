@@ -355,7 +355,6 @@ export default function TracksScreen() {
               refreshing={refreshing}
               onRefresh={onRefresh}
               tintColor={colors.accent}
-              tintColor="#FF6B35"
             />
           }
           ListEmptyComponent={renderEmpty}
