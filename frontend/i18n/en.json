@@ -68,6 +68,15 @@
     "tracks": "Tracks",
     "market": "Market"
   },
+  "profile": {
+    "title": "Profile",
+    "photoUpdated": "Profile photo updated!",
+    "photoUpdateFailed": "Failed to update profile photo",
+    "changePhoto": "Change Photo",
+    "myGarage": "My Garage",
+    "aiTripPlanner": "AI Trip Planner",
+    "sosEmergency": "SOS & Emergency"
+  },
   "feed": {
     "title": "Moto Community",
     "newPost": "New Post",
