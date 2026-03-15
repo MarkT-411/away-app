@@ -97,6 +97,7 @@ function AppContent() {
         <Stack.Screen name="sos" options={{ headerShown: false }} />
         <Stack.Screen name="sos-contacts" options={{ headerShown: false, presentation: 'modal' }} />
         <Stack.Screen name="trip-planner" options={{ headerShown: false }} />
+        <Stack.Screen name="subscription" options={{ headerShown: false, presentation: 'modal' }} />
       </Stack>
     </>
   );
