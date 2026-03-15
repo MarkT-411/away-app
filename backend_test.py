@@ -393,6 +393,97 @@ class MotorbikeAppTester:
         else:
             self.log_result("Delete Market Item", False, f"Status: {response.status_code if response else 'No response'}")
 
+    def test_avatar_upload_api(self):
+        """Test Avatar Upload API - PUT /api/users/{user_id}/avatar"""
+        print("\n=== AVATAR UPLOAD API TESTING ===")
+        
+        # Test user ID for dev bypass mode
+        dev_user_id = "dev-user-1"
+        
+        # Create a simple base64 encoded test image (1x1 pixel PNG)
+        test_avatar = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
+        
+        # 1. Test successful avatar upload
+        avatar_data = {"avatar": test_avatar}
+        response = self.make_request("PUT", f"/users/{dev_user_id}/avatar", avatar_data)
+        if response and response.status_code == 200:
+            result = response.json()
+            if "message" in result and "avatar" in result:
+                self.log_result("Avatar Upload Success", True)
+            else:
+                self.log_result("Avatar Upload Success", False, "Missing required fields in response")
+        else:
+            self.log_result("Avatar Upload Success", False, f"Status: {response.status_code if response else 'No response'}")
+        
+        # 2. Test avatar upload validation (missing avatar data)
+        response = self.make_request("PUT", f"/users/{dev_user_id}/avatar", {})
+        if response and response.status_code == 400:
+            self.log_result("Avatar Upload Validation", True)
+        else:
+            self.log_result("Avatar Upload Validation", False, f"Expected 400, got {response.status_code if response else 'No response'}")
+
+    def test_membership_api(self):
+        """Test Membership API endpoints"""
+        print("\n=== MEMBERSHIP API TESTING ===")
+        
+        # Test user ID for dev bypass mode
+        dev_user_id = "dev-user-1"
+        
+        # 1. Test GET membership (should return default for new user)
+        response = self.make_request("GET", f"/membership/{dev_user_id}")
+        if response and response.status_code == 200:
+            result = response.json()
+            if "plan" in result and "status" in result:
+                self.log_result("Get Membership Status", True)
+            else:
+                self.log_result("Get Membership Status", False, "Missing required fields")
+        else:
+            self.log_result("Get Membership Status", False, f"Status: {response.status_code if response else 'No response'}")
+        
+        # 2. Test CREATE/UPDATE membership
+        from datetime import datetime, timedelta
+        membership_data = {
+            "user_id": dev_user_id,
+            "plan": "monthly",
+            "status": "active",
+            "start_date": datetime.now().strftime("%Y-%m-%d"),
+            "expiry_date": (datetime.now() + timedelta(days=30)).strftime("%Y-%m-%d"),
+            "paused_months_used": 0
+        }
+        
+        response = self.make_request("POST", "/membership", membership_data)
+        if response and response.status_code == 200:
+            result = response.json()
+            if "message" in result and result["message"] == "Membership updated":
+                self.log_result("Create/Update Membership", True)
+            else:
+                self.log_result("Create/Update Membership", False, "Invalid response message")
+        else:
+            self.log_result("Create/Update Membership", False, f"Status: {response.status_code if response else 'No response'}")
+        
+        # 3. Test PAUSE membership
+        pause_data = {"months": 1}
+        response = self.make_request("PUT", f"/membership/{dev_user_id}/pause", pause_data)
+        if response and response.status_code == 200:
+            result = response.json()
+            if "message" in result and "paused_until" in result:
+                self.log_result("Pause Membership", True)
+            else:
+                self.log_result("Pause Membership", False, "Missing required fields in response")
+        else:
+            self.log_result("Pause Membership", False, f"Status: {response.status_code if response else 'No response'}")
+        
+        # 4. Test RESUME membership
+        response = self.make_request("PUT", f"/membership/{dev_user_id}/resume")
+        if response and response.status_code == 200:
+            result = response.json()
+            if "message" in result and result["message"] == "Membership resumed":
+                self.log_result("Resume Membership", True)
+            else:
+                self.log_result("Resume Membership", False, "Invalid response message")
+        else:
+            self.log_result("Resume Membership", False, f"Status: {response.status_code if response else 'No response'}")
+
     def test_data_persistence(self):
         """Test data persistence across operations"""
         print("\n=== DATA PERSISTENCE TESTING ===")
