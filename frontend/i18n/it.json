@@ -16,7 +16,8 @@
     "filter": "Filtra",
     "all": "Tutti",
     "worldwide": "Tutto il mondo",
-    "share": "Condividi"
+    "share": "Condividi",
+    "goBack": "Torna Indietro"
   },
   "auth": {
     "welcome": "Benvenuto su Moto Community",
