@@ -327,6 +327,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         continueAsGuest,
         authenticateWithBiometric,
         enableBiometric,
+        updateUserAvatar,
+        refreshUser,
       }}
     >
       {children}
