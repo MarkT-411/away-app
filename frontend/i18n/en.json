@@ -257,5 +257,21 @@
     "enduro": "Enduro",
     "cafeRacer": "Cafe Racer",
     "quad": "Quad / ATV"
+  },
+  "membership": {
+    "title": "TAM Membership",
+    "becomeMember": "Become a Member",
+    "memberBenefits": "Member Benefits:",
+    "featureRequiresMember": "This feature is available for TAM Members",
+    "ridesDescription": "Plan and join group rides with fellow riders",
+    "sosDescription": "Crash detection and emergency alerts to keep you safe on every ride",
+    "tripPlannerDescription": "Plan perfect motorcycle routes powered by AI",
+    "tracksDescription": "Download and upload GPX tracks",
+    "monthly": "Monthly",
+    "annual": "Annual",
+    "subscribe": "Subscribe",
+    "currentPlan": "Current Plan",
+    "free": "Free",
+    "member": "Member"
   }
 }
