@@ -418,7 +418,11 @@ class MotorbikeAppTester:
         # 2. Test avatar upload validation (missing avatar data)
         response = self.make_request("PUT", f"/users/{dev_user_id}/avatar", {})
         if response and response.status_code == 400:
-            self.log_result("Avatar Upload Validation", True)
+            result = response.json()
+            if "detail" in result and "Avatar data required" in result["detail"]:
+                self.log_result("Avatar Upload Validation", True)
+            else:
+                self.log_result("Avatar Upload Validation", False, "Incorrect error message")
         else:
             self.log_result("Avatar Upload Validation", False, f"Expected 400, got {response.status_code if response else 'No response'}")
 
