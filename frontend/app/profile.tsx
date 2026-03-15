@@ -459,13 +459,18 @@ export default function ProfileScreen() {
       >
         {/* Profile Header */}
         <View style={styles.profileHeader}>
-          <View style={styles.avatarLarge}>
-            {profile?.user.avatar ? (
-              <Image source={{ uri: profile.user.avatar }} style={styles.avatarImage} />
-            ) : (
-              <Ionicons name="person" size={40} color="#888" />
-            )}
-          </View>
+          <TouchableOpacity style={styles.avatarContainer} onPress={handleChangeProfilePhoto}>
+            <View style={styles.avatarLarge}>
+              {profile?.user.avatar ? (
+                <Image source={{ uri: profile.user.avatar }} style={styles.avatarImage} />
+              ) : (
+                <Ionicons name="person" size={40} color="#888" />
+              )}
+            </View>
+            <View style={styles.editAvatarBadge}>
+              <Ionicons name="camera" size={14} color="#fff" />
+            </View>
+          </TouchableOpacity>
           <Text style={styles.profileName}>{profile?.user.username || CURRENT_USER.username}</Text>
           {profile?.user.bio && (
             <Text style={styles.profileBio}>{profile.user.bio}</Text>
