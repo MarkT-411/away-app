@@ -118,13 +118,17 @@ export default function ProfileScreen() {
         });
 
         if (response.ok) {
+          // Update local state in AuthContext
+          await updateUserAvatar(avatarData);
           // Refresh profile to show new avatar
           fetchProfile();
-          Alert.alert('Success', 'Profile photo updated!');
+          Alert.alert(t('common.success') || 'Success', t('profile.photoUpdated') || 'Profile photo updated!');
+        } else {
+          Alert.alert(t('common.error') || 'Error', t('profile.photoUpdateFailed') || 'Failed to update profile photo');
         }
       } catch (error) {
         console.error('Error updating avatar:', error);
-        Alert.alert('Error', 'Failed to update profile photo');
+        Alert.alert(t('common.error') || 'Error', t('profile.photoUpdateFailed') || 'Failed to update profile photo');
       }
     }
   };
