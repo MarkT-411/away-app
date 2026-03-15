@@ -69,6 +69,20 @@ export default function TripPlannerScreen() {
   const { user } = useAuth();
   const { colors } = useTheme();
   const { t, selectedLanguage } = useLanguage();
+  const { canAccessFeature } = useMembership();
+
+  // Check if user has access to trip planner feature
+  if (!canAccessFeature('trip_planner')) {
+    return (
+      <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
+        <MemberPaywall 
+          featureName={t('tripPlanner.title') || 'AI Trip Planner'}
+          featureIcon="map"
+          description={t('membership.tripPlannerDescription') || 'Plan perfect motorcycle routes powered by AI'}
+        />
+      </SafeAreaView>
+    );
+  }
 
   useEffect(() => {
     fetchHistory();
