@@ -201,19 +201,7 @@ export default function AuthScreen({ onComplete, onSkip }: AuthScreenProps) {
                 <Text style={styles.biometricButtonText}>{t('auth.loginWithBiometric')} {biometricType}</Text>
               </TouchableOpacity>
             )}
-
-            <TouchableOpacity
-              style={styles.guestButton}
-              onPress={handleSkip}
-            >
-              <Text style={styles.guestButtonText}>{t('auth.browseAsGuest')}</Text>
-              <Ionicons name="arrow-forward" size={18} color="#888" />
-            </TouchableOpacity>
           </View>
-
-          <Text style={styles.guestNote}>
-            {t('auth.guestNote')}
-          </Text>
         </View>
       </SafeAreaView>
     );
