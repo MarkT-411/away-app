@@ -287,6 +287,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const updateUserAvatar = async (avatar: string): Promise<void> => {
+    if (!user) return;
+    
+    const updatedUser = { ...user, avatar };
+    setUser(updatedUser);
+    await AsyncStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(updatedUser));
+  };
+
+  const refreshUser = async (): Promise<void> => {
+    if (!user) return;
+    
+    try {
+      const userResponse = await fetch(`${API_URL}/api/auth/user/${user.id}`);
+      if (userResponse.ok) {
+        const userData = await userResponse.json();
+        setUser(userData);
+        await AsyncStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(userData));
+      }
+    } catch (error) {
+      console.error('Error refreshing user:', error);
+    }
+  };
+
   const isAuthenticated = user !== null;
 
   return (
