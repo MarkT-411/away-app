@@ -41,6 +41,20 @@ export default function SOSScreen() {
   const { user } = useAuth();
   const { colors } = useTheme();
   const { t } = useLanguage();
+  const { canAccessFeature } = useMembership();
+
+  // Check if user has access to SOS feature
+  if (!canAccessFeature('sos')) {
+    return (
+      <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
+        <MemberPaywall 
+          featureName={t('sos.title') || 'SOS & Safety'}
+          featureIcon="alert-circle"
+          description={t('membership.sosDescription') || 'Crash detection and emergency alerts to keep you safe on every ride'}
+        />
+      </SafeAreaView>
+    );
+  }
 
   useEffect(() => {
     fetchContacts();
