@@ -18,6 +18,8 @@ import Slider from '@react-native-community/slider';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { useLanguage } from '../context/LanguageContext';
+import { useMembership } from '../context/MembershipContext';
+import MemberPaywall from '../components/MemberPaywall';
 
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
 
