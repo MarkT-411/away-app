@@ -310,6 +310,54 @@ frontend:
         agent: "main"
         comment: "Market item details with contact seller"
 
+  - task: "Membership/Freemium System - Paywall"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/components/MemberPaywall.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Paywall component created. Feature gating on Rides, SOS, Trip Planner, and Track downloads. Free users see Feed, Events, Market."
+
+  - task: "Profile Photo Upload"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/app/profile.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "ImagePicker integration for profile photo. Saves to backend and updates AuthContext."
+
+  - task: "Developer Bypass Mode"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/context/AuthContext.tsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "DEV_BYPASS_AUTH=true allows accessing app without login for testing"
+
+  - task: "Subscription Screen"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/app/subscription.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Subscription page with monthly/annual pricing options. Mock payment flow."
+
 metadata:
   created_by: "main_agent"
   version: "1.0"
