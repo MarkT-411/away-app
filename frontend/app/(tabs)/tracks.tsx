@@ -67,6 +67,7 @@ export default function TracksScreen() {
   const { isGuest } = useAuth();
   const { t } = useLanguage();
   const { colors } = useTheme();
+  const { isMember, canAccessFeature, showUpgradePrompt } = useMembership();
 
   const requireAuth = (action: string, callback: () => void) => {
     if (isGuest) {
