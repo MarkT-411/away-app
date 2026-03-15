@@ -33,13 +33,13 @@ class MotorbikeAppTester:
         url = f"{BACKEND_URL}{endpoint}"
         try:
             if method.upper() == "GET":
-                response = self.session.get(url, params=params)
+                response = self.session.get(url, params=params, timeout=10)
             elif method.upper() == "POST":
-                response = self.session.post(url, json=data, params=params)
+                response = self.session.post(url, json=data, params=params, timeout=10)
             elif method.upper() == "PUT":
-                response = self.session.put(url, json=data, params=params)
+                response = self.session.put(url, json=data, params=params, timeout=10)
             elif method.upper() == "DELETE":
-                response = self.session.delete(url, params=params)
+                response = self.session.delete(url, params=params, timeout=10)
             
             return response
         except Exception as e:
