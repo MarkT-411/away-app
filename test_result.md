@@ -366,13 +366,17 @@ metadata:
 
 test_plan:
   current_focus:
+    - "Developer Bypass Mode"
+    - "Membership/Freemium System - Paywall"
+    - "Subscription Screen"
+    - "Profile Photo Upload"
     - "Tab Navigation"
     - "Feed Screen"
     - "Events Screen"
     - "Rides Screen"
     - "Market Screen"
   stuck_tasks: []
-  test_all: false
+  test_all: true
   test_priority: "high_first"
 
 agent_communication:
