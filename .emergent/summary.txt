@@ -1,79 +1,125 @@
 <analysis>
 
-original_problem_statement: The user initially requested a comprehensive mobile app for motorbike fans. Throughout the session, this evolved with major feature requests:
-- **Internationalization (i18n):** Translate the entire app into 14 languages.
-- **Logout Functionality:** Add a logout button for registered users.
-- **UI/UX Polishing:** Fix UI bugs (country selector), and add skeleton loaders and haptic feedback.
-- **App Rebranding:** Change the app name to TAM (Travel Adventure Motorcycle).
-- **Custom Logo Design:** Create a new app logo based on user specifications, which went through several iterations, culminating in using a user-provided image.
-- **Light/Dark Theme:** Implement a theme toggle (Light/Dark/System) in user preferences, and apply it consistently across the entire application.
-- **Custom Font:** Change the font for the TAM brand text to Rostex throughout the application.
+original_problem_statement: The user initially requested a comprehensive mobile app for motorbike fans. This has evolved into a feature-rich application named TAM. The most recent user requests from this session include:
+- **Font Change:** Apply the Rostex font to all instances of the TAM brand name. (Completed)
+- **New Motorcycle Type:** Add Quad to the list of available motorcycle types, including all translations. (Completed)
+- **Feature Roadmap:** The user asked for competitive analysis and feature recommendations. The agent proposed, and the user approved, a three-phase plan: 1. Digital Garage, 2. SOS/Crash Detection, 3. AI Trip Planner. (All three phases were implemented at a foundational level).
+- **UI/UX Fixes and Refinements:**
+    - Fix a UI bug with a dropdown menu in the Add Vehicle screen. (Completed)
+    - Move the My Garage link from Settings to the User Profile page. (Completed)
+    - Add a currency selector to the Marketplace's Create Listing form. (Completed)
+    - Move AI Trip Planner and SOS links from Settings to the User Profile page. (Completed)
+    - Add a free-text search bar to the Marketplace. (Completed)
+    - Make the Helmet Logo's background adaptive to the light/dark theme, which involved multiple iterations and ended with the user providing the final image asset. (Completed)
+    - Fix a crash in the Settings page. (Completed)
+- **New Major Features (Currently In Progress):**
+    1.  **Profile Picture:** Allow users to upload a profile picture.
+    2.  **Mandatory Registration:** Remove the Browse as Guest option and require all users to register/login.
+    3.  **Freemium Model:** Implement a Member subscription with two pricing tiers (monthly/annual) and feature-gate specific parts of the app.
 
 PRODUCT REQUIREMENTS:
-- **Branding:** The app must be consistently branded as TAM using the Rostex font for the name and the user-approved helmet logo.
-- **Theming:** All screens and components must respect the user's selected theme (Light/Dark) from the settings page, ensuring proper contrast and readability in both modes.
-- **Internationalization:** All user-facing text must be sourced from the i18n translation files.
-- **UI/UX:** The app should feel polished, with loading states (skeletons) and haptic feedback for key interactions. The UI layout should be consistent (e.g., grid selectors).
+- **Branding:** The app must be consistently branded as TAM using the Rostex font and the user-provided helmet logo.
+- **Theming & UI:** All screens must respect the user's theme choice (Light/Dark). UI elements must be functional and visually correct (e.g., dropdowns not overlapping).
+- **Internationalization:** All user-facing text must be sourced from i18n files. New features require new translations.
+- **Mandatory Registration:** Access to the app's content is no longer possible without an account.
+- **Freemium/Paywall:** A clear distinction between Free and Member features must be implemented as follows:
+    - **Free:** Feed, Events, Marketplace, viewing Tracks.
+    - **Member:** Rides (Viaggi), all Track functionalities beyond viewing, AI Trip Planner, SOS/Crash Detection.
 
-**User's preferred language**: The user communicates in both English and Italian. Recent and critical feedback was provided in **Italian**. The next agent MUST be prepared to interact in Italian.
+**User's preferred language**: Italian. The user communicates exclusively in Italian. The next agent MUST respond in **Italian**.
 
 **what currently exists?**
-The application is a full-featured social app for motorcyclists, now branded as TAM. It has a complete authentication system, content filtering, and i18n for 14 languages. The most recent major additions are a full light/dark theme system that is applied across all major screens and a new custom font (Rostex) for the app's name. A new helmet logo, based on a user-provided image, has been integrated into the UI and generated as app icons.
+The TAM app is a full-stack Expo/FastAPI application. It has a complete UI with i18n, light/dark themes, and custom branding (font and logo). Core features like Auth, Feed, Events, and Market are functional.
 
-**Last working item**: (The agent was changing the app's branding font)
-    - Last item agent was working: Applying the custom Rostex font to all instances of the TAM brand name as requested by the user. The agent has successfully downloaded the font files, loaded them in the app's root layout, and updated the main TAM title on the .
+The agent has just completed a significant number of feature additions and refactors:
+- Foundational backend and frontend for a Digital Garage, SOS/Crash Detection, and an AI Trip Planner (using Gemini).
+- Numerous UI/UX improvements like a Market search bar, currency selector, and moving feature links to the Profile page.
+- The registration flow has been made mandatory, removing the guest bypass.
+- The groundwork for a profile picture upload feature and a membership system has been laid (new contexts, screens, backend endpoints), but they are not fully functional yet.
+
+**Last working item**: (The agent was working on the multi-part request for profile pictures, mandatory login, and a freemium model)
+    - Last item agent was working: Implementing the Membership/Freemium system. The agent had just added a Membership section to the  screen and was in the process of adding the styles for it.
     - Status: IN PROGRESS
     - Agent Testing Done: N
-    - Which testing method agent to use? screenshot tool. The agent needs to verify that the font is correctly applied on the , the main feed header, and the  screen.
+    - Which testing method agent to use? both. The backend needs testing for the new membership endpoints, and the frontend needs testing to verify the UI for feature gating and the subscription flow.
     - User Testing Done: N
 
 **All Pending/In progress Issue list**:
-  Issue 1:  Complete the Rostex font integration across the entire app. (Priority: P0)
+  Issue 1:  Complete the Profile Picture upload functionality. (Priority: P0)
+  Issue 2:  Fix the dropdown menu overlap in the Add Vehicle screen. (This was reported by the user and supposedly fixed, but it should be re-verified).
   
   Issues Detail:
   - Issue 1: 
-     - Attempted fixes: The font has been loaded via  in  and applied to the  component for TAM in .
+     - Attempted fixes: The agent has added the  logic to the  screen, created a UI button, and added a backend endpoint (). However, the frontend is not yet sending the selected image data to the backend.
      - Next debug checklist: 
-        1.  Verify the font change on the  using the screenshot tool.
-        2.  Identify other places where TAM is displayed. Key locations are the header in  and the branding section in .
-        3.  Apply the  style to the  components in those files.
-        4.  Restart the frontend and use the screenshot tool to verify the font is updated in all locations.
-     - Why fix this issue and what will be achieved with the fix? To fulfill the user's direct request for consistent branding and a unique visual identity for the app.
+        1. In , inside the  function, implement the logic to take the  from .
+        2. If an image is picked (), create a  object.
+        3. Append the image file to the FormData: .
+        4. Make a  or  request to the  endpoint with the .
+        5. Ensure the  is updated with the new  from the backend response, so the UI refreshes automatically.
+        6. Test the full flow: click the camera icon, select an image, and see the profile picture update.
+     - Why fix this issue and what will be achieved with the fix? To complete a direct user request and add a key social feature to the user profile.
      - Status:  IN PROGRESS
      - Is recurring issue? N
+     - Should Test frontend/backend/both after fix? both
+     - Blocked on other issue: None
+
+  - Issue 2:
+     - Attempted fixes: The agent previously added , background color, and a border to the dropdown style in .
+     - Next debug checklist: 
+        1. Manually test the Add Vehicle flow.
+        2. Navigate to Profile -> My Garage -> Add Vehicle.
+        3. Click on the Brand picker.
+        4. Verify if the dropdown list appears correctly on top of all other content without any visual glitches or overlaps. Use the screenshot tool if needed.
+     - Why fix this issue and what will be achieved with the fix? To resolve a user-reported UI bug and ensure a smooth user experience.
+     - Status:  USER VERIFICATION PENDING
+     - Is recurring issue? Y (User reported it after a supposed fix)
      - Should Test frontend/backend/both after fix? frontend
      - Blocked on other issue: None
 
 **In progress Task List**:
-  - Task 1:  Complete the Rostex font integration. (Priority: P0)
+  - Task 1:  Complete the Freemium/Membership Implementation (Priority: P0)
  
  Task Detail:
   - Task 1: 
-     - Where to resume: The agent has just updated . The next step is to update  (the main feed header) and  to use the 'Rostex' font for the TAM text.
-     - What will be achieved with this? The app's branding will be consistent, using the custom font everywhere the name TAM appears.
+     - Where to resume: The agent has created , , and added backend placeholders. The next step is to implement the actual feature gating logic within the application.
+     - What will be achieved with this? This will fulfill a major user request to create a monetization model for the app, a critical step for its business viability.
+     - Next Steps:
+        1.  **Wrap Components:** In each feature screen that should be for Members (, , , ), import  from .
+        2.  **Conditional Rendering:** Check . If , render a paywall component that blocks the feature and prompts the user to subscribe, linking to the  page.
+        3.  **Backend Logic:** Flesh out the placeholder membership endpoints in  to actually handle subscription status changes (this might involve a mock or a real payment provider later).
+        4.  **Subscription Screen:** Complete the  screen with the pricing details provided by the user (€39.99/year or €3.99/month) and buttons to trigger the subscription flow.
+        5.  **Test:** Test that free users are blocked from member features and that (mock) subscribing unlocks them.
      - Status:  IN PROGRESS
-     - Should Test frontend/backend/both after fix? frontend
+     - Should Test frontend/backend/both after fix? both
      - Blocked on something: No
 
 **Upcoming and Future Tasks**
     Future Tasks:
-    - (P1) Implement animated page transitions using  to enhance the native feel of the app.
-    - (P2) Add a splash screen that displays the new helmet logo while the app is loading.
-    - (P2) Consider adding more accent color options in the settings for further customization.
+    - (P1) Implement a full payment processing flow for the membership system (e.g., with Stripe or RevenueCat).
+    - (P1) Implement the standby logic for subscriptions (pausing for up to 3 months).
+    - (P2) Implement animated page transitions using .
+    - (P2) Add a splash screen that displays the final user-provided helmet logo.
 
 **Completed work in this session**
-- **Internationalization (i18n) (DONE)**: Fully implemented with 14 language files, a configuration file (), and integrated into all key screens via .
-- **Logout Button (DONE)**: A functional logout button was added to the profile screen header.
-- **Onboarding UI Fix (DONE)**: The country and motorcycle type selectors in  were changed from a horizontal scroll to a multi-column grid layout.
-- **UI/UX Improvements (DONE)**:
-  - Skeleton loaders () added to all list-based screens (, , etc.) for better perceived performance.
-  - Haptic feedback added to the like button on posts.
-- **App Rebranding to TAM (DONE)**: App name changed in  and UI text updated from Moto Community to TAM.
-- **Light/Dark Theme System (DONE)**: Created a  and a  page allowing users to toggle between light, dark, and system themes. All major screens and components were refactored to use dynamic theme colors.
-- **New Helmet Logo (DONE)**: After several failed attempts at drawing, the agent successfully used a user-provided image to create a new helmet logo. This involved processing a PNG, generating app icons, and updating the  component.
+- **Branding:**
+  - Rostex font applied to all TAM brand texts. (DONE)
+  - Helmet Logo finalized after many iterations using a user-provided asset and optimized for iOS/Android. (DONE)
+  - Logo background now adapts to light/dark themes with a user-requested orange border. (DONE)
+- **Features & Content:**
+  - Added Quad as a selectable motorcycle type with all 14 translations. (DONE)
+  - Created foundational backend/frontend for Digital Garage, SOS/Crash Detection, and AI Trip Planner. (DONE)
+- **UI/UX & Refactoring:**
+  - Added a free-text search bar to the Market screen. (DONE)
+  - Added a multi-currency selector to the Create Listing form in the Market. (DONE)
+  - Moved My Garage, SOS, and Trip Planner links from Settings to the User Profile page for better UX. (DONE)
+  - Expanded the language selector in Settings to show all 14 available languages. (DONE)
+  - Made user registration mandatory by removing the Browse as Guest option. (DONE)
+- **Bug Fixes:**
+  - Fixed a crash in the  page related to a theme variable mismatch. (DONE)
 
 **Earlier issues found/mentioned but not fixed**
-   - None. The previously pending UI bug for the country selector was fixed in this session.
+   - None.
 
 **Known issue recurrence from previous fork**
   - None.
@@ -83,84 +129,89 @@ The application is a full-featured social app for motorcyclists, now branded as 
 
 **Key Technical Concepts**
 - **Frontend**: React Native, Expo, .
-- **Styling**: , dynamic styling via React Context for theming.
+- **Backend**: FastAPI, MongoDB.
+- **State Management**: React Context (, , , ).
+- **Styling**:  with dynamic theme colors.
 - **Internationalization**: , .
-- **UI/UX**:  for loading states,  for feedback.
-- **Assets**:  for loading custom fonts,  for vector graphics,  (in a script) for image processing.
-- **State Management**: React Context (, , ).
+- **Device Features**:  (for SOS),  (for profile pic).
+- **AI**:  library for Google Gemini (AI Trip Planner).
+- **UI Libraries**: .
 
 **key DB schema**
-  - No changes to the DB schema in this session.
+- **users**: { ..., avatarUrl: string, membershipStatus: string }
+- **listings**: { ..., currency: string }
+- **motorcycles**: { userId, brand, model, year, photoUrl } (New Collection)
+- **maintenance_logs**: { motorcycleId, date, description, cost } (New Collection)
+- **emergency_contacts**: { userId, name, phone } (New Collection)
+- **sos_alerts**: { userId, location, timestamp } (New Collection)
 
 **changes in tech stack**
-  - **Added**: , , , , ,  (dev dependency).
+- **Added**: , , .
+- **Backend**:  (for Gemini).
 
 **All files of reference**
-*   : Heavily modified to include  and load the custom Rostex font.
-*   , : New files creating the light/dark theme system.
-*   : New screen created for user preferences (Theme, Language).
-*   : All tab screens were refactored to use  for dynamic colors and  for translations.
-*   : Updated with grid layout for selectors, theme colors, translations, and the new Rostex font.
-*   : New directory with 14 JSON translation files and an  configuration.
-*   : Created and iterated upon, now displays a processed PNG image.
-*   : Created and modified to process SVG and later a PNG into app icons.
-*   : New custom font file.
-*   : The new logo asset used in the UI.
-
-**Areas that need refactoring**:
-- The  script has been overwritten multiple times. It could be cleaned up, but it serves its purpose as a one-off build script.
-
-**key api endpoints**
-- No new API endpoints were created.
+*   **/app/frontend/app/profile.tsx**: Heavily modified to add My Garage, SOS, and Trip Planner buttons, and the new profile picture upload functionality.
+*   **/app/frontend/context/AuthContext.tsx**: Modified to add a  flag (now set to ) to enforce mandatory registration.
+*   **/app/frontend/context/MembershipContext.tsx**: New file to manage user subscription status.
+*   **/app/frontend/app/subscription.tsx**: New screen for handling user subscriptions.
+*   **/app/frontend/app/garage.tsx**, **/app/frontend/app/add-vehicle.tsx**: New screens for the Digital Garage feature.
+*   **/app/frontend/app/sos.tsx**, **/app/frontend/app/add-emergency-contact.tsx**: New screens for the SOS feature.
+*   **/app/frontend/app/trip-planner.tsx**: New screen for the AI Trip Planner.
+*   **/app/backend/server.py**: Heavily modified to add new models and API endpoints for Garage, SOS, AI Trip Planner, user avatar updates, and membership.
+*   **/app/frontend/components/HelmetLogo.tsx**: Modified multiple times, now uses a user-provided PNG with a theme-adaptive background container and border.
+*   **/app/frontend/app/(tabs)/market.tsx**: Modified to add a free-text search bar.
+*   **/app/frontend/app/create-listing.tsx**: Modified to add a currency selector.
+*   **/app/frontend/i18n/*.json**: All 14 files were updated to add translations for Quad.  and  were also updated for the Garage feature.
 
 **Critical Info for New Agent**
-- The user is very visually oriented and has specific design requirements. Pay close attention to feedback on UI, logos, and fonts. The last request was to use the Rostex font for TAM branding *everywhere*.
-- The agent struggled with graphic design, leading to user frustration. The final solution was to process a user-provided image. Avoid free-hand drawing of complex shapes.
-- The theme system () is now the source of truth for all colors. Do not use hardcoded color values (e.g., , ) in components; use  instead.
-- The user's primary language for feedback has shifted to **Italian**. Respond in Italian to build rapport.
+- **Speak Italian:** The user only communicates in Italian. All responses MUST be in Italian.
+- **Mandatory Login:** The guest mode has been removed per the user's request. All testing will require creating an account.
+- **Freemium Implementation is the #1 Priority:** The current main task is to complete the membership system. This involves implementing the feature-gating logic on the frontend screens (, , , ) using the .
+- **Profile Picture Upload is Unfinished:** The UI is in place, but the agent must implement the actual file upload from the frontend to the backend.
+- **Logo is Final:** The user has provided the final  asset after many revisions. **DO NOT** attempt to change or regenerate it. The current implementation (PNG in a styled View container) is the one the user approved.
 
 **documents created in this job**
-  -  (14 translation files)
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - Numerous PNG icon files in .
+- /app/frontend/context/MembershipContext.tsx
+- /app/frontend/app/garage.tsx
+- /app/frontend/app/add-vehicle.tsx
+- /app/frontend/app/sos.tsx
+- /app/frontend/app/add-emergency-contact.tsx
+- /app/frontend/app/trip-planner.tsx
+- /app/frontend/app/subscription.tsx
+- Multiple optimized image assets in 
 
 **Last 10 User Messages and any pending HUMAN messages** 
- - **1 (LATEST):** Cambia il font attuale della scritta TAM in tutta l’applicazione con il font rostex (Change the current font of the word TAM in the whole application with the rostex font). **Status: IN PROGRESS**.
- - **2:** Provided an image to be used as the app logo and specified color changes. **Status: COMPLETED**.
- - **3:** Non mi piace per nulla. Trova un agente che sia specializzato in disegno (I don't like it at all. Find an agent who specializes in drawing). **Status: RESOLVED** by using user-provided image.
- - **4:** The draw it’s really bad remake it keeping exactly the lines and proportions of the image i sent you, the colours are fine. **Status: ADDRESSED** (led to more iterations).
- - **5:** Provided a reference image for the helmet logo design. **Status: ADDRESSED**.
- - **6:** No you didn’t well. The light mode it’s not complete in all the pages, check and adjust even the post need to be effective like in the feeds. Even the buttons like the country and the type of motorcycle should be effective like the rest. **Status: COMPLETED**.
- - **7:** Complete theme coverage for remaining screens and generate PNG version for IOS/Android app icons. **Status: PARTIALLY COMPLETED** (user found issues).
- - **8:** I don’t like the helmet logo you draw. I give you an image as example... **Status: ADDRESSED**.
- - **9:** Is the choice of the theme color covering all the pages of the app? Feed event riders market etc?. **Status: COMPLETED** (agent fixed coverage).
- - **10:** Stated preference for a flat logo design and requested a light/dark theme toggle feature. **Status: COMPLETED**.
+ - **1 (LATEST):** 1. Add profile picture. 2. Mandatory registration. 3. Implement freemium model with specific feature gating. **Status: IN PROGRESS**.
+ - **2:** I dont like it at all. Here is the correct image, try to improve its quality and optimize it in PNG format for IOS/Android". **Status: COMPLETED**.
+ - **3:** "Go back two versions of the logo, from my file, helmet color converted to orange on a dark gray background and without outlines." **Status: ADDRESSED & SUPERSEDED**.
+ - **4:** "Lets redo the logo image. Take the image I uploaded, create a frame with a line and color it along with the helmet in orange, the background will be dark gray. **Status: ADDRESSED & SUPERSEDED**.
+ - **5:** No, I dont like it this way, go back to the previous version, then add an orange outline around the perimeter of the gray square, the same color as the helmet". **Status: ADDRESSED & SUPERSEDED**.
+ - **6:** "The helmet logo has remained with the original background, it is not adaptive to the apps background. **Status: ADDRESSED**.
+ - **7:** Clicking on settings gives an error. **Status: COMPLETED** (Fixed).
+ - **8:** The background of the helmet logo inside the app must adapt to the light/dark or automatic mode of the background. **Status: IN PROGRESS** (led to multiple iterations).
+ - **9:** In the market filters, give the possibility to do a free search by entering the text to search for. **Status: COMPLETED**.
+ - **10:** Move AI trip planner and sos to the user profile. Increase the languages available in the preferences by adding Chinese, Japanese, Indian and Russian. **Status: COMPLETED**.
 
 **Project Health Check:**
-- **Broken**: Nothing is critically broken, but the branding is inconsistent until the font change is applied globally.
-- **Mocked**: Backend still relies on initial seed data.
-- **Functional**: The app is highly functional. Core features (auth, filtering, i18n, theming) are all working.
+- **Broken**: The new features (Profile Pic, Membership) are incomplete. Accessing them might lead to crashes or non-functional UI until the implementation is finished.
+- **Mocked**: Backend membership logic is currently a placeholder. Payment processing is not implemented.
+- **Functional**: Core, pre-existing features are working. Registration is now mandatory and functional.
 
 **3rd Party Integrations**
-- None.
+- **Google Gemini**: Integrated via  library for the AI Trip Planner feature. Uses Emergent LLM Key.
 
 **Testing status**
   - Testing agent used after significant changes: NO
   - Troubleshoot agent used after agent stuck in loop: NO
   - Test files created: []
-  - Known regressions: None.
+  - Known regressions: None identified, but the app is in a state of flux with partially implemented features.
 
 **Credentials to test flow:**
-N/A. New users can be created via the registration screen.
+N/A. Registration is mandatory. New users must be created through the app's registration form.
 
 **What agent forgot to execute**
-- The agent was in the process of fulfilling the request to Change the font... in the **whole application**. It has only been applied to the . The task is incomplete and must be finished by the next agent.
+The agent did not forget to execute anything, but it stopped mid-way through a large, multi-part task. The next agent must resume and complete the implementation of:
+1.  The freemium/membership paywall logic across all specified screens.
+2.  The profile picture upload mechanism (connecting frontend to backend).
 
 </analysis>

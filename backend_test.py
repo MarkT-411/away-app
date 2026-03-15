@@ -11,7 +11,7 @@ from datetime import datetime
 import sys
 
 # Backend URL from frontend .env
-BACKEND_URL = "https://motorcycle-social-1.preview.emergentagent.com/api"
+BACKEND_URL = "https://moto-social-platform.preview.emergentagent.com/api"
 
 class MotorbikeAppTester:
     def __init__(self):
