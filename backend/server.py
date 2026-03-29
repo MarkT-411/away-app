@@ -193,6 +193,8 @@ class User(BaseModel):
     favorite_items: List[str] = Field(default_factory=list)  # Favorite market items
     downloaded_tracks: List[str] = Field(default_factory=list)  # Downloaded GPX tracks
     biometric_enabled: bool = False  # Whether biometric auth is enabled
+    is_admin: bool = False  # Admin privileges
+    is_suspended: bool = False  # Account suspension status
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
 class UserCreate(BaseModel):
