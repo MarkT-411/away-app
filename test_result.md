@@ -396,16 +396,13 @@ metadata:
 
 test_plan:
   current_focus:
+    - "Authentication Flow Fix"
     - "Developer Bypass Mode"
     - "Membership/Freemium System - Paywall"
     - "Subscription Screen"
     - "Profile Photo Upload"
-    - "Tab Navigation"
-    - "Feed Screen"
-    - "Events Screen"
-    - "Rides Screen"
-    - "Market Screen"
-  stuck_tasks: []
+  stuck_tasks:
+    - "Authentication Flow Fix - Users return to login screen after successful registration/login"
   test_all: true
   test_priority: "high_first"
 
