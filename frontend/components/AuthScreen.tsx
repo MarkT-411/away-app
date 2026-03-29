@@ -173,7 +173,7 @@ export default function AuthScreen({ onComplete, onSkip }: AuthScreenProps) {
         <View style={styles.welcomeContent}>
           <View style={styles.logoContainer}>
             <HelmetLogo size={100} color="#FF6B35" />
-            <Text style={styles.appName}>TAM</Text>
+            <Text style={styles.appName}>AWay</Text>
             <Text style={styles.tagline}>{t('auth.tagline')}</Text>
           </View>
 
