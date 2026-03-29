@@ -411,4 +411,8 @@ agent_communication:
   - agent: "main"
     message: "NEW FEATURES IMPLEMENTED: 1) Freemium/Membership System - Paywall on Rides, Tracks (full), SOS, Trip Planner. Free users can only access Feed, Events, Market. 2) Profile Photo Upload - Complete flow with ImagePicker and backend sync. 3) Developer Bypass Mode - DEV_BYPASS_AUTH=true in AuthContext for testing. Please test: A) Access app without login (dev mode), B) Check paywall appears on Rides tab, C) Check paywall on SOS and Trip Planner screens, D) Verify subscription page works. Note: Payments are MOCK/SIMULATED."
   - agent: "testing"
+    message: "Backend API testing completed with 97.1% success rate (33/34 tests). Avatar Upload and Membership APIs working correctly."
+  - agent: "main"
+    message: "STORE READY CONFIG: 1) Added iOS/Android permissions (camera, photos, location, sensors). 2) DEV_BYPASS_AUTH=false for production. 3) Added Privacy Policy and Terms of Service pages. 4) Added Delete Account feature (GDPR). 5) Updated splash screen with helmet logo. READY FOR FULL FRONTEND TEST."
+  - agent: "testing"
     message: "NEW FEATURES BACKEND TESTING COMPLETED: 1) Avatar Upload API (PUT /api/users/{user_id}/avatar) - Successfully tested avatar upload with base64 data and validation. 2) Membership API - All endpoints tested: GET membership status, POST create/update membership, PUT pause/resume membership. All working correctly. Backend APIs for new features are production-ready. Success rate: 97.1% (33/34 tests passed). Minor: One test case timeout but manual verification confirms all endpoints working."
