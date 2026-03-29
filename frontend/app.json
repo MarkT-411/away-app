@@ -10,7 +10,7 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.tam.motorcycle",
+      "bundleIdentifier": "com.away.motorcycle",
       "infoPlist": {
         "NSCameraUsageDescription": "Scatta foto per post e profilo",
         "NSPhotoLibraryUsageDescription": "Seleziona foto per post e profilo",
