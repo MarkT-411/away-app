@@ -62,20 +62,20 @@
       [
         "expo-location",
         {
-          "locationAlwaysAndWhenInUsePermission": "Consenti a TAM di usare la posizione per SOS e rilevamento incidenti"
+          "locationAlwaysAndWhenInUsePermission": "Consenti a AWay di usare la posizione per SOS e rilevamento incidenti"
         }
       ],
       [
         "expo-image-picker",
         {
-          "photosPermission": "Consenti a TAM di accedere alle tue foto",
-          "cameraPermission": "Consenti a TAM di usare la fotocamera"
+          "photosPermission": "Consenti a AWay di accedere alle tue foto",
+          "cameraPermission": "Consenti a AWay di usare la fotocamera"
         }
       ],
       [
         "expo-sensors",
         {
-          "motionPermission": "Consenti a TAM di rilevare il movimento per la funzione SOS"
+          "motionPermission": "Consenti a AWay di rilevare il movimento per la funzione SOS"
         }
       ]
     ],
