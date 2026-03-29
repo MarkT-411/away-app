@@ -1823,10 +1823,10 @@ async def delete_trip_plan(trip_id: str):
 
 # ==================== ADMIN ENDPOINTS ====================
 
-# Admin credentials - CHANGE THESE IN PRODUCTION!
-ADMIN_EMAIL = "admin@away-app.com"
-ADMIN_PASSWORD = "AWayAdmin2024!"
-ADMIN_USERNAME = "AWay_Admin"
+# Admin credentials from environment variables
+ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL', 'admin@away-app.com')
+ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'AWayAdmin2024!')
+ADMIN_USERNAME = os.environ.get('ADMIN_USERNAME', 'AWay_Admin')
 
 async def verify_admin(user_id: str):
     """Verify if user is admin"""
