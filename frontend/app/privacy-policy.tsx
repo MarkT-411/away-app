@@ -25,7 +25,7 @@ export default function PrivacyPolicyScreen() {
     sections: [
       {
         title: '1. Introduzione',
-        text: 'TAM ("noi", "nostro" o "app") rispetta la tua privacy. Questa informativa descrive come raccogliamo, utilizziamo e proteggiamo le tue informazioni personali.'
+        text: 'AWay ("noi", "nostro" o "app") rispetta la tua privacy. Questa informativa descrive come raccogliamo, utilizziamo e proteggiamo le tue informazioni personali.'
       },
       {
         title: '2. Dati Raccolti',
@@ -62,7 +62,7 @@ export default function PrivacyPolicyScreen() {
     sections: [
       {
         title: '1. Introduction',
-        text: 'TAM ("we", "our" or "app") respects your privacy. This policy describes how we collect, use, and protect your personal information.'
+        text: 'AWay ("we", "our" or "app") respects your privacy. This policy describes how we collect, use, and protect your personal information.'
       },
       {
         title: '2. Data Collected',
