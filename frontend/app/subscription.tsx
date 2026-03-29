@@ -60,7 +60,7 @@ export default function SubscriptionScreen() {
         <TouchableOpacity onPress={() => router.back()}>
           <Ionicons name="close" size={24} color={colors.text} />
         </TouchableOpacity>
-        <Text style={[styles.headerTitle, { color: colors.text }]}>TAM Membership</Text>
+        <Text style={[styles.headerTitle, { color: colors.text }]}>AWay Membership</Text>
         <View style={{ width: 24 }} />
       </View>
 
