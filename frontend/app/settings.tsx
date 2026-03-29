@@ -142,6 +142,46 @@ export default function SettingsScreen() {
           </View>
         )}
 
+        {/* Legal Section */}
+        <View style={styles.section}>
+          <Text style={[styles.sectionTitle, { color: colors.textSecondary }]}>
+            {selectedLanguage === 'it' ? 'Legale' : 'Legal'}
+          </Text>
+          <View style={[styles.card, { backgroundColor: colors.card }]}>
+            {/* Privacy Policy */}
+            <TouchableOpacity
+              style={[styles.optionRow, { borderBottomWidth: 1, borderBottomColor: colors.border }]}
+              onPress={() => router.push('/privacy-policy')}
+            >
+              <View style={styles.optionLeft}>
+                <View style={[styles.iconContainer, { backgroundColor: colors.accentLight }]}>
+                  <Ionicons name="shield-checkmark-outline" size={20} color={colors.accent} />
+                </View>
+                <Text style={[styles.optionText, { color: colors.text }]}>
+                  {selectedLanguage === 'it' ? 'Informativa Privacy' : 'Privacy Policy'}
+                </Text>
+              </View>
+              <Ionicons name="chevron-forward" size={20} color={colors.textSecondary} />
+            </TouchableOpacity>
+            
+            {/* Terms of Service */}
+            <TouchableOpacity
+              style={styles.optionRow}
+              onPress={() => router.push('/terms-of-service')}
+            >
+              <View style={styles.optionLeft}>
+                <View style={[styles.iconContainer, { backgroundColor: colors.accentLight }]}>
+                  <Ionicons name="document-text-outline" size={20} color={colors.accent} />
+                </View>
+                <Text style={[styles.optionText, { color: colors.text }]}>
+                  {selectedLanguage === 'it' ? 'Termini di Servizio' : 'Terms of Service'}
+                </Text>
+              </View>
+              <Ionicons name="chevron-forward" size={20} color={colors.textSecondary} />
+            </TouchableOpacity>
+          </View>
+        </View>
+
         {/* App Info */}
         <View style={styles.appInfo}>
           <HelmetLogo size={60} />
