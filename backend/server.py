@@ -1821,6 +1821,340 @@ async def delete_trip_plan(trip_id: str):
         raise HTTPException(status_code=404, detail="Trip plan not found")
     return {"message": "Trip plan deleted"}
 
+# ==================== ADMIN ENDPOINTS ====================
+
+# Admin credentials - CHANGE THESE IN PRODUCTION!
+ADMIN_EMAIL = "admin@away-app.com"
+ADMIN_PASSWORD = "AWayAdmin2024!"
+ADMIN_USERNAME = "AWay_Admin"
+
+async def verify_admin(user_id: str):
+    """Verify if user is admin"""
+    user = await db.users.find_one({"id": user_id})
+    if not user or not user.get("is_admin", False):
+        raise HTTPException(status_code=403, detail="Admin access required")
+    return user
+
+@api_router.get("/admin/init")
+async def init_admin_account():
+    """Initialize admin account if not exists"""
+    existing = await db.users.find_one({"email": ADMIN_EMAIL})
+    if existing:
+        return {"message": "Admin account already exists", "admin_id": existing["id"]}
+    
+    password_hash = hashlib.sha256(ADMIN_PASSWORD.encode()).hexdigest()
+    admin_user = {
+        "id": "admin-" + str(uuid.uuid4())[:8],
+        "email": ADMIN_EMAIL,
+        "password_hash": password_hash,
+        "username": ADMIN_USERNAME,
+        "is_admin": True,
+        "is_suspended": False,
+        "avatar": None,
+        "bio": "AWay App Administrator",
+        "country": "IT",
+        "moto_types": [],
+        "followers": [],
+        "following": [],
+        "favorite_items": [],
+        "downloaded_tracks": [],
+        "biometric_enabled": False,
+        "created_at": datetime.utcnow().isoformat()
+    }
+    await db.users.insert_one(admin_user)
+    return {"message": "Admin account created", "admin_id": admin_user["id"], "email": ADMIN_EMAIL}
+
+@api_router.get("/admin/dashboard")
+async def get_admin_dashboard(admin_id: str):
+    """Get admin dashboard statistics"""
+    await verify_admin(admin_id)
+    
+    # Gather statistics
+    total_users = await db.users.count_documents({})
+    active_users = await db.users.count_documents({"is_suspended": False})
+    suspended_users = await db.users.count_documents({"is_suspended": True})
+    admin_users = await db.users.count_documents({"is_admin": True})
+    
+    total_posts = await db.posts.count_documents({})
+    total_events = await db.events.count_documents({})
+    total_trips = await db.trips.count_documents({})
+    total_tracks = await db.tracks.count_documents({})
+    total_listings = await db.market.count_documents({})
+    
+    # Membership stats
+    total_members = await db.memberships.count_documents({"status": "active"})
+    paused_members = await db.memberships.count_documents({"status": "paused"})
+    
+    # SOS alerts
+    total_sos = await db.sos_alerts.count_documents({})
+    active_sos = await db.sos_alerts.count_documents({"status": "active"})
+    
+    # Recent activity (last 7 days)
+    from datetime import timedelta
+    week_ago = datetime.utcnow() - timedelta(days=7)
+    week_ago_str = week_ago.isoformat()
+    
+    new_users_week = await db.users.count_documents({"created_at": {"$gte": week_ago_str}})
+    new_posts_week = await db.posts.count_documents({"created_at": {"$gte": week_ago_str}})
+    
+    return {
+        "users": {
+            "total": total_users,
+            "active": active_users,
+            "suspended": suspended_users,
+            "admins": admin_users,
+            "new_this_week": new_users_week
+        },
+        "content": {
+            "posts": total_posts,
+            "events": total_events,
+            "trips": total_trips,
+            "tracks": total_tracks,
+            "listings": total_listings,
+            "new_posts_week": new_posts_week
+        },
+        "membership": {
+            "active_members": total_members,
+            "paused_members": paused_members
+        },
+        "sos": {
+            "total_alerts": total_sos,
+            "active_alerts": active_sos
+        }
+    }
+
+@api_router.get("/admin/users")
+async def get_all_users(admin_id: str, skip: int = 0, limit: int = 50, search: str = None):
+    """Get all users for admin management"""
+    await verify_admin(admin_id)
+    
+    query = {}
+    if search:
+        query = {"$or": [
+            {"username": {"$regex": search, "$options": "i"}},
+            {"email": {"$regex": search, "$options": "i"}}
+        ]}
+    
+    users = await db.users.find(query).skip(skip).limit(limit).to_list(limit)
+    total = await db.users.count_documents(query)
+    
+    # Remove sensitive data
+    for user in users:
+        user.pop("password_hash", None)
+    
+    return {"users": users, "total": total}
+
+@api_router.put("/admin/users/{user_id}/suspend")
+async def suspend_user(user_id: str, admin_id: str):
+    """Suspend a user account"""
+    await verify_admin(admin_id)
+    
+    result = await db.users.update_one(
+        {"id": user_id},
+        {"$set": {"is_suspended": True}}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="User not found")
+    return {"message": "User suspended"}
+
+@api_router.put("/admin/users/{user_id}/unsuspend")
+async def unsuspend_user(user_id: str, admin_id: str):
+    """Unsuspend a user account"""
+    await verify_admin(admin_id)
+    
+    result = await db.users.update_one(
+        {"id": user_id},
+        {"$set": {"is_suspended": False}}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="User not found")
+    return {"message": "User unsuspended"}
+
+@api_router.put("/admin/users/{user_id}/make-admin")
+async def make_user_admin(user_id: str, admin_id: str):
+    """Grant admin privileges to a user"""
+    await verify_admin(admin_id)
+    
+    result = await db.users.update_one(
+        {"id": user_id},
+        {"$set": {"is_admin": True}}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="User not found")
+    return {"message": "User is now admin"}
+
+@api_router.put("/admin/users/{user_id}/remove-admin")
+async def remove_user_admin(user_id: str, admin_id: str):
+    """Remove admin privileges from a user"""
+    await verify_admin(admin_id)
+    
+    # Prevent removing own admin status
+    if user_id == admin_id:
+        raise HTTPException(status_code=400, detail="Cannot remove own admin privileges")
+    
+    result = await db.users.update_one(
+        {"id": user_id},
+        {"$set": {"is_admin": False}}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="User not found")
+    return {"message": "Admin privileges removed"}
+
+@api_router.delete("/admin/users/{user_id}")
+async def admin_delete_user(user_id: str, admin_id: str):
+    """Delete a user account (admin only)"""
+    await verify_admin(admin_id)
+    
+    # Prevent self-deletion
+    if user_id == admin_id:
+        raise HTTPException(status_code=400, detail="Cannot delete own account")
+    
+    # Delete all user data
+    await db.users.delete_one({"id": user_id})
+    await db.posts.delete_many({"user_id": user_id})
+    await db.memberships.delete_one({"user_id": user_id})
+    await db.motorcycles.delete_many({"user_id": user_id})
+    await db.emergency_contacts.delete_many({"user_id": user_id})
+    await db.sos_alerts.delete_many({"user_id": user_id})
+    
+    return {"message": "User deleted"}
+
+@api_router.get("/admin/posts")
+async def get_all_posts_admin(admin_id: str, skip: int = 0, limit: int = 50):
+    """Get all posts for moderation"""
+    await verify_admin(admin_id)
+    
+    posts = await db.posts.find().sort("created_at", -1).skip(skip).limit(limit).to_list(limit)
+    total = await db.posts.count_documents({})
+    return {"posts": posts, "total": total}
+
+@api_router.delete("/admin/posts/{post_id}")
+async def admin_delete_post(post_id: str, admin_id: str):
+    """Delete a post (admin moderation)"""
+    await verify_admin(admin_id)
+    
+    result = await db.posts.delete_one({"id": post_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Post not found")
+    return {"message": "Post deleted"}
+
+@api_router.get("/admin/events")
+async def get_all_events_admin(admin_id: str, skip: int = 0, limit: int = 50):
+    """Get all events for moderation"""
+    await verify_admin(admin_id)
+    
+    events = await db.events.find().sort("created_at", -1).skip(skip).limit(limit).to_list(limit)
+    total = await db.events.count_documents({})
+    return {"events": events, "total": total}
+
+@api_router.delete("/admin/events/{event_id}")
+async def admin_delete_event(event_id: str, admin_id: str):
+    """Delete an event (admin moderation)"""
+    await verify_admin(admin_id)
+    
+    result = await db.events.delete_one({"id": event_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Event not found")
+    return {"message": "Event deleted"}
+
+@api_router.get("/admin/listings")
+async def get_all_listings_admin(admin_id: str, skip: int = 0, limit: int = 50):
+    """Get all market listings for moderation"""
+    await verify_admin(admin_id)
+    
+    listings = await db.market.find().sort("created_at", -1).skip(skip).limit(limit).to_list(limit)
+    total = await db.market.count_documents({})
+    return {"listings": listings, "total": total}
+
+@api_router.delete("/admin/listings/{listing_id}")
+async def admin_delete_listing(listing_id: str, admin_id: str):
+    """Delete a market listing (admin moderation)"""
+    await verify_admin(admin_id)
+    
+    result = await db.market.delete_one({"id": listing_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Listing not found")
+    return {"message": "Listing deleted"}
+
+@api_router.get("/admin/memberships")
+async def get_all_memberships_admin(admin_id: str, skip: int = 0, limit: int = 50):
+    """Get all memberships for admin"""
+    await verify_admin(admin_id)
+    
+    memberships = await db.memberships.find().sort("created_at", -1).skip(skip).limit(limit).to_list(limit)
+    total = await db.memberships.count_documents({})
+    
+    # Enrich with user data
+    for membership in memberships:
+        user = await db.users.find_one({"id": membership.get("user_id")})
+        if user:
+            membership["username"] = user.get("username")
+            membership["email"] = user.get("email")
+    
+    return {"memberships": memberships, "total": total}
+
+@api_router.put("/admin/memberships/{user_id}/grant")
+async def admin_grant_membership(user_id: str, admin_id: str, plan: str = "annual"):
+    """Grant membership to a user (admin)"""
+    await verify_admin(admin_id)
+    
+    membership_data = {
+        "user_id": user_id,
+        "status": "active",
+        "plan": plan,
+        "granted_by_admin": True,
+        "created_at": datetime.utcnow().isoformat(),
+        "expires_at": (datetime.utcnow() + timedelta(days=365 if plan == "annual" else 30)).isoformat()
+    }
+    
+    await db.memberships.update_one(
+        {"user_id": user_id},
+        {"$set": membership_data},
+        upsert=True
+    )
+    return {"message": "Membership granted"}
+
+@api_router.put("/admin/memberships/{user_id}/revoke")
+async def admin_revoke_membership(user_id: str, admin_id: str):
+    """Revoke membership from a user (admin)"""
+    await verify_admin(admin_id)
+    
+    await db.memberships.update_one(
+        {"user_id": user_id},
+        {"$set": {"status": "cancelled"}}
+    )
+    return {"message": "Membership revoked"}
+
+@api_router.get("/admin/sos-alerts")
+async def get_all_sos_alerts(admin_id: str, skip: int = 0, limit: int = 50):
+    """Get all SOS alerts for monitoring"""
+    await verify_admin(admin_id)
+    
+    alerts = await db.sos_alerts.find().sort("created_at", -1).skip(skip).limit(limit).to_list(limit)
+    total = await db.sos_alerts.count_documents({})
+    
+    # Enrich with user data
+    for alert in alerts:
+        user = await db.users.find_one({"id": alert.get("user_id")})
+        if user:
+            alert["username"] = user.get("username")
+            alert["email"] = user.get("email")
+    
+    return {"alerts": alerts, "total": total}
+
+@api_router.put("/admin/sos-alerts/{alert_id}/resolve")
+async def resolve_sos_alert(alert_id: str, admin_id: str):
+    """Mark SOS alert as resolved"""
+    await verify_admin(admin_id)
+    
+    result = await db.sos_alerts.update_one(
+        {"id": alert_id},
+        {"$set": {"status": "resolved", "resolved_at": datetime.utcnow().isoformat()}}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Alert not found")
+    return {"message": "Alert resolved"}
+
 # Include the router
 app.include_router(api_router)
 
