@@ -53,7 +53,7 @@ export default function PrivacyPolicyScreen() {
       },
       {
         title: '8. Contatti',
-        text: 'Per domande sulla privacy, contattaci a:\nprivacy@tam-app.com'
+        text: 'Per domande sulla privacy, contattaci a:\nprivacy@away-app.com'
       }
     ]
   } : {
@@ -90,7 +90,7 @@ export default function PrivacyPolicyScreen() {
       },
       {
         title: '8. Contact',
-        text: 'For privacy questions, contact us at:\nprivacy@tam-app.com'
+        text: 'For privacy questions, contact us at:\nprivacy@away-app.com'
       }
     ]
   };

@@ -61,7 +61,7 @@ export default function TermsOfServiceScreen() {
       },
       {
         title: '10. Contatti',
-        text: 'Per domande sui Termini di Servizio:\nsupport@tam-app.com'
+        text: 'Per domande sui Termini di Servizio:\nsupport@away-app.com'
       }
     ]
   } : {
@@ -106,7 +106,7 @@ export default function TermsOfServiceScreen() {
       },
       {
         title: '10. Contact',
-        text: 'For Terms of Service questions:\nsupport@tam-app.com'
+        text: 'For Terms of Service questions:\nsupport@away-app.com'
       }
     ]
   };
