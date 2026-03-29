@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -14,11 +15,13 @@ import { useLanguage, LANGUAGES } from '../context/LanguageContext';
 import { useAuth } from '../context/AuthContext';
 import HelmetLogo from '../components/HelmetLogo';
 
+const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
+
 export default function SettingsScreen() {
   const router = useRouter();
   const { themeMode, setThemeMode, colors, isDark } = useTheme();
   const { selectedLanguage, setSelectedLanguage, t } = useLanguage();
-  const { logout, isGuest } = useAuth();
+  const { logout, isGuest, user } = useAuth();
 
   const themeOptions: { id: ThemeMode; label: string; icon: string }[] = [
     { id: 'light', label: t('settings.lightMode'), icon: 'sunny-outline' },
@@ -29,6 +32,49 @@ export default function SettingsScreen() {
   const handleLogout = async () => {
     await logout();
     router.replace('/');
+  };
+
+  const handleDeleteAccount = () => {
+    const title = selectedLanguage === 'it' ? 'Elimina Account' : 'Delete Account';
+    const message = selectedLanguage === 'it' 
+      ? 'Sei sicuro di voler eliminare il tuo account? Questa azione è irreversibile e tutti i tuoi dati verranno eliminati permanentemente.'
+      : 'Are you sure you want to delete your account? This action is irreversible and all your data will be permanently deleted.';
+    const cancel = selectedLanguage === 'it' ? 'Annulla' : 'Cancel';
+    const confirm = selectedLanguage === 'it' ? 'Elimina' : 'Delete';
+
+    Alert.alert(
+      title,
+      message,
+      [
+        { text: cancel, style: 'cancel' },
+        {
+          text: confirm,
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              if (user) {
+                const response = await fetch(`${API_URL}/api/users/${user.id}`, {
+                  method: 'DELETE',
+                });
+                if (response.ok) {
+                  await logout();
+                  router.replace('/');
+                  Alert.alert(
+                    selectedLanguage === 'it' ? 'Account Eliminato' : 'Account Deleted',
+                    selectedLanguage === 'it' ? 'Il tuo account è stato eliminato con successo.' : 'Your account has been successfully deleted.'
+                  );
+                }
+              }
+            } catch (error) {
+              Alert.alert(
+                selectedLanguage === 'it' ? 'Errore' : 'Error',
+                selectedLanguage === 'it' ? 'Impossibile eliminare l\'account. Riprova.' : 'Unable to delete account. Please try again.'
+              );
+            }
+          },
+        },
+      ]
+    );
   };
 
   return (
