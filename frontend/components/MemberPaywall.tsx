@@ -43,7 +43,7 @@ export default function MemberPaywall({
       </Text>
       
       <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
-        {description || t('membership.featureRequiresMember') || 'This feature is available for TAM Members'}
+        {description || t('membership.featureRequiresMember') || 'This feature is available for AWay Members'}
       </Text>
 
       <View style={[styles.featuresCard, { backgroundColor: colors.card }]}>
