@@ -1890,7 +1890,6 @@ async def get_admin_dashboard(admin_id: str):
     active_sos = await db.sos_alerts.count_documents({"status": "active"})
     
     # Recent activity (last 7 days)
-    from datetime import timedelta
     week_ago = datetime.utcnow() - timedelta(days=7)
     week_ago_str = week_ago.isoformat()
     
