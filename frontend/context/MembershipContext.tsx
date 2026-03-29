@@ -130,7 +130,7 @@ export function MembershipProvider({ children }: { children: ReactNode }) {
   const showUpgradePrompt = (feature: string) => {
     Alert.alert(
       '🔒 Member Feature',
-      `"${feature}" is available for TAM Members.\n\nUnlock all premium features:\n• AI Trip Planner\n• SOS & Safety\n• Rides/Trips\n• Full Track Access\n\nStarting at €3.99/month`,
+      `"${feature}" is available for AWay Members.\n\nUnlock all premium features:\n• AI Trip Planner\n• SOS & Safety\n• Rides/Trips\n• Full Track Access\n\nStarting at €3.99/month`,
       [
         { text: 'Maybe Later', style: 'cancel' },
         { text: 'View Plans', onPress: () => {
@@ -183,7 +183,7 @@ export function MembershipProvider({ children }: { children: ReactNode }) {
       await AsyncStorage.setItem('membership', JSON.stringify(newMembership));
       setMembership(newMembership);
 
-      Alert.alert('🎉 Welcome!', `You are now a TAM Member!\n\nYour ${plan} subscription is active.`);
+      Alert.alert('🎉 Welcome!', `You are now a AWay Member!\n\nYour ${plan} subscription is active.`);
       return true;
     } catch (error) {
       console.error('Subscription error:', error);
