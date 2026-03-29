@@ -10,7 +10,16 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.tam.motorcycle"
+      "bundleIdentifier": "com.tam.motorcycle",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Scatta foto per post e profilo",
+        "NSPhotoLibraryUsageDescription": "Seleziona foto per post e profilo",
+        "NSPhotoLibraryAddUsageDescription": "Salva immagini nella galleria",
+        "NSLocationWhenInUseUsageDescription": "Localizza eventi e attiva SOS emergenza",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Rileva incidenti anche in background",
+        "NSMotionUsageDescription": "Rileva cadute per funzione SOS",
+        "NSUserTrackingUsageDescription": "Migliora la tua esperienza nell'app"
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -18,7 +27,19 @@
         "backgroundColor": "#1A1A1A"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.tam.motorcycle"
+      "package": "com.tam.motorcycle",
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "READ_MEDIA_IMAGES",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION",
+        "VIBRATE",
+        "RECEIVE_BOOT_COMPLETED",
+        "HIGH_SAMPLING_RATE_SENSORS"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -30,14 +51,33 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/helmet-logo.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#1A1A1A"
         }
       ],
       "expo-secure-store",
-      "expo-localization"
+      "expo-localization",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Consenti a TAM di usare la posizione per SOS e rilevamento incidenti"
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Consenti a TAM di accedere alle tue foto",
+          "cameraPermission": "Consenti a TAM di usare la fotocamera"
+        }
+      ],
+      [
+        "expo-sensors",
+        {
+          "motionPermission": "Consenti a TAM di rilevare il movimento per la funzione SOS"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
