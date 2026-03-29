@@ -13,6 +13,7 @@ import { useRouter } from 'expo-router';
 import { useTheme, ThemeMode } from '../context/ThemeContext';
 import { useLanguage, LANGUAGES } from '../context/LanguageContext';
 import { useAuth } from '../context/AuthContext';
+import { useAdmin } from '../context/AdminContext';
 import HelmetLogo from '../components/HelmetLogo';
 
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
@@ -22,6 +23,7 @@ export default function SettingsScreen() {
   const { themeMode, setThemeMode, colors, isDark } = useTheme();
   const { selectedLanguage, setSelectedLanguage, t } = useLanguage();
   const { logout, isGuest, user } = useAuth();
+  const { isAdmin } = useAdmin();
 
   const themeOptions: { id: ThemeMode; label: string; icon: string }[] = [
     { id: 'light', label: t('settings.lightMode'), icon: 'sunny-outline' },
