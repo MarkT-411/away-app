@@ -25,15 +25,15 @@ export default function TermsOfServiceScreen() {
     sections: [
       {
         title: '1. Accettazione dei Termini',
-        text: 'Utilizzando l\'app TAM, accetti questi Termini di Servizio. Se non sei d\'accordo, non utilizzare l\'app.'
+        text: 'Utilizzando l\'app AWay, accetti questi Termini di Servizio. Se non sei d\'accordo, non utilizzare l\'app.'
       },
       {
         title: '2. Descrizione del Servizio',
-        text: 'TAM è una piattaforma social per motociclisti che offre:\n• Condivisione di post e foto\n• Organizzazione di eventi e viaggi di gruppo\n• Marketplace per compravendita\n• Tracce GPX per percorsi\n• Sistema SOS per emergenze\n• Pianificazione viaggi con AI'
+        text: 'AWay è una piattaforma social per motociclisti che offre:\n• Condivisione di post e foto\n• Organizzazione di eventi e viaggi di gruppo\n• Marketplace per compravendita\n• Tracce GPX per percorsi\n• Sistema SOS per emergenze\n• Pianificazione viaggi con AI'
       },
       {
         title: '3. Account Utente',
-        text: 'Per utilizzare TAM devi:\n• Avere almeno 16 anni\n• Fornire informazioni accurate\n• Mantenere sicure le tue credenziali\n• Non condividere l\'account con altri\n• Essere responsabile delle attività sul tuo account'
+        text: 'Per utilizzare AWay devi:\n• Avere almeno 16 anni\n• Fornire informazioni accurate\n• Mantenere sicure le tue credenziali\n• Non condividere l\'account con altri\n• Essere responsabile delle attività sul tuo account'
       },
       {
         title: '4. Regole di Condotta',
@@ -49,7 +49,7 @@ export default function TermsOfServiceScreen() {
       },
       {
         title: '7. Limitazione di Responsabilità',
-        text: 'TAM è fornito "così com\'è". Non garantiamo che:\n• Il servizio sia sempre disponibile\n• La funzione SOS sostituisca i servizi di emergenza ufficiali\n• Le informazioni degli altri utenti siano accurate'
+        text: 'AWay è fornito "così com\'è". Non garantiamo che:\n• Il servizio sia sempre disponibile\n• La funzione SOS sostituisca i servizi di emergenza ufficiali\n• Le informazioni degli altri utenti siano accurate'
       },
       {
         title: '8. Modifiche ai Termini',
@@ -70,15 +70,15 @@ export default function TermsOfServiceScreen() {
     sections: [
       {
         title: '1. Acceptance of Terms',
-        text: 'By using the TAM app, you accept these Terms of Service. If you disagree, do not use the app.'
+        text: 'By using the AWay app, you accept these Terms of Service. If you disagree, do not use the app.'
       },
       {
         title: '2. Service Description',
-        text: 'TAM is a social platform for motorcyclists offering:\n• Sharing posts and photos\n• Organizing events and group rides\n• Marketplace for buying/selling\n• GPX tracks for routes\n• SOS system for emergencies\n• AI trip planning'
+        text: 'AWay is a social platform for motorcyclists offering:\n• Sharing posts and photos\n• Organizing events and group rides\n• Marketplace for buying/selling\n• GPX tracks for routes\n• SOS system for emergencies\n• AI trip planning'
       },
       {
         title: '3. User Account',
-        text: 'To use TAM you must:\n• Be at least 16 years old\n• Provide accurate information\n• Keep your credentials secure\n• Not share your account\n• Be responsible for account activities'
+        text: 'To use AWay you must:\n• Be at least 16 years old\n• Provide accurate information\n• Keep your credentials secure\n• Not share your account\n• Be responsible for account activities'
       },
       {
         title: '4. Code of Conduct',
@@ -94,7 +94,7 @@ export default function TermsOfServiceScreen() {
       },
       {
         title: '7. Limitation of Liability',
-        text: 'TAM is provided "as is". We do not guarantee that:\n• The service will always be available\n• SOS feature replaces official emergency services\n• Other users\' information is accurate'
+        text: 'AWay is provided "as is". We do not guarantee that:\n• The service will always be available\n• SOS feature replaces official emergency services\n• Other users\' information is accurate'
       },
       {
         title: '8. Changes to Terms',
