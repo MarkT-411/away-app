@@ -1489,6 +1489,28 @@ async def update_user_avatar(user_id: str, avatar_data: dict):
     )
     return {"message": "Avatar updated", "avatar": avatar}
 
+@api_router.delete("/users/{user_id}")
+async def delete_user_account(user_id: str):
+    """Delete user account and all associated data (GDPR compliance)"""
+    # Delete user data from all collections
+    await db.users.delete_one({"id": user_id})
+    await db.posts.delete_many({"user_id": user_id})
+    await db.memberships.delete_one({"user_id": user_id})
+    await db.motorcycles.delete_many({"user_id": user_id})
+    await db.emergency_contacts.delete_many({"user_id": user_id})
+    await db.sos_alerts.delete_many({"user_id": user_id})
+    await db.trip_history.delete_many({"user_id": user_id})
+    await db.notifications.delete_many({"$or": [{"user_id": user_id}, {"from_user_id": user_id}]})
+    
+    # Remove user from followers/following
+    await db.users.update_many({}, {"$pull": {"followers": user_id, "following": user_id}})
+    
+    # Remove user from event/trip participants
+    await db.events.update_many({}, {"$pull": {"participants": user_id}})
+    await db.trips.update_many({}, {"$pull": {"participants": user_id}})
+    
+    return {"message": "Account deleted successfully"}
+
 # ==================== MEMBERSHIP ENDPOINTS ====================
 
 class MembershipCreate(BaseModel):
