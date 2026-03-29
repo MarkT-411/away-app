@@ -387,4 +387,14 @@ const styles = StyleSheet.create({
     fontSize: 13,
     marginTop: 2,
   },
+  adminBadge: {
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 12,
+  },
+  adminBadgeText: {
+    color: '#fff',
+    fontSize: 10,
+    fontWeight: 'bold',
+  },
 });
