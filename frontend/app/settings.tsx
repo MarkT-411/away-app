@@ -173,7 +173,7 @@ export default function SettingsScreen() {
             <View style={[styles.card, { backgroundColor: colors.card }]}>
               {/* Logout */}
               <TouchableOpacity
-                style={styles.optionRow}
+                style={[styles.optionRow, { borderBottomWidth: 1, borderBottomColor: colors.border }]}
                 onPress={handleLogout}
               >
                 <View style={styles.optionLeft}>
@@ -181,6 +181,22 @@ export default function SettingsScreen() {
                     <Ionicons name="log-out-outline" size={20} color="#FF4444" />
                   </View>
                   <Text style={[styles.optionText, { color: '#FF4444' }]}>{t('auth.logout')}</Text>
+                </View>
+                <Ionicons name="chevron-forward" size={20} color={colors.textSecondary} />
+              </TouchableOpacity>
+              
+              {/* Delete Account */}
+              <TouchableOpacity
+                style={styles.optionRow}
+                onPress={handleDeleteAccount}
+              >
+                <View style={styles.optionLeft}>
+                  <View style={[styles.iconContainer, { backgroundColor: '#FFE5E5' }]}>
+                    <Ionicons name="trash-outline" size={20} color="#FF4444" />
+                  </View>
+                  <Text style={[styles.optionText, { color: '#FF4444' }]}>
+                    {selectedLanguage === 'it' ? 'Elimina Account' : 'Delete Account'}
+                  </Text>
                 </View>
                 <Ionicons name="chevron-forward" size={20} color={colors.textSecondary} />
               </TouchableOpacity>
