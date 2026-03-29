@@ -112,7 +112,9 @@ export default function RootLayout() {
           <CountryProvider>
             <MotoTypesProvider>
               <MembershipProvider>
-                <AppContent />
+                <AdminProvider>
+                  <AppContent />
+                </AdminProvider>
               </MembershipProvider>
             </MotoTypesProvider>
           </CountryProvider>
