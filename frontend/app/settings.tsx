@@ -173,6 +173,26 @@ export default function SettingsScreen() {
               {t('settings.account')}
             </Text>
             <View style={[styles.card, { backgroundColor: colors.card }]}>
+              {/* Admin Panel - Only for admins */}
+              {isAdmin && (
+                <TouchableOpacity
+                  style={[styles.optionRow, { borderBottomWidth: 1, borderBottomColor: colors.border }]}
+                  onPress={() => router.push('/admin')}
+                >
+                  <View style={styles.optionLeft}>
+                    <View style={[styles.iconContainer, { backgroundColor: colors.accent }]}>
+                      <Ionicons name="shield-checkmark" size={20} color="#fff" />
+                    </View>
+                    <Text style={[styles.optionText, { color: colors.text, fontWeight: '600' }]}>
+                      {selectedLanguage === 'it' ? 'Pannello Admin' : 'Admin Panel'}
+                    </Text>
+                  </View>
+                  <View style={[styles.adminBadge, { backgroundColor: colors.accent }]}>
+                    <Text style={styles.adminBadgeText}>ADMIN</Text>
+                  </View>
+                </TouchableOpacity>
+              )}
+              
               {/* Logout */}
               <TouchableOpacity
                 style={[styles.optionRow, { borderBottomWidth: 1, borderBottomColor: colors.border }]}
