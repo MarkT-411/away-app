@@ -129,7 +129,10 @@ export default function AuthScreen({ onComplete, onSkip }: AuthScreenProps) {
     setLoading(false);
 
     if (result.success) {
-      onComplete();
+      // Small delay to ensure state is updated before calling onComplete
+      setTimeout(() => {
+        onComplete();
+      }, 100);
     } else {
       Alert.alert('Error', result.message);
     }
