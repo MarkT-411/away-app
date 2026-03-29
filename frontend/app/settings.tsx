@@ -102,7 +102,7 @@ export default function SettingsScreen() {
             >
               <Ionicons name="star" size={24} color="#fff" />
               <View style={styles.membershipInfo}>
-                <Text style={styles.membershipTitle}>TAM Member</Text>
+                <Text style={styles.membershipTitle}>AWay Member</Text>
                 <Text style={styles.membershipSubtitle}>Unlock all premium features</Text>
               </View>
               <Ionicons name="chevron-forward" size={20} color="#fff" />
