@@ -339,15 +339,18 @@ frontend:
 
   - task: "Membership/Freemium System - Paywall"
     implemented: true
-    working: "NA"
+    working: false
     file: "/app/frontend/components/MemberPaywall.tsx"
-    stuck_count: 0
+    stuck_count: 1
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Paywall component created. Feature gating on Rides, SOS, Trip Planner, and Track downloads. Free users see Feed, Events, Market."
+      - working: false
+        agent: "testing"
+        comment: "Paywall component implemented correctly with proper UI (lock icon 🔒, pricing €3.99/month €39.99/year, 'Become a Member' button). However, cannot verify full functionality due to authentication persistence issue preventing access to main app tabs. Component code is production-ready but needs authentication flow fix to test completely."
 
   - task: "Profile Photo Upload"
     implemented: true
