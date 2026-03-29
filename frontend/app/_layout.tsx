@@ -99,6 +99,9 @@ function AppContent() {
         <Stack.Screen name="sos-contacts" options={{ headerShown: false, presentation: 'modal' }} />
         <Stack.Screen name="trip-planner" options={{ headerShown: false }} />
         <Stack.Screen name="subscription" options={{ headerShown: false, presentation: 'modal' }} />
+        <Stack.Screen name="admin" options={{ headerShown: false }} />
+        <Stack.Screen name="privacy-policy" options={{ headerShown: false }} />
+        <Stack.Screen name="terms-of-service" options={{ headerShown: false }} />
       </Stack>
     </>
   );
