@@ -9,6 +9,7 @@ import { AuthProvider, useAuth } from '../context/AuthContext';
 import { LanguageProvider, useLanguage } from '../context/LanguageContext';
 import { ThemeProvider, useTheme } from '../context/ThemeContext';
 import { MembershipProvider } from '../context/MembershipContext';
+import { AdminProvider } from '../context/AdminContext';
 import AuthScreen from '../components/AuthScreen';
 
 function AppContent() {
