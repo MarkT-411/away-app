@@ -190,6 +190,18 @@ backend:
         comment: "Membership API endpoints tested successfully: GET /api/membership/{user_id} returns membership status, POST /api/membership creates/updates membership, PUT /api/membership/{user_id}/pause pauses membership, PUT /api/membership/{user_id}/resume resumes membership. All endpoints working correctly with proper response formats."
 
 frontend:
+  - task: "Authentication Flow Fix"
+    implemented: false
+    working: false
+    file: "/app/frontend/context/AuthContext.tsx"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "Critical authentication issue identified: Users successfully complete registration and login forms, but are returned to the welcome screen instead of accessing the main app. Backend logs show successful login (200 OK), but frontend session persistence is failing. This prevents testing of main app features including paywall, settings, and profile. Requires investigation of AuthContext session management and AsyncStorage persistence."
+
   - task: "Tab Navigation (Feed, Events, Rides, Market)"
     implemented: true
     working: true
