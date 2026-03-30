@@ -180,16 +180,33 @@ export default function SubscriptionScreen() {
             <TouchableOpacity
               style={[styles.subscribeButton, { backgroundColor: colors.accent }]}
               onPress={handleSubscribe}
-              disabled={loading}
+              disabled={loading || membershipLoading}
             >
-              {loading ? (
+              {loading || membershipLoading ? (
                 <ActivityIndicator color="#fff" />
               ) : (
                 <Text style={styles.subscribeButtonText}>
-                  Subscribe - {selectedPlan === 'annual' ? '€39.99' : '€3.99'}
+                  {isItalian ? 'Abbonati' : 'Subscribe'} - {selectedPlan === 'annual' ? '€39.99' : '€3.99'}
                 </Text>
               )}
             </TouchableOpacity>
+
+            {/* Restore Purchases Button */}
+            {Platform.OS !== 'web' && (
+              <TouchableOpacity
+                style={[styles.restoreButton]}
+                onPress={handleRestore}
+                disabled={restoring}
+              >
+                {restoring ? (
+                  <ActivityIndicator color={colors.accent} size="small" />
+                ) : (
+                  <Text style={[styles.restoreButtonText, { color: colors.accent }]}>
+                    {isItalian ? 'Ripristina Acquisti' : 'Restore Purchases'}
+                  </Text>
+                )}
+              </TouchableOpacity>
+            )}
           </>
         )}
 
