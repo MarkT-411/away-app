@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
+  Platform,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -17,10 +18,22 @@ import { useMembership } from '../context/MembershipContext';
 export default function SubscriptionScreen() {
   const [selectedPlan, setSelectedPlan] = useState<'monthly' | 'annual'>('annual');
   const [loading, setLoading] = useState(false);
+  const [restoring, setRestoring] = useState(false);
   const router = useRouter();
   const { colors } = useTheme();
-  const { t } = useLanguage();
-  const { membership, subscribe, pauseMembership, resumeMembership, isMember } = useMembership();
+  const { selectedLanguage } = useLanguage();
+  const { 
+    membership, 
+    subscribe, 
+    restorePurchases,
+    pauseMembership, 
+    resumeMembership, 
+    isMember,
+    isLoading: membershipLoading,
+    offerings 
+  } = useMembership();
+
+  const isItalian = selectedLanguage === 'it';
 
   const handleSubscribe = async () => {
     setLoading(true);
@@ -29,6 +42,16 @@ export default function SubscriptionScreen() {
     if (success) {
       router.back();
     }
+  };
+
+  const handleRestore = async () => {
+    if (Platform.OS === 'web') {
+      // Web doesn't support restore
+      return;
+    }
+    setRestoring(true);
+    await restorePurchases();
+    setRestoring(false);
   };
 
   const handlePause = async (months: number) => {
