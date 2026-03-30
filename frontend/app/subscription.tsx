@@ -405,6 +405,15 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
+  restoreButton: {
+    alignItems: 'center',
+    padding: 16,
+    marginTop: 8,
+  },
+  restoreButtonText: {
+    fontSize: 15,
+    fontWeight: '500',
+  },
   pauseSection: {
     borderRadius: 12,
     padding: 16,
