@@ -21,7 +21,6 @@ import { useMotoTypes, getMotoTypeIcon } from '../../context/MotoTypesContext';
 import { useAuth } from '../../context/AuthContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { useTheme } from '../../context/ThemeContext';
-import { useMembership } from '../../context/MembershipContext';
 import CountryPicker from '../../components/CountryPicker';
 import MotoTypePicker from '../../components/MotoTypePicker';
 import GuestPrompt from '../../components/GuestPrompt';
@@ -67,7 +66,6 @@ export default function TracksScreen() {
   const { isGuest } = useAuth();
   const { t } = useLanguage();
   const { colors } = useTheme();
-  const { isMember, canAccessFeature, showUpgradePrompt } = useMembership();
 
   const requireAuth = (action: string, callback: () => void) => {
     if (isGuest) {
@@ -120,12 +118,6 @@ export default function TracksScreen() {
     // Guests CANNOT download tracks
     if (isGuest) {
       setGuestPrompt({ visible: true, action: 'download GPX tracks' });
-      return;
-    }
-    
-    // Non-members cannot download tracks (Member feature)
-    if (!canAccessFeature('tracks_full')) {
-      showUpgradePrompt('Track Downloads');
       return;
     }
     
@@ -298,10 +290,6 @@ export default function TracksScreen() {
           <TouchableOpacity 
             style={styles.addButton}
             onPress={() => {
-              if (!canAccessFeature('tracks_full')) {
-                showUpgradePrompt('Upload Tracks');
-                return;
-              }
               requireAuth('upload a GPX track', () => router.push('/create-track'));
             }}
           >

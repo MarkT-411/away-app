@@ -18,7 +18,6 @@ import * as ImagePicker from 'expo-image-picker';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useTheme } from '../context/ThemeContext';
-import { useMembership } from '../context/MembershipContext';
 
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
 

@@ -18,11 +18,9 @@ import { useMotoTypes, getMotoTypeIcon } from '../../context/MotoTypesContext';
 import { useAuth } from '../../context/AuthContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { useTheme } from '../../context/ThemeContext';
-import { useMembership } from '../../context/MembershipContext';
 import CountryPicker from '../../components/CountryPicker';
 import MotoTypePicker from '../../components/MotoTypePicker';
 import GuestPrompt from '../../components/GuestPrompt';
-import MemberPaywall from '../../components/MemberPaywall';
 import { EventsSkeleton } from '../../components/SkeletonLoader';
 import * as Haptics from 'expo-haptics';
 
@@ -63,22 +61,8 @@ export default function RidesScreen() {
   const { user, isGuest } = useAuth();
   const { t } = useLanguage();
   const { colors } = useTheme();
-  const { isMember, canAccessFeature } = useMembership();
 
   const currentUser = user ? { id: user.id, username: user.username } : { id: 'guest', username: 'Guest' };
-
-  // Check if user has access to rides feature
-  if (!canAccessFeature('rides')) {
-    return (
-      <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]} edges={['top']}>
-        <MemberPaywall 
-          featureName={t('rides.title') || 'Group Rides'}
-          featureIcon="bicycle"
-          description={t('membership.ridesDescription') || 'Plan and join group rides with fellow riders'}
-        />
-      </SafeAreaView>
-    );
-  }
 
   const requireAuth = (action: string, callback: () => void) => {
     if (isGuest) {

@@ -8,7 +8,6 @@ import { MotoTypesProvider, useMotoTypes } from '../context/MotoTypesContext';
 import { AuthProvider, useAuth } from '../context/AuthContext';
 import { LanguageProvider, useLanguage } from '../context/LanguageContext';
 import { ThemeProvider, useTheme } from '../context/ThemeContext';
-import { MembershipProvider } from '../context/MembershipContext';
 import { AdminProvider } from '../context/AdminContext';
 import AuthScreen from '../components/AuthScreen';
 
@@ -98,7 +97,6 @@ function AppContent() {
         <Stack.Screen name="sos" options={{ headerShown: false }} />
         <Stack.Screen name="sos-contacts" options={{ headerShown: false, presentation: 'modal' }} />
         <Stack.Screen name="trip-planner" options={{ headerShown: false }} />
-        <Stack.Screen name="subscription" options={{ headerShown: false, presentation: 'modal' }} />
         <Stack.Screen name="admin" options={{ headerShown: false }} />
         <Stack.Screen name="privacy-policy" options={{ headerShown: false }} />
         <Stack.Screen name="terms-of-service" options={{ headerShown: false }} />
@@ -114,11 +112,9 @@ export default function RootLayout() {
         <LanguageProvider>
           <CountryProvider>
             <MotoTypesProvider>
-              <MembershipProvider>
-                <AdminProvider>
-                  <AppContent />
-                </AdminProvider>
-              </MembershipProvider>
+              <AdminProvider>
+                <AppContent />
+              </AdminProvider>
             </MotoTypesProvider>
           </CountryProvider>
         </LanguageProvider>

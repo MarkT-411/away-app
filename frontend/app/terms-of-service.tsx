@@ -44,8 +44,8 @@ export default function TermsOfServiceScreen() {
         text: 'Mantieni la proprietà dei tuoi contenuti ma ci concedi una licenza per utilizzarli nell\'app. Sei responsabile dei contenuti che pubblichi.'
       },
       {
-        title: '6. Abbonamento Member',
-        text: 'L\'abbonamento Member:\n• Si rinnova automaticamente\n• Può essere cancellato in qualsiasi momento\n• Non prevede rimborsi per periodi parziali\n• Include funzionalità premium (SOS, AI Trip Planner, ecc.)'
+        title: '6. Servizio Gratuito',
+        text: 'AWay è un\'app gratuita. Tutte le funzionalità sono disponibili per tutti gli utenti registrati senza costi aggiuntivi.'
       },
       {
         title: '7. Limitazione di Responsabilità',
@@ -89,8 +89,8 @@ export default function TermsOfServiceScreen() {
         text: 'You retain ownership of your content but grant us a license to use it in the app. You are responsible for your published content.'
       },
       {
-        title: '6. Member Subscription',
-        text: 'Member subscription:\n• Renews automatically\n• Can be canceled anytime\n• No refunds for partial periods\n• Includes premium features (SOS, AI Trip Planner, etc.)'
+        title: '6. Free Service',
+        text: 'AWay is a free app. All features are available to all registered users at no additional cost.'
       },
       {
         title: '7. Limitation of Liability',
