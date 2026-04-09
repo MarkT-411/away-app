@@ -15,6 +15,7 @@ interface User {
   country?: string;
   moto_types: string[];
   biometric_enabled: boolean;
+  is_admin?: boolean;
 }
 
 interface AuthContextType {

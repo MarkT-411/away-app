@@ -64,6 +64,8 @@ export function AdminProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (user) {
       // Check if user has admin flag
+      console.log('[AdminContext] User object:', JSON.stringify(user));
+      console.log('[AdminContext] is_admin value:', user.is_admin);
       setIsAdmin(user.is_admin === true);
     } else {
       setIsAdmin(false);

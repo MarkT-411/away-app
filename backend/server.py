@@ -1426,7 +1426,8 @@ async def get_auth_user(user_id: str):
         "bio": user.get("bio"),
         "country": user.get("country"),
         "moto_types": user.get("moto_types", []),
-        "biometric_enabled": user.get("biometric_enabled", False)
+        "biometric_enabled": user.get("biometric_enabled", False),
+        "is_admin": user.get("is_admin", False)
     }
 
 @api_router.post("/auth/enable-biometric/{user_id}")
