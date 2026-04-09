@@ -125,7 +125,7 @@ export default function AddVehicleScreen() {
           </TouchableOpacity>
 
           {showBrands && (
-            <View style={[styles.brandList, { backgroundColor: colors.card, borderColor: colors.border }]}>
+            <View style={[styles.brandList, { backgroundColor: colors.card, borderColor: colors.border, position: 'relative' }]}>
               <ScrollView style={{ maxHeight: 250 }} nestedScrollEnabled>
                 {POPULAR_BRANDS.map((b, index) => (
                   <TouchableOpacity

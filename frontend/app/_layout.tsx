@@ -85,21 +85,21 @@ function AppContent() {
         <Stack.Screen name="market-details" options={{ headerShown: false }} />
         <Stack.Screen name="notifications" options={{ headerShown: false }} />
         <Stack.Screen name="profile" options={{ headerShown: false }} />
-        <Stack.Screen name="auth" options={{ headerShown: false, presentation: 'modal' }} />
-        <Stack.Screen name="create-post" options={{ headerShown: false, presentation: 'modal' }} />
-        <Stack.Screen name="create-event" options={{ headerShown: false, presentation: 'modal' }} />
-        <Stack.Screen name="create-trip" options={{ headerShown: false, presentation: 'modal' }} />
-        <Stack.Screen name="create-listing" options={{ headerShown: false, presentation: 'modal' }} />
-        <Stack.Screen name="create-track" options={{ headerShown: false, presentation: 'modal' }} />
-        <Stack.Screen name="settings" options={{ headerShown: false, presentation: 'modal' }} />
+        <Stack.Screen name="auth" options={{ headerShown: false, presentation: 'modal', animation: 'slide_from_bottom' }} />
+        <Stack.Screen name="create-post" options={{ headerShown: false, presentation: 'modal', animation: 'slide_from_bottom' }} />
+        <Stack.Screen name="create-event" options={{ headerShown: false, presentation: 'modal', animation: 'slide_from_bottom' }} />
+        <Stack.Screen name="create-trip" options={{ headerShown: false, presentation: 'modal', animation: 'slide_from_bottom' }} />
+        <Stack.Screen name="create-listing" options={{ headerShown: false, presentation: 'modal', animation: 'slide_from_bottom' }} />
+        <Stack.Screen name="create-track" options={{ headerShown: false, presentation: 'modal', animation: 'slide_from_bottom' }} />
+        <Stack.Screen name="settings" options={{ headerShown: false, presentation: 'modal', animation: 'slide_from_bottom' }} />
         <Stack.Screen name="garage" options={{ headerShown: false }} />
-        <Stack.Screen name="add-vehicle" options={{ headerShown: false, presentation: 'modal' }} />
-        <Stack.Screen name="sos" options={{ headerShown: false }} />
-        <Stack.Screen name="sos-contacts" options={{ headerShown: false, presentation: 'modal' }} />
+        <Stack.Screen name="add-vehicle" options={{ headerShown: false, presentation: 'modal', animation: 'slide_from_bottom' }} />
+        <Stack.Screen name="sos" options={{ headerShown: false, animation: 'fade' }} />
+        <Stack.Screen name="sos-contacts" options={{ headerShown: false, presentation: 'modal', animation: 'slide_from_bottom' }} />
         <Stack.Screen name="trip-planner" options={{ headerShown: false }} />
-        <Stack.Screen name="admin" options={{ headerShown: false }} />
-        <Stack.Screen name="privacy-policy" options={{ headerShown: false }} />
-        <Stack.Screen name="terms-of-service" options={{ headerShown: false }} />
+        <Stack.Screen name="admin" options={{ headerShown: false, animation: 'fade' }} />
+        <Stack.Screen name="privacy-policy" options={{ headerShown: false, animation: 'fade' }} />
+        <Stack.Screen name="terms-of-service" options={{ headerShown: false, animation: 'fade' }} />
       </Stack>
     </>
   );

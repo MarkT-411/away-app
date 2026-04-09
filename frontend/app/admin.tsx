@@ -18,7 +18,7 @@ import { useTheme } from '../context/ThemeContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useAdmin } from '../context/AdminContext';
 
-type TabType = 'dashboard' | 'users' | 'content' | 'memberships' | 'sos';
+type TabType = 'dashboard' | 'users' | 'content' | 'sos';
 
 export default function AdminPanelScreen() {
   const router = useRouter();
@@ -150,7 +150,6 @@ export default function AdminPanelScreen() {
     { id: 'dashboard', label: isItalian ? 'Dashboard' : 'Dashboard', icon: 'stats-chart' },
     { id: 'users', label: isItalian ? 'Utenti' : 'Users', icon: 'people' },
     { id: 'content', label: isItalian ? 'Contenuti' : 'Content', icon: 'document-text' },
-    { id: 'memberships', label: isItalian ? 'Membri' : 'Members', icon: 'star' },
     { id: 'sos', label: 'SOS', icon: 'alert-circle' },
   ];
 
@@ -669,7 +668,6 @@ export default function AdminPanelScreen() {
         {activeTab === 'dashboard' && renderDashboard()}
         {activeTab === 'users' && renderUsers()}
         {activeTab === 'content' && renderContent()}
-        {activeTab === 'memberships' && renderMemberships()}
         {activeTab === 'sos' && renderSOS()}
       </View>
 
