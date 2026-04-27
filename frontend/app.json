@@ -81,7 +81,8 @@
         {
           "motionPermission": "Consenti a AWay di rilevare il movimento per la funzione SOS"
         }
-      ]
+      ],
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true
