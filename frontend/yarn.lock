@@ -1925,10 +1925,10 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/slider/-/slider-5.0.1.tgz#478789e526af31e0660c6f49fa5c5429d8d4287b"
   integrity sha512-K3JRWkIW4wQ79YJ6+BPZzp1SamoikxfPRw7Yw4B4PElEQmqZFrmH9M5LxvIo460/3QSrZF/wCgi3qizJt7g/iw==
 
-"@react-native-masked-view/masked-view@^0.3.2":
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/@react-native-masked-view/masked-view/-/masked-view-0.3.2.tgz#7064533a573e3539ec912f59c1f457371bf49dd9"
-  integrity sha512-XwuQoW7/GEgWRMovOQtX3A4PrXhyaZm0lVUiY8qJDvdngjLms9Cpdck6SmGAUNqQwcj2EadHC1HwL0bEyoa/SQ==
+"@react-native-masked-view/masked-view@0.2.9":
+  version "0.2.9"
+  resolved "https://registry.yarnpkg.com/@react-native-masked-view/masked-view/-/masked-view-0.2.9.tgz#723a7a076d56b8f5f3fda076eaa5b6b82988e854"
+  integrity sha512-Hs4vKBKj+15VxHZHFtMaFWSBxXoOE5Ea8saoigWhahp8Mepssm0ezU+2pTl7DK9z8Y9s5uOl/aPb4QmBZ3R3Zw==
 
 "@react-native/assets-registry@0.81.5":
   version "0.81.5"
