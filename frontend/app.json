@@ -21,8 +21,7 @@
         "NSPhotoLibraryAddUsageDescription": "Salva immagini nella galleria",
         "NSLocationWhenInUseUsageDescription": "Localizza eventi e attiva SOS emergenza",
         "NSLocationAlwaysAndWhenInUseUsageDescription": "Rileva incidenti anche in background",
-        "NSMotionUsageDescription": "Rileva cadute per funzione SOS",
-        "NSUserTrackingUsageDescription": "Migliora la tua esperienza nell'app"
+        "NSMotionUsageDescription": "Rileva cadute per funzione SOS"
       }
     },
     "android": {
